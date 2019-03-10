@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 2426756274635508877}
   - component: {fileID: 8143905853189163442}
   m_Layer: 0
-  m_Name: AsteroidSurface
+  m_Name: Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -109,8 +109,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3298543712733424137}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.25, y: 1.25, z: 1.25}
+  m_LocalPosition: {x: 0.042, y: -0.042, z: 0}
+  m_LocalScale: {x: 9.008318, y: 9.008318, z: 9.008318}
   m_Children: []
   m_Father: {fileID: 1456467436130776629}
   m_RootOrder: 0
@@ -152,8 +152,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -10
-  m_Sprite: {fileID: 21300000, guid: 51fd16d1e089f4f13a29ed1a1481ec48, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 1e68ef203890048eab64ea9f4a18b85c, type: 3}
+  m_Color: {r: 0.47521362, g: 0.5566038, b: 0.4933126, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -178,7 +178,7 @@ PrefabInstance:
     - target: {fileID: 3234530633924402291, guid: 6d8ef2d1cd55d4ad495827f2978cf427,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4.4800005
+      value: -4.39
       objectReference: {fileID: 0}
     - target: {fileID: 3234530633924402291, guid: 6d8ef2d1cd55d4ad495827f2978cf427,
         type: 3}
@@ -253,12 +253,12 @@ PrefabInstance:
     - target: {fileID: 3234530633924402291, guid: 6d8ef2d1cd55d4ad495827f2978cf427,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.009999275
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3234530633924402291, guid: 6d8ef2d1cd55d4ad495827f2978cf427,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4.4800005
+      value: 4.39
       objectReference: {fileID: 0}
     - target: {fileID: 3234530633924402291, guid: 6d8ef2d1cd55d4ad495827f2978cf427,
         type: 3}
@@ -328,12 +328,12 @@ PrefabInstance:
     - target: {fileID: 3234530633924402291, guid: 6d8ef2d1cd55d4ad495827f2978cf427,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.009999275
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3234530633924402291, guid: 6d8ef2d1cd55d4ad495827f2978cf427,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -4.4799995
+      value: -4.39
       objectReference: {fileID: 0}
     - target: {fileID: 3234530633924402291, guid: 6d8ef2d1cd55d4ad495827f2978cf427,
         type: 3}
@@ -403,7 +403,7 @@ PrefabInstance:
     - target: {fileID: 3234530633924402291, guid: 6d8ef2d1cd55d4ad495827f2978cf427,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.5
+      value: 4.39
       objectReference: {fileID: 0}
     - target: {fileID: 3234530633924402291, guid: 6d8ef2d1cd55d4ad495827f2978cf427,
         type: 3}

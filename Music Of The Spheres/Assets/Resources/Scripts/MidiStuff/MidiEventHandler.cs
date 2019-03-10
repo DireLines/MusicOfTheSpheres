@@ -22,7 +22,7 @@ public class MidiEventHandler : MonoBehaviour {
     private int currentEventIndex = 0;
     private float currentEventTime = 0f;
 
-    public float midiTimeRate = 1f;
+    public float midiTimeRate = 1f;//rate at which time passes for MIDI events (may be affected by items)
     private float time = 0f;
 
 
