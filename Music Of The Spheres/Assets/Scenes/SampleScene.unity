@@ -459,5 +459,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MP: {fileID: 1311953789}
   DM: {fileID: 536845052}
-  midifilename: Assets/Resources/MIDI/yankeedoodle.midi
-  midiTimeRate: 10
+  midifilename: Assets/Resources/MIDI/Chromatic.mid
+  midiTimeRate: 20

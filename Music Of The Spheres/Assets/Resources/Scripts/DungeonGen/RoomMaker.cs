@@ -32,7 +32,9 @@ public class RoomMaker : MonoBehaviour {
         //print("destroying room " + note);
         PowerOff(note);
         //rooms[note].GetComponent<SpriteRenderer>().enabled = false;
-        rooms[note].GetComponent<SpriteRenderer>().color = new Color(0.1f, 0.1f, 0.1f, 1f);
+        //rooms[note].GetComponent<SpriteRenderer>().color = new Color(0.1f, 0.1f, 0.1f, 1f);
+        rooms[note].transform.Find("Void").gameObject.SetActive(true);
+        //TODO:remove walls from the voided room
     }
 
     public void PowerOn(int note) {
@@ -58,6 +60,8 @@ public class RoomMaker : MonoBehaviour {
         newRoom.name = "Room " + note;
         rooms[note] = newRoom;
         roomsInGrid[gridPosition] = newRoom;
+        //figure out which wall to remove from this room
+        //if the player is in one of the adjacent squares, remove only the wall for that one
         int x = gridPosition.Item1;
         int y = gridPosition.Item2;
         //print(x + ", " + y);
@@ -65,17 +69,56 @@ public class RoomMaker : MonoBehaviour {
         Tuple<int, int> down = new Tuple<int, int>(x, y - 1);
         Tuple<int, int> left = new Tuple<int, int>(x - 1, y);
         Tuple<int, int> right = new Tuple<int, int>(x + 1, y);
-        if (IsOccupied(up)) {
+        Tuple<int, int> playerSquare = PlayerGridSquare();
+        if (playerSquare.Item1 == up.Item1 && playerSquare.Item2 == up.Item2) {
             RemoveUp(gridPosition);
+            return;
+        }
+        if (playerSquare.Item1 == down.Item1 && playerSquare.Item2 == down.Item2) {
+            RemoveDown(gridPosition);
+            return;
+        }
+        if (playerSquare.Item1 == left.Item1 && playerSquare.Item2 == left.Item2) {
+            RemoveLeft(gridPosition);
+            return;
+        }
+        if (playerSquare.Item1 == right.Item1 && playerSquare.Item2 == right.Item2) {
+            RemoveRight(gridPosition);
+            return;
+        }
+        //otherwise remove randomly for one of the adjacent rooms that is occupied
+        List<int> choices = new List<int>();
+        if (IsOccupied(up)) {
+            choices.Add(0);
         }
         if (IsOccupied(down)) {
-            RemoveDown(gridPosition);
+            choices.Add(1);
         }
         if (IsOccupied(left)) {
-            RemoveLeft(gridPosition);
+            choices.Add(2);
         }
         if (IsOccupied(right)) {
+            choices.Add(3);
+        }
+        if (choices.Count == 0) {
+            return;
+        }
+        int whichRoom = choices[UnityEngine.Random.Range(0, choices.Count)];
+        if (whichRoom == 0) {
+            RemoveUp(gridPosition);
+            return;
+        }
+        if (whichRoom == 1) {
+            RemoveDown(gridPosition);
+            return;
+        }
+        if (whichRoom == 2) {
+            RemoveLeft(gridPosition);
+            return;
+        }
+        if (whichRoom == 3) {
             RemoveRight(gridPosition);
+            return;
         }
     }
 
@@ -86,8 +129,8 @@ public class RoomMaker : MonoBehaviour {
     //If there are any unoccupied rooms at the end of this layer, return the minimum distance one.
     private Tuple<int, int> ClosestUnoccupiedGridSquare(Vector3 position) {
         //get x and y of player's current grid square, use that as the base.
-        int xbase = (int)((player.transform.position.x + 0.5) / cellSize);
-        int ybase = (int)((player.transform.position.y + 0.5) / cellSize);
+        int xbase = (int)Mathf.Round(player.transform.position.x / cellSize);
+        int ybase = (int)Mathf.Round(player.transform.position.y / cellSize);
 
         int width = 3;
         Tuple<int, int> result = new Tuple<int, int>(-width + xbase, -width + ybase);
@@ -119,8 +162,9 @@ public class RoomMaker : MonoBehaviour {
     }
 
     private Tuple<int, int> PlayerGridSquare() {
-        int xbase = (int)((player.transform.position.x + 0.5) / cellSize);
-        int ybase = (int)((player.transform.position.y + 0.5) / cellSize);
+        int xbase = (int)Mathf.Round(player.transform.position.x / cellSize);
+        int ybase = (int)Mathf.Round(player.transform.position.y / cellSize);
+        //print("player is in " + xbase + ", " + ybase);
         return new Tuple<int, int>(xbase, ybase);
     }
     private Vector3 GridToWorldPosition(Tuple<int, int> gridPosition, float z) {
@@ -133,26 +177,41 @@ public class RoomMaker : MonoBehaviour {
 
     private void RemoveUp(Tuple<int, int> xy) {
         Tuple<int, int> up = new Tuple<int, int>(xy.Item1, xy.Item2 + 1);
-        Destroy(roomsInGrid[xy].transform.Find("WallUp").gameObject);
-        Destroy(roomsInGrid[up].transform.Find("WallDown").gameObject);
+        if (IsOccupied(up)) {
+            Destroy(roomsInGrid[xy].transform.Find("WallUp").gameObject);
+            Destroy(roomsInGrid[up].transform.Find("WallDown").gameObject);
+        }
     }
 
     private void RemoveDown(Tuple<int, int> xy) {
         Tuple<int, int> down = new Tuple<int, int>(xy.Item1, xy.Item2 - 1);
-        Destroy(roomsInGrid[xy].transform.Find("WallDown").gameObject);
-        Destroy(roomsInGrid[down].transform.Find("WallUp").gameObject);
+        if (IsOccupied(down)) {
+            Destroy(roomsInGrid[xy].transform.Find("WallDown").gameObject);
+            Destroy(roomsInGrid[down].transform.Find("WallUp").gameObject);
+        }
     }
 
     private void RemoveLeft(Tuple<int, int> xy) {
         Tuple<int, int> left = new Tuple<int, int>(xy.Item1 - 1, xy.Item2);
-        Destroy(roomsInGrid[xy].transform.Find("WallLeft").gameObject);
-        Destroy(roomsInGrid[left].transform.Find("WallRight").gameObject);
+        if (IsOccupied(left)) {
+            Destroy(roomsInGrid[xy].transform.Find("WallLeft").gameObject);
+            Destroy(roomsInGrid[left].transform.Find("WallRight").gameObject);
+        }
     }
 
     private void RemoveRight(Tuple<int, int> xy) {
         Tuple<int, int> right = new Tuple<int, int>(xy.Item1 + 1, xy.Item2);
-        Destroy(roomsInGrid[xy].transform.Find("WallRight").gameObject);
-        Destroy(roomsInGrid[right].transform.Find("WallLeft").gameObject);
+        if (IsOccupied(right)) {
+            Destroy(roomsInGrid[xy].transform.Find("WallRight").gameObject);
+            Destroy(roomsInGrid[right].transform.Find("WallLeft").gameObject);
+        }
+    }
+
+    private void RemoveWalls(Tuple<int, int> xy) {
+        RemoveUp(xy);
+        RemoveDown(xy);
+        RemoveLeft(xy);
+        RemoveRight(xy);
     }
 
 
