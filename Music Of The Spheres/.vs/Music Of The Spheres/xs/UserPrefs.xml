@@ -1,0 +1,35 @@
+﻿<Properties StartupConfiguration="{E8D3D4BE-3E8C-2EBF-7A04-0FB565B1F5EA}|">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Resources/Scripts/Move.cs">
+    <Files>
+      <File FileName="Assets/Resources/Scripts/MidiStuff/MidiParser.cs" Line="44" Column="42" />
+      <File FileName="Assets/Resources/Scripts/MidiStuff/MidiEventHandler.cs" Line="65" Column="29" />
+      <File FileName="Assets/Resources/Scripts/DungeonGen/RoomMaker.cs" Line="26" Column="48" />
+      <File FileName="Assets/Resources/Scripts/Move.cs" Line="14" Column="15" />
+      <File FileName="Assets/Resources/Scripts/Camera2DFollow.cs" Line="22" Column="37" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="Music Of The Spheres" expanded="True">
+            <Node name="Assets" expanded="True">
+              <Node name="Resources" expanded="True">
+                <Node name="Scripts" expanded="True">
+                  <Node name="DungeonGen" expanded="True" />
+                  <Node name="MidiStuff" expanded="True" />
+                  <Node name="Move.cs" selected="True" />
+                </Node>
+              </Node>
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="Unity.Editor" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>
