@@ -23,7 +23,8 @@ public class RoomMaker : MonoBehaviour {
 
     // Start is called before the first frame update
     void Start() {
-        cellSize = Wall.transform.localScale.x - Wall.transform.localScale.y;
+        //cellSize = Wall.transform.localScale.x - Wall.transform.localScale.y;
+        cellSize = NoteRoom.transform.Find("Cell").lossyScale.x;
         rooms = new Dictionary<int, GameObject>();
         roomsInGrid = new Dictionary<Tuple<int, int>, GameObject>();
     }
