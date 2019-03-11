@@ -459,5 +459,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MP: {fileID: 1311953789}
   DM: {fileID: 536845052}
-  midifilename: Assets/Resources/MIDI/ToccataAndFugue3.midi
+  midifilename: Assets/Resources/MIDI/yankeedoodle.midi
+  tracknums: 
   midiTimeRate: 20

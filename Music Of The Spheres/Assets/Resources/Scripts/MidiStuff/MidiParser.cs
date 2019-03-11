@@ -278,7 +278,14 @@ public class MidiParser : MonoBehaviour {
                                     } else {
                                         i += metaMessageLength + 1;
                                     }
-                                } else {
+                                } else if (fullMessage.Equals("11110000")){//start of system-exclusive message
+                                    while(!fullMessage.Equals("11110111")){//end of system-exclusive message
+                                        i++;
+                                        fullMessage = getBits(trackbytes[i]);
+                                    }
+                                    i++;
+                                }
+                                else {
                                     print("was unable to parse message with message type " + fullMessage + " at line " + i);
                                 }
                             } else if (messageType.Equals("1100")) {//program change

@@ -3,7 +3,7 @@
     <Files>
       <File FileName="Assets/Resources/Scripts/MidiStuff/MidiParser.cs" Line="44" Column="42" />
       <File FileName="Assets/Resources/Scripts/MidiStuff/MidiEventHandler.cs" Line="25" Column="106" />
-      <File FileName="Assets/Resources/Scripts/DungeonGen/RoomMaker.cs" Line="167" Column="30" />
+      <File FileName="Assets/Resources/Scripts/DungeonGen/RoomMaker.cs" Line="28" Column="51" />
       <File FileName="Assets/Resources/Scripts/Move.cs" Line="11" Column="34" />
     </Files>
     <Pads>
