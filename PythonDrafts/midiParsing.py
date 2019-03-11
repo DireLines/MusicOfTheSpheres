@@ -164,6 +164,11 @@ def createEventList(filename, tracknums=None):
 									result.append(event)
 								else:
 									i += metaMessageLength + 1
+							elif(fullMessage == '11110000'):#start of system exclusive message
+								while(fullMessage != '11110111'):#until end of exclusive, eat bytes
+									i += 1
+									fullMessage = getBits(trackbytes[i])
+								i += 1
 							else:
 								print("was unable to parse message with message type",fullMessage,"at line",i)
 						elif(messageType == '1100'):#program change
