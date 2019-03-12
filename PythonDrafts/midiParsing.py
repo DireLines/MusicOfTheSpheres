@@ -112,6 +112,7 @@ def createEventList(filename, tracknums=None):
 						messageType = getBits(trackbytes[i])[:4]
 						# print("messageType",messageType)
 						if(messageType == '1001'):#note on
+							# print(i)
 							lastEventWasNoteOn = True
 							i += 1
 							note = getIntValue(trackbytes[i])
@@ -563,6 +564,8 @@ def printEventsOverTime(eventList):
 		print(eventList[i])
 
 def printEventsGraphically(eventList):
+	if(len(eventList) == 0):
+		return
 	t = eventList[-1][1]
 	# t = 0
 	spaces = " " * 100
@@ -592,6 +595,8 @@ def createGameEventList(filename, tracknums, startTime=0,duration=None):
 	eventList = adjustForTimeSignatureChanges(eventList)
 	eventList = trimOverlappingEvents(eventList)
 	eventList.sort(key = lambda x: int(x[1]))
+	if(len(eventList) == 0):
+		return eventList
 
 	# numberOfSecondsToStretchTo = 65
 	numberOfSecondsToStretchTo = 10

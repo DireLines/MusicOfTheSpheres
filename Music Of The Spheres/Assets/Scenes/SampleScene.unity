@@ -156,6 +156,9 @@ MonoBehaviour:
   lookAheadFactor: 0
   lookAheadReturnSpeed: 0.5
   lookAheadMoveThreshold: 0.1
+  scrollSpeed: 1
+  zoomMax: 50
+  zoomMin: 2
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0
@@ -459,6 +462,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MP: {fileID: 1311953789}
   DM: {fileID: 536845052}
-  midifilename: Assets/Resources/MIDI/yankeedoodle.midi
-  tracknums: 
-  midiTimeRate: 20
+  midifilename: Assets/Resources/MIDI/deb_clai.mid
+  midiTimeRate: 60

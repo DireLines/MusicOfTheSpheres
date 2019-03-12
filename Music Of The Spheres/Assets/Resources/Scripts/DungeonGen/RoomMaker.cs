@@ -177,33 +177,33 @@ public class RoomMaker : MonoBehaviour {
     }
 
     private void RemoveUp(Tuple<int, int> xy) {
+        Destroy(roomsInGrid[xy].transform.Find("WallUp").gameObject);
         Tuple<int, int> up = new Tuple<int, int>(xy.Item1, xy.Item2 + 1);
         if (IsOccupied(up)) {
-            Destroy(roomsInGrid[xy].transform.Find("WallUp").gameObject);
             Destroy(roomsInGrid[up].transform.Find("WallDown").gameObject);
         }
     }
 
     private void RemoveDown(Tuple<int, int> xy) {
+        Destroy(roomsInGrid[xy].transform.Find("WallDown").gameObject);
         Tuple<int, int> down = new Tuple<int, int>(xy.Item1, xy.Item2 - 1);
         if (IsOccupied(down)) {
-            Destroy(roomsInGrid[xy].transform.Find("WallDown").gameObject);
             Destroy(roomsInGrid[down].transform.Find("WallUp").gameObject);
         }
     }
 
     private void RemoveLeft(Tuple<int, int> xy) {
+        Destroy(roomsInGrid[xy].transform.Find("WallLeft").gameObject);
         Tuple<int, int> left = new Tuple<int, int>(xy.Item1 - 1, xy.Item2);
         if (IsOccupied(left)) {
-            Destroy(roomsInGrid[xy].transform.Find("WallLeft").gameObject);
             Destroy(roomsInGrid[left].transform.Find("WallRight").gameObject);
         }
     }
 
     private void RemoveRight(Tuple<int, int> xy) {
+        Destroy(roomsInGrid[xy].transform.Find("WallRight").gameObject);
         Tuple<int, int> right = new Tuple<int, int>(xy.Item1 + 1, xy.Item2);
         if (IsOccupied(right)) {
-            Destroy(roomsInGrid[xy].transform.Find("WallRight").gameObject);
             Destroy(roomsInGrid[right].transform.Find("WallLeft").gameObject);
         }
     }

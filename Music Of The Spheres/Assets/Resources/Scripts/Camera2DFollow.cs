@@ -14,6 +14,13 @@ namespace UnityStandardAssets._2D {
         private Vector3 m_CurrentVelocity;
         private Vector3 m_LookAheadPos;
 
+        [SerializeField]
+        private float scrollSpeed;
+        [SerializeField]
+        private float zoomMax;
+        [SerializeField]
+        private float zoomMin;
+
         // Use this for initialization
         private void Start() {
             transform.position = new Vector3(target.position.x, target.position.y, transform.position.z);
@@ -41,6 +48,12 @@ namespace UnityStandardAssets._2D {
             transform.position = newPos;
 
             m_LastTargetPosition = target.position;
+
+            //zoom with mouse wheel
+            float zoomInput = Input.GetAxis("Mouse ScrollWheel") * scrollSpeed;
+            if (zoomMin < GetComponent<Camera>().orthographicSize + zoomInput && GetComponent<Camera>().orthographicSize + zoomInput < zoomMax) {
+                GetComponent<Camera>().orthographicSize += zoomInput;
+            }
         }
     }
 }
