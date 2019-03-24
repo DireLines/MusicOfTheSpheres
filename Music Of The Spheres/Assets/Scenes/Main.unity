@@ -157,7 +157,7 @@ MonoBehaviour:
   lookAheadReturnSpeed: 0.5
   lookAheadMoveThreshold: 0.1
   scrollSpeed: 1
-  zoomMax: 50
+  zoomMax: 70
   zoomMin: 2
 --- !u!20 &519420031
 Camera:
@@ -462,5 +462,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MP: {fileID: 1311953789}
   DM: {fileID: 536845052}
-  midifilename: Assets/Resources/MIDI/deb_clai.mid
-  midiTimeRate: 60
+  midifilename: Assets/Resources/MIDI/DebussyPassepied.mid
+  midiTimeRate: 1

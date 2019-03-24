@@ -583,9 +583,9 @@ def printEventsGraphically(eventList):
 				print(spaces,t)
 				t = event[1]
 				spaces = " " * 100
-				spaces = spaces[:event[0]] + symbol + spaces[event[0]+1:]
+				spaces = spaces[:event[0]-10] + symbol + spaces[event[0]-10+1:]
 			else:
-				spaces = spaces[:event[0]] + symbol + spaces[event[0]+1:]
+				spaces = spaces[:event[0]-10] + symbol + spaces[event[0]-10+1:]
 	print(spaces,t)
 
 # brings everything together. Given filename and track numbers to be included from the command line arguments,

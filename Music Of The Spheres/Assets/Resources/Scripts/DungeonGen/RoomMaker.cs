@@ -23,7 +23,6 @@ public class RoomMaker : MonoBehaviour {
 
     // Start is called before the first frame update
     void Start() {
-        //cellSize = Wall.transform.localScale.x - Wall.transform.localScale.y;
         cellSize = NoteRoom.transform.Find("Cell").lossyScale.x;
         rooms = new Dictionary<int, GameObject>();
         roomsInGrid = new Dictionary<Tuple<int, int>, GameObject>();
@@ -35,7 +34,7 @@ public class RoomMaker : MonoBehaviour {
         //rooms[note].GetComponent<SpriteRenderer>().enabled = false;
         //rooms[note].GetComponent<SpriteRenderer>().color = new Color(0.1f, 0.1f, 0.1f, 1f);
         rooms[note].transform.Find("Void").gameObject.SetActive(true);
-        //TODO:remove walls from the voided room
+        //RemoveWalls(rooms[note].GetComponent<Room>().pos);
     }
 
     public void PowerOn(int note) {
@@ -45,7 +44,7 @@ public class RoomMaker : MonoBehaviour {
     }
 
     public void PowerOff(int note) {
-        rooms[note].GetComponent<SpriteRenderer>().color = new Color(0.4f, 0.4f, 0.4f, 1f);
+        rooms[note].GetComponent<SpriteRenderer>().color = new Color(0.2f, 0.2f, 0.2f, 1f);
     }
 
     private IEnumerator MakeLessBright(float waitTime, int note) {
@@ -60,7 +59,9 @@ public class RoomMaker : MonoBehaviour {
         GameObject newRoom = Instantiate(NoteRoom, worldPosition, Quaternion.identity, gameObject.transform);
         newRoom.name = "Room " + note;
         rooms[note] = newRoom;
+        newRoom.GetComponent<Room>().note = note;
         roomsInGrid[gridPosition] = newRoom;
+        newRoom.GetComponent<Room>().pos = gridPosition;
         //figure out which wall to remove from this room
         //if the player is in one of the adjacent squares, remove only the wall for that one
         int x = gridPosition.Item1;
