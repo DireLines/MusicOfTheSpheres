@@ -9,11 +9,15 @@ public class PowerSource : MonoBehaviour {
     private float offBrightness = 0.2f;
     private float targetBrightness;
     private float fadeSpeed = 0.1f;//percentage 0 to 1
+
+    private List<Machine> machines;
     // Start is called before the first frame update
-    void Start() {
+    void Awake() {
         //brightness = offBrightness;
         //targetBrightness = offBrightness;
         sr = GetComponent<SpriteRenderer>();
+        machines = new List<Machine>();
+        machines.Add(transform.Find("DummyMachine").gameObject.GetComponent<Machine>());
     }
 
     // Update is called once per frame
@@ -26,9 +30,15 @@ public class PowerSource : MonoBehaviour {
         print("Power source powering on");
         brightness = 1f;
         targetBrightness = onBrightness;
+        foreach (Machine m in machines) {
+            m.PowerOn();
+        }
     }
 
     public void PowerOff() {
         targetBrightness = offBrightness;
+        foreach (Machine m in machines) {
+            m.PowerOff();
+        }
     }
 }

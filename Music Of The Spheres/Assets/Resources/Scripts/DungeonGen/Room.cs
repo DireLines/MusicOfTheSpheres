@@ -6,10 +6,10 @@ public class Room : MonoBehaviour {
     public int note;
     public Tuple<int, int> pos;
 
-    public GameObject powerSource;
+    private GameObject powerSource;
 
-    private void Start() {
-        //powerSource = transform.Find("PowerSource").gameObject;
+    private void Awake() {
+        powerSource = transform.Find("PowerSource").gameObject;
     }
 
     public void PowerOn() {

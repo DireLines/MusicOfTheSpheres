@@ -12,22 +12,25 @@ public class Machine : MonoBehaviour {
 
     private bool powered;
 
+    protected virtual void Awake() {
+        powerIndicator = transform.Find("IndicatorLight").gameObject.GetComponent<SpriteRenderer>();
+    }
     // Use this for initialization
     protected virtual void Start() {
-        powerIndicator = transform.Find("IndicatorLight").gameObject.GetComponent<SpriteRenderer>();
+        //powerIndicator = transform.Find("IndicatorLight").gameObject.GetComponent<SpriteRenderer>();
     }
 
     protected virtual void PerformMachineAction() {
         print("Im a machine doin a thing");
     }
 
-    protected virtual void PowerOn() {
+    public virtual void PowerOn() {
         print("Im a machine powering on");
         powerIndicator.color = onIndicatorColor;
         powered = true;
     }
 
-    protected virtual void PowerOff() {
+    public virtual void PowerOff() {
         print("Im a machine powering off");
         powerIndicator.color = offIndicatorColor;
         powered = false;

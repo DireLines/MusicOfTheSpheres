@@ -91,7 +91,7 @@ GameObject:
   - component: {fileID: 9219311609826230593}
   - component: {fileID: 3288135724395911739}
   m_Layer: 0
-  m_Name: Machine
+  m_Name: GenericMachine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -172,5 +172,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 393def9e1ef89471ea9ffc6ca1eaef5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onIndicatorColor: {r: 0.4337814, g: 0.8207547, b: 0.2516465, a: 0}
-  offIndicatorColor: {r: 0.98823535, g: 0.2509804, b: 0.26666668, a: 0}
+  onIndicatorColor: {r: 0.4337814, g: 0.8207547, b: 0.2516465, a: 1}
+  offIndicatorColor: {r: 0.98823535, g: 0.2509804, b: 0.26666668, a: 1}
