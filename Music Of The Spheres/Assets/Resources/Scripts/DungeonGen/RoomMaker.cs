@@ -38,19 +38,13 @@ public class RoomMaker : MonoBehaviour {
     }
 
     public void PowerOn(int note) {
-        rooms[note].GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
-        coroutine = MakeLessBright(0.5f / MEH.midiTimeRate, note);
-        StartCoroutine(coroutine);
+        rooms[note].GetComponent<Room>().PowerOn();
     }
 
     public void PowerOff(int note) {
-        rooms[note].GetComponent<SpriteRenderer>().color = new Color(0.2f, 0.2f, 0.2f, 1f);
+        rooms[note].GetComponent<Room>().PowerOff();
     }
 
-    private IEnumerator MakeLessBright(float waitTime, int note) {
-        yield return new WaitForSeconds(waitTime);
-        rooms[note].GetComponent<SpriteRenderer>().color = new Color(0.7f, 0.7f, 0.7f, 1f);
-    }
 
     //create normal note room which responds to note at closest unoccupied grid square to the player
     public void CreateNoteRoom(int note) {

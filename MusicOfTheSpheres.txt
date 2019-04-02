@@ -4,9 +4,11 @@ Music of the Spheres
 TODO:
     -Rooms
         -Power object
-            -Attached:List of attached machines
+            -Capacity: Number of plugs in this power strip.
+            -Attached: List of attached machines
             -PowerOn
                 -for machine in Attached:
+        -Spawn one in each room
     -Machines
 New idea is:
     -Each note is a room within a grid.

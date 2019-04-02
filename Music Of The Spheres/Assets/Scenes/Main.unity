@@ -462,5 +462,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MP: {fileID: 1311953789}
   DM: {fileID: 536845052}
-  midifilename: Assets/Resources/MIDI/BachContrapunctusIX.mid
-  midiTimeRate: 1
+  midifilename: Assets/Resources/MIDI/LittleFugue.midi
+  midiTimeRate: 50

@@ -89,7 +89,6 @@ public class MidiEventHandler : MonoBehaviour {
         }
     }
 
-    //method to adjust 
     public void AdjustTimeRate(float factor) {
         midiTimeRate *= factor;
     }
