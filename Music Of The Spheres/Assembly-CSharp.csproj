@@ -62,10 +62,12 @@
   <ItemGroup>
     <Compile Include="Assets\Resources\Scripts\Camera2DFollow.cs" />
     <Compile Include="Assets\Resources\Scripts\DungeonGen\RoomMaker.cs" />
+    <Compile Include="Assets\Resources\Scripts\Machines\Machine.cs" />
     <Compile Include="Assets\Resources\Scripts\MidiStuff\MidiEventHandler.cs" />
     <Compile Include="Assets\Resources\Scripts\MidiStuff\MidiParser.cs" />
     <Compile Include="Assets\Resources\Scripts\MidiStuff\MidiTest.cs" />
     <Compile Include="Assets\Resources\Scripts\Move.cs" />
+    <Compile Include="Assets\Resources\Scripts\Room.cs" />
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>/Users/nathanielsaxe/Documents/MusicOfTheSpheres/Music Of The Spheres/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>

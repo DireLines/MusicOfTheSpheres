@@ -462,5 +462,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MP: {fileID: 1311953789}
   DM: {fileID: 536845052}
-  midifilename: Assets/Resources/MIDI/DebussyPassepied.mid
+  midifilename: Assets/Resources/MIDI/BachContrapunctusIX.mid
   midiTimeRate: 1

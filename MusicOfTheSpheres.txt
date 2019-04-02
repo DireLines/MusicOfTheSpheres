@@ -1,5 +1,13 @@
 Music of the Spheres
 
+
+TODO:
+    -Rooms
+        -Power object
+            -Attached:List of attached machines
+            -PowerOn
+                -for machine in Attached:
+    -Machines
 New idea is:
     -Each note is a room within a grid.
     -When a note is played for the first time, its room is generated and placed at the closest unexplored spot in the grid to the player. It is immediately accessible.
