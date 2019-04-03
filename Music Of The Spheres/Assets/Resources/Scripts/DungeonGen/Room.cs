@@ -13,7 +13,6 @@ public class Room : MonoBehaviour {
     }
 
     public void PowerOn() {
-        print("Room powering on");
         if (powerSource == null) {
             return;
         }
@@ -21,7 +20,6 @@ public class Room : MonoBehaviour {
     }
 
     public void PowerOff() {
-        print("Room powering off");
         if (powerSource == null) {
             return;
         }

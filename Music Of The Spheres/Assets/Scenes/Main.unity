@@ -247,6 +247,8 @@ MonoBehaviour:
   player: {fileID: 908829185}
   NoteRoom: {fileID: 261767891031468184, guid: ecdf57d5c597848919cf7d993cac574a, type: 3}
   Wall: {fileID: 3234530633924402285, guid: 6d8ef2d1cd55d4ad495827f2978cf427, type: 3}
+  GenericMachine: {fileID: 2080258078738959557, guid: 6e10e000c992f460b8383f308496e7f5,
+    type: 3}
   MEH: {fileID: 1311953793}
 --- !u!4 &536845053
 Transform:
@@ -318,7 +320,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_Sprite: {fileID: 21300000, guid: cb7bf461cbeb4409a86577444ab6e23e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -462,5 +464,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MP: {fileID: 1311953789}
   DM: {fileID: 536845052}
-  midifilename: Assets/Resources/MIDI/yankeedoodle.midi
-  midiTimeRate: 2
+  midifilename: Assets/Resources/MIDI/DebussyPassepied.mid
+  midiTimeRate: 1

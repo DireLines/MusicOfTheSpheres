@@ -7,6 +7,7 @@ public class RoomMaker : MonoBehaviour {
     public GameObject player;
     public GameObject NoteRoom;//room prefab
     public GameObject Wall;//wall prefab
+    public GameObject GenericMachine;//test machine prefab
     private Dictionary<int, GameObject> rooms;//all note rooms this script has generated, indexed by note
     private Dictionary<Tuple<int, int>, GameObject> roomsInGrid; //all note rooms this script has generated, indexed by position in grid
 
@@ -56,6 +57,14 @@ public class RoomMaker : MonoBehaviour {
         newRoom.GetComponent<Room>().note = note;
         roomsInGrid[gridPosition] = newRoom;
         newRoom.GetComponent<Room>().pos = gridPosition;
+        for (int i = 0; i < UnityEngine.Random.Range(1, 4); i++) {
+            GameObject machine = Instantiate(
+                GenericMachine,
+                newRoom.transform.position + new Vector3(UnityEngine.Random.Range(-cellSize / 4, cellSize / 4), UnityEngine.Random.Range(-cellSize / 4, cellSize / 4), 0f),
+                Quaternion.identity,
+                newRoom.transform);
+            newRoom.transform.Find("PowerSource").GetComponent<PowerSource>().machines.Add(machine.GetComponent<Machine>());
+        }
         //figure out which wall to remove from this room
         //if the player is in one of the adjacent squares, remove only the wall for that one
         int x = gridPosition.Item1;
