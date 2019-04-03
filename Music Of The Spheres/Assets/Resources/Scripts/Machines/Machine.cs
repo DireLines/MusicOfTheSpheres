@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Machine : MonoBehaviour {
-    private SpriteRenderer powerIndicator;
+    protected SpriteRenderer powerIndicator;
 
     [SerializeField]
-    private Color onIndicatorColor;
+    protected Color onIndicatorColor;
     [SerializeField]
-    private Color offIndicatorColor;
+    protected Color offIndicatorColor;
 
-    private bool powered;
+    protected bool powered;
 
     protected virtual void Awake() {
         powerIndicator = transform.Find("IndicatorLight").gameObject.GetComponent<SpriteRenderer>();
@@ -25,13 +25,13 @@ public class Machine : MonoBehaviour {
     }
 
     public virtual void PowerOn() {
-        print("Im a machine powering on");
+        //print("Im a generic machine powering on");
         powerIndicator.color = onIndicatorColor;
         powered = true;
     }
 
     public virtual void PowerOff() {
-        print("Im a machine powering off");
+        //print("Im a generic machine powering off");
         powerIndicator.color = offIndicatorColor;
         powered = false;
     }

@@ -89,7 +89,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6445007464595752291}
   - component: {fileID: 9219311609826230593}
-  - component: {fileID: 3288135724395911739}
+  - component: {fileID: 5622975269435525003}
   m_Layer: 0
   m_Name: GenericMachine
   m_TagString: Untagged
@@ -160,7 +160,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &3288135724395911739
+--- !u!114 &5622975269435525003
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -169,8 +169,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 2080258078738959557}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 393def9e1ef89471ea9ffc6ca1eaef5e, type: 3}
+  m_Script: {fileID: 11500000, guid: 0bb0fa7a91d2244b99c0f06b80b73d23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onIndicatorColor: {r: 0.4337814, g: 0.8207547, b: 0.2516465, a: 1}
-  offIndicatorColor: {r: 0.98823535, g: 0.2509804, b: 0.26666668, a: 1}
+  onIndicatorColor: {r: 0.43529412, g: 0.81960785, b: 0.2509804, a: 1}
+  offIndicatorColor: {r: 0.9882353, g: 0.2509804, b: 0.26666668, a: 1}

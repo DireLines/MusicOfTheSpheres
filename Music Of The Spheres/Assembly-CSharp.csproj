@@ -61,10 +61,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Resources\Scripts\Camera2DFollow.cs" />
+    <Compile Include="Assets\Resources\Scripts\DungeonGen\PowerSource.cs" />
     <Compile Include="Assets\Resources\Scripts\DungeonGen\Room.cs" />
     <Compile Include="Assets\Resources\Scripts\DungeonGen\RoomMaker.cs" />
     <Compile Include="Assets\Resources\Scripts\Machines\Machine.cs" />
-    <Compile Include="Assets\Resources\Scripts\Machines\PowerSource.cs" />
+    <Compile Include="Assets\Resources\Scripts\Machines\TestMachine.cs" />
     <Compile Include="Assets\Resources\Scripts\MidiStuff\MidiEventHandler.cs" />
     <Compile Include="Assets\Resources\Scripts\MidiStuff\MidiParser.cs" />
     <Compile Include="Assets\Resources\Scripts\MidiStuff\MidiTest.cs" />

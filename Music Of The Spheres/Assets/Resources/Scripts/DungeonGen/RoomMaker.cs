@@ -60,11 +60,16 @@ public class RoomMaker : MonoBehaviour {
         for (int i = 0; i < UnityEngine.Random.Range(1, 4); i++) {
             GameObject machine = Instantiate(
                 GenericMachine,
-                newRoom.transform.position + new Vector3(UnityEngine.Random.Range(-cellSize / 4, cellSize / 4), UnityEngine.Random.Range(-cellSize / 4, cellSize / 4), 0f),
+                newRoom.transform.position +
+                new Vector3(UnityEngine.Random.Range(-cellSize / 4, cellSize / 4),
+                            UnityEngine.Random.Range(-cellSize / 4, cellSize / 4),
+                            0f),
                 Quaternion.identity,
                 newRoom.transform);
             newRoom.transform.Find("PowerSource").GetComponent<PowerSource>().machines.Add(machine.GetComponent<Machine>());
         }
+        float degree = (note - 32) / 81f;
+        newRoom.transform.Find("Floor").GetComponent<SpriteRenderer>().color = new Color(degree, 0f, (1f - degree) * 0.3f, 1f);
         //figure out which wall to remove from this room
         //if the player is in one of the adjacent squares, remove only the wall for that one
         int x = gridPosition.Item1;

@@ -464,5 +464,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MP: {fileID: 1311953789}
   DM: {fileID: 536845052}
-  midifilename: Assets/Resources/MIDI/DebussyPassepied.mid
-  midiTimeRate: 1
+  midifilename: Assets/Resources/MIDI/BachCelloSuite1.mid
+  midiTimeRate: 40
