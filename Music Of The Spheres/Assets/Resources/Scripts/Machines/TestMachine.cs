@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class TestMachine : Machine {
     public override void PowerOn() {
-        print("Im a test machine powering on");
+        //print("Im a test machine powering on");
         base.PowerOn();
     }
 
     public override void PowerOff() {
-        print("Im a test machine powering off");
+        //print("Im a test machine powering off");
         base.PowerOff();
     }
 }

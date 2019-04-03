@@ -10,6 +10,8 @@ public class Room : MonoBehaviour {
     private AudioSource asrc;
     readonly float semitone = Mathf.Pow(2f, 1f / 12);
     readonly int octavesDown = 5;
+    readonly float stopSpeed = 0.95f;
+    private bool stopped;
 
     private void Awake() {
         powerSource = transform.Find("PowerSource").gameObject;
@@ -18,6 +20,14 @@ public class Room : MonoBehaviour {
 
     private void Start() {
         asrc.pitch = Mathf.Pow(semitone, note - 12f * octavesDown);
+        stopped = false;
+
+    }
+
+    private void Update() {
+        if (stopped) {
+            asrc.volume *= stopSpeed;
+        }
     }
 
     public void PowerOn() {
@@ -25,7 +35,9 @@ public class Room : MonoBehaviour {
             return;
         }
         powerSource.GetComponent<PowerSource>().PowerOn();
+        asrc.volume = 1f;
         asrc.Play();
+        stopped = false;
     }
 
     public void PowerOff() {
@@ -33,5 +45,6 @@ public class Room : MonoBehaviour {
             return;
         }
         powerSource.GetComponent<PowerSource>().PowerOff();
+        stopped = true;
     }
 }
