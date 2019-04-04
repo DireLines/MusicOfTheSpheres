@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using System.IO;
+using System.Security.Cryptography;
 
 public class MidiEventHandler : MonoBehaviour {
 
@@ -9,7 +11,7 @@ public class MidiEventHandler : MonoBehaviour {
     private MidiParser MP;
 
     public RoomMaker DM;
-
+    private string midifoldername = "Assets/Resources/MIDI/";
     public string midifilename;
 
     //list of MIDI events in the song
@@ -26,7 +28,6 @@ public class MidiEventHandler : MonoBehaviour {
     private float time = 0f;
 
 
-
     //list mapping condition functions to functions to execute.
     //other objects will add their MIDI-dependent events to this list.
     //every frame that new MIDI events happen,
@@ -34,7 +35,19 @@ public class MidiEventHandler : MonoBehaviour {
     //and the associated action will be taken if true.
     private List<Tuple<Func<bool>, Action>> gameEvents;
 
+    private T[] slice<T>(T[] arr, int begin, int end) {
+        T[] result = new T[end - begin];
+        for (int i = 0; i < end - begin; i++) {
+            result[i] = arr[begin + i];
+        }
+        return result;
+    }
+
     private void Awake() {
+        midifilename = midifoldername + midifilename;
+        byte[] midihash = SHA256.Create().ComputeHash(File.ReadAllBytes(midifilename));
+        DM.seed = BitConverter.ToInt32(midihash, 0);
+        UnityEngine.Random.InitState(DM.seed);
         events = MP.CreateMidiEventList(midifilename);
         gameEvents = new List<Tuple<Func<bool>, Action>>();
         currentEvents = new List<MidiEvent>();

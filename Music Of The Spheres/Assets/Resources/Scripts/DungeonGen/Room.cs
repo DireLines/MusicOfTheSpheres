@@ -9,7 +9,7 @@ public class Room : MonoBehaviour {
     private GameObject powerSource;
     private AudioSource asrc;
     readonly float semitone = Mathf.Pow(2f, 1f / 12);
-    readonly int octavesDown = 5;
+    public int octavesDown;
     readonly float stopSpeed = 0.95f;
     private bool stopped;
 

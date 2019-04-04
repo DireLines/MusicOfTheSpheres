@@ -250,6 +250,7 @@ MonoBehaviour:
   GenericMachine: {fileID: 2080258078738959557, guid: 6e10e000c992f460b8383f308496e7f5,
     type: 3}
   MEH: {fileID: 1311953793}
+  seed: 3
 --- !u!4 &536845053
 Transform:
   m_ObjectHideFlags: 0
@@ -464,5 +465,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MP: {fileID: 1311953789}
   DM: {fileID: 536845052}
-  midifilename: Assets/Resources/MIDI/DebussyPassepied.mid
-  midiTimeRate: 60
+  midifilename: yankeedoodle.midi
+  midiTimeRate: 10

@@ -22,6 +22,8 @@ public class RoomMaker : MonoBehaviour {
     private bool putANote = false;
     private int baseNote;
 
+    public int seed;
+
     // Start is called before the first frame update
     void Start() {
         cellSize = NoteRoom.transform.Find("Cell").lossyScale.x;
@@ -57,7 +59,7 @@ public class RoomMaker : MonoBehaviour {
         newRoom.GetComponent<Room>().note = note;
         roomsInGrid[gridPosition] = newRoom;
         newRoom.GetComponent<Room>().pos = gridPosition;
-        for (int i = 0; i < UnityEngine.Random.Range(1, 10); i++) {
+        for (int i = 0; i < UnityEngine.Random.Range(1, 5); i++) {
             GameObject machine = Instantiate(
                 GenericMachine,
                 newRoom.transform.position +
