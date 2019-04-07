@@ -151,8 +151,8 @@ public class RoomMaker : MonoBehaviour {
             Vector3 pos = GridToWorldPosition(result, player.transform.position.z);
             float minimumDistance = (player.transform.position - pos).sqrMagnitude;
             bool foundInLayer = false;
-            for (int x = -width; x < width; x++) {
-                for (int y = -width; y < width; y++) {
+            for (int x = -width; x <= width; x++) {
+                for (int y = -width; y <= width; y++) {
                     Tuple<int, int> xy = new Tuple<int, int>(x + xbase, y + ybase);
                     if (!IsOccupied(xy)) {
                         foundInLayer = true;

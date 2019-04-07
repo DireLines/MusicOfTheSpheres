@@ -465,5 +465,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MP: {fileID: 1311953789}
   DM: {fileID: 536845052}
-  midifilename: yankeedoodle.midi
-  midiTimeRate: 10
+  midifilename: Chromatic.mid
+  midiTimeRate: 60
