@@ -1,12 +1,12 @@
 ﻿<Properties StartupConfiguration="{E8D3D4BE-3E8C-2EBF-7A04-0FB565B1F5EA}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Resources/Scripts/GenericClasses/ItemPedestal.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Resources/Scripts/GenericClasses/Item.cs">
     <Files>
       <File FileName="Assets/Resources/Scripts/Machines/Source.cs" Line="16" Column="62" />
       <File FileName="Assets/Resources/Scripts/Machines/TestMachine.cs" Line="11" Column="36" />
       <File FileName="Assets/Resources/Scripts/GenericClasses/Machine.cs" Line="9" Column="38" />
       <File FileName="Assets/Resources/Scripts/GenericClasses/ItemPedestal.cs" Line="16" Column="6" />
       <File FileName="Assets/Resources/Scripts/Game.cs" Line="15" Column="11" />
-      <File FileName="Assets/Resources/Scripts/GenericClasses/Item.cs" Line="24" Column="6" />
+      <File FileName="Assets/Resources/Scripts/GenericClasses/Item.cs" Line="5" Column="21" />
       <File FileName="Assets/Resources/Scripts/GenericClasses/Resource.cs" Line="8" Column="6" />
       <File FileName="Assets/Resources/Scripts/Player/Move.cs" Line="5" Column="36" />
       <File FileName="Assets/Resources/Scripts/Player/Inventory.cs" Line="15" Column="32" />
@@ -23,7 +23,7 @@
                 <Node name="Scripts" expanded="True">
                   <Node name="DungeonGen" expanded="True" />
                   <Node name="GenericClasses" expanded="True">
-                    <Node name="ItemPedestal.cs" selected="True" />
+                    <Node name="Item.cs" selected="True" />
                   </Node>
                   <Node name="Machines" expanded="True" />
                   <Node name="Player" expanded="True" />
