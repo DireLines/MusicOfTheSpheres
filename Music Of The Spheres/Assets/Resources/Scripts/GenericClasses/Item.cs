@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Item : ScriptableObject {
+public class Item : MonoBehaviour {
     public ItemType type;
     public ItemCategory category = ItemCategory.Basic; //default to basic
     public Sprite icon;
