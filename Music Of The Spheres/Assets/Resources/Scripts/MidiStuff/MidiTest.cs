@@ -7,7 +7,7 @@ public class MidiTest : MonoBehaviour {
 
     // Use this for initialization
     void Start() {
-        List<MidiEvent> myEvents = MP.CreateMidiEventList("Assets/Resources/MIDI/bwv790.mid");
+        List<MidiEvent> myEvents = MP.CreateMidiEventList("Assets/Items/MIDI/bwv790.mid");
         print("myEvents.Count " + myEvents.Count);
         //foreach (MidiEvent theEvent in myEvents) {
         //    print(theEvent);

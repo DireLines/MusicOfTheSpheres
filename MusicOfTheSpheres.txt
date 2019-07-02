@@ -2,18 +2,73 @@ Music of the Spheres
 
 
 TODO:
-    -Rooms
-        -Power object
-            -Capacity: Number of plugs in this power strip.
-            -Attached: List of attached machines
-            -PowerOn
-                -for machine in Attached:
-        -Spawn one in each room
+    -Some handy stuff to genericize
+        -item pedestal
+        -picking up / setting down a holdable item
+        -list of resources class (?)
+    -Player interaction script
+        -mostly borrow it from Keywords
+    -inventory
+    -List of Basic Resources
+        -Music notes: A tiny golden music note. The thing you're trying to maximize over the course of the run. Roughly analogous to points, except that they can be consumed like any other resources.
+        -Orbs: A glowing orb which represents the note value of the room.
+            -There are consequently 12 types of them, one for each semitone. That may be too many for the player to think about, so I will think of a better way to get the concept across.
+        -Crystals: A sparkling, delicate crystal. There is only one type, used for miscellaneous purposes such as the input to converters that produce special items.
+        -Wisps: An ephemeral ball of smoke which shoots sparks like a sparkler. Decays quickly after being produced. Input to unusually powerful machines.
+            -The lower the note of the room where the wisp was produced, the longer it lasts.
+            -There is only one type of wisp.
+        -Keys
+        -Health
+        -Special Items
+        -Machines
     -Machines
+        -Source: While plugged in, produces 1 of resource A every X seconds. Free resources!
+        -Converter: When powered on and fed X amount of resource A, outputs Y amount of resource B. Most machines will work like this.
+            -Machines are themselves a resource. This leads to all kinds of potential type theory shenanigans
+        -Portal: Two portals are linked. One is placed in Room A and the other in Room B. When A and B are both powered, traveling through the portal will instantly transport things from room A to B.
+        -Battery: Stores power so that devices can be operated when the room is not powered. Probably single use i.e. loses charge after one machine uses it to run once.
+        -Time Dilater: When powered, multiplies the speed at which MIDI time moves by some factor. May slow it down or speed it up. The effect stacks if multiple dilaters are powered on.
+            -Not very many events are dependent on MIDI time, but those which are are important.
+            -Possible reasons for slowing time down:
+                -Gives player more time to think
+                -A hallway with one of those traps that crushes stuff periodically, dependent on MIDI time. Too fast for the player to walk through normally, but slowed down enough it's easy.
+            -Possible reasons for speeding time up:
+                -If machine is unable to be unplugged, is a nuisance the player must deal with.
+                -Makes some time-sensitive transactions possible that otherwise aren't (for example, a resource that is spawned from a power surge and then disappears a short while later)
+        -Spawner: Normally unable to be unplugged. When some kind of event happens (usually just a power surge) spawns a hostile enemy in its room.
+        -Robot Booth: On power surge, spawns a robot which carries out a short sequence of actions. The player programs this robot by stepping in and then acting out the actions the robot should perform.
+            -When the robot's actions are over, all resources it is carrying are transferred to the player's inventory.
+        -Zapper: On power surge, hurts the player. Normally unable to be unplugged. A real nuisance.
+            -Guaranteed not to spawn in a room which plays a bunch of times in a row, or more than about 10 times total.
+        -Booby Trap: On power off, kills everything in the room.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ ----------
+|Design Doc|
+ ----------
+
+
+
+
+
+
 New idea is:
     -Each note is a room within a grid.
     -When a note is played for the first time, its room is generated and placed at the closest unexplored spot in the grid to the player. It is immediately accessible.
-        Thus the player can determine the structure if the dungeon by being in the right place at the right time.
+        Thus the player can determine the structure of the dungeon by being in the right place at the right time.
     -The room contains a device which is essentially a power source. When the note is playing in the MIDI, the power source is powered on and anything attached to it has power.
     -When the note stops playing for the last time, the room disappears and can no longer be traversed through. Everything in the room is destroyed, including the player if they're unlucky enough to be there.
     -The object of the game is to
@@ -23,7 +78,7 @@ New idea is:
     -There are many types of machines, each of which does something when plugged in. It may be a one-time activation when power comes on, or it may be able to do something while power is turned on.
     -Here are some planned types of machines
         -Converter: When powered on and fed X amount of resource A, outputs Y amount of resource B. Most machines will work like this.
-        	-Machines are themselves a resource. This leads to all kinds of potential type theory shenanigans
+         -Machines are themselves a resource. This leads to all kinds of potential type theory shenanigans
         -Source: While plugged in, produces 1 of resource A every X seconds. Free resources!
         -Portal: Two portals are linked. One is placed in Room A and the other in Room B. When A and B are both powered, traveling through the portal will instantly transport things from room A to B.
         -Battery: Stores power so that devices can be operated when the room is not powered. Probably single use i.e. loses charge after one machine uses it to run once.
@@ -70,14 +125,14 @@ New idea is:
                 -Also plays a really bassy, reverby drone of the currently playing notes (hence the hum of the universe)
             -Dragon's Lair: An angry dragon guarding a bunch of resources. Will normally kill you.
         -Special Items
-        	-Music Box: An music box which shows and plays the MIDI the level is based on. Can be fast forwarded and rewound, but does not indicate where in the song the actual game is.
-        		-Will be spawned in the starting room.
-        	-Cable Cutters: A pair of metal shears. Allows the player to cut a cable, disabling a machine.
-        		-If the machine is powered off, this will work. 
-        		-If powered on, it will fail and shock the player.
+         -Music Box: An music box which shows and plays the MIDI the level is based on. Can be fast forwarded and rewound, but does not indicate where in the song the actual game is.
+             -Will be spawned in the starting room.
+         -Cable Cutters: A pair of metal shears. Allows the player to cut a cable, disabling a machine.
+             -If the machine is powered off, this will work. 
+             -If powered on, it will fail and shock the player.
         -Special power requirements for machines:
-    		-note value must be above/below specific number.
-    		-Only able to be powered by Dark Power.
+         -note value must be above/below specific number.
+         -Only able to be powered by Dark Power.
 
 ↑ NEW IDEA ↑
 
@@ -104,35 +159,35 @@ New idea is:
 ↓ OLD IDEA ↓
 
 A e s t h e t i c:
-	Looks like a hodgepodge of rooms stolen from different fantasy dimensions and pasted together, floating in a cold unforgiving void. Going for a real haunted house feel in each of the floors. Old incandescent lights, antiquated decor with futuristic technology, cursed things, and so on. Some rooms should be balconies open to the void, which should be pretty menacing-looking.
+ Looks like a hodgepodge of rooms stolen from different fantasy dimensions and pasted together, floating in a cold unforgiving void. Going for a real haunted house feel in each of the floors. Old incandescent lights, antiquated decor with futuristic technology, cursed things, and so on. Some rooms should be balconies open to the void, which should be pretty menacing-looking.
 
 Basic gameplay:
-	2d topdown twin stick shooter like Rebirth. Played using controllers and focused on local multiplayer. Each player has an inventory of 6 slots, one of which is currently being held / used, and a cache of several other resources 
-	(keys and small collectibles). 
+ 2d topdown twin stick shooter like Rebirth. Played using controllers and focused on local multiplayer. Each player has an inventory of 6 slots, one of which is currently being held / used, and a cache of several other resources 
+ (keys and small collectibles). 
 
 core mechanic 1:
-	level generation is based on a slowed down MIDI file (for general world structure) and a seed number (for all the pseudo random stuff). The MIDI file is slowed down to about 16th note per 60 seconds and then played back, creating an ordered sequence of events for the world.
-	Every note stands for a floor which is created at the start of the first time the note is played in the MIDI and destroyed at the end of the last time. Every other time the note is played, the floor is lit up with electrical power and is modified somehow (new critters, resources or rooms appear).
-	When the note is not played, the floor continues to exist but is unpowered, dark, and generally a dangerous and undesirable place to be. Portals between levels are abundant.
-	The goal is to end up alive on the last note of the song.
+ level generation is based on a slowed down MIDI file (for general world structure) and a seed number (for all the pseudo random stuff). The MIDI file is slowed down to about 16th note per 60 seconds and then played back, creating an ordered sequence of events for the world.
+ Every note stands for a floor which is created at the start of the first time the note is played in the MIDI and destroyed at the end of the last time. Every other time the note is played, the floor is lit up with electrical power and is modified somehow (new critters, resources or rooms appear).
+ When the note is not played, the floor continues to exist but is unpowered, dark, and generally a dangerous and undesirable place to be. Portals between levels are abundant.
+ The goal is to end up alive on the last note of the song.
 
 core mechanic 2:
-	I'm stealing this idea from The Balance, a previous concept. Normally health in video games is considered a substance you have a certain amount of. If that amount reaches 0 you die. The initial idea of The Balance was that instead health would be a position on a sliding scale between light and dark, and if it reached either end you would die. Enemies would shoot both light and dark projectiles, so you would need to plan ahead and take damage to stay in the middle.
-	Then the idea was modified so that health was a position on a hexagonal grid with 6 elements, one at each of the edges. Opposing elements like dark and light, fire and water, order and chaos would be on opposite sides of the grid
-	Taking damage would nudge the health position in one of 6 directions depending on the element type of the damage.
-	So a player's health might look like this:
+ I'm stealing this idea from The Balance, a previous concept. Normally health in video games is considered a substance you have a certain amount of. If that amount reaches 0 you die. The initial idea of The Balance was that instead health would be a position on a sliding scale between light and dark, and if it reached either end you would die. Enemies would shoot both light and dark projectiles, so you would need to plan ahead and take damage to stay in the middle.
+ Then the idea was modified so that health was a position on a hexagonal grid with 6 elements, one at each of the edges. Opposing elements like dark and light, fire and water, order and chaos would be on opposite sides of the grid
+ Taking damage would nudge the health position in one of 6 directions depending on the element type of the damage.
+ So a player's health might look like this:
 
-			Order 			Fire
+         Order           Fire
                  \         /
-			      .   .   .
+               .   .   .
 
-			    .   o   .   .
+             .   o   .   .
 
-	 <--Dark  .   .   .   .   . Light-->
+  <--Dark  .   .   .   .   . Light-->
 
-			    .   .   .   .
+             .   .   .   .
 
-			      .   .   .
+               .   .   .
                  /         \
             Water           Chaos
 
@@ -140,67 +195,67 @@ core mechanic 2:
 
 
 Interesting game mechanics contingent on core mechanic 1:
-	Music Box: a holdable item which shows the MIDI data of the current level as pegs on a board and plays it back as a real music box would. Secret floors are shown as pegs above and below the range of the tines. In other words they are seen but not heard in the music. The player can collect tiny pegs of various dimensions and place them down on the board of the music box to cause the creation of more floors in the future.
-	Portal: the main feature of the central room of every floor, the portal is a doorway which takes you to the portal room of another floor. There is a dial allowing you to specify how far you want to travel away from this floor
-	(setting the dial to +2 will take you 2 floors up, setting it to -5 will take you 5 floors down). If you try to go to a floor which has not formed yet or has expired, going through the portal will plunge you right into the void and you will die. When a room is powered a portal will take you up to 7 steps away (a fifth) without you having to spend any resources. When unpowered, a battery must be placed in the portal to activate it temporarily, consuming the battery. In either case, additional batteries can be placed in a portal to increase its range by 7 for each battery.
-	Dilater: Some rooms will contain this bulky machine, which controls the rate at which MIDI based events occur. The machine only runs while the room is powered. Assuming that, the player can insert a battery and modify the speed up or down once, consuming the battery. This can be done any number of times with diminishing returns. Speed starts off at 1, then can be decreased to 2/3 -> 1/2 -> 1/3 -> 1/4 -> 1/5 and so on or increased to 3/2 -> 2 -> 3 -> 4 -> 5 and so on.
-	Moment: A rare consumable item which, once consumed, freezes all MIDI events, stopping time in 'the moment'. The moment can be prolonged as long as it is fueled, which is done by taking a special substance (I haven't decided what it is) to the area the moment was activated and dropping it. Floors that were powered when the moment was activated remain powered.
-	Surge items: what I am calling items or structures that are activated everytime the floor they're on experiences a power surge (is turned on). Examples could be a respawn site, an automated clone of the player which does something the player can assign for 10 seconds after the note on event, a resource appearing, etc.
+ Music Box: a holdable item which shows the MIDI data of the current level as pegs on a board and plays it back as a real music box would. Secret floors are shown as pegs above and below the range of the tines. In other words they are seen but not heard in the music. The player can collect tiny pegs of various dimensions and place them down on the board of the music box to cause the creation of more floors in the future.
+ Portal: the main feature of the central room of every floor, the portal is a doorway which takes you to the portal room of another floor. There is a dial allowing you to specify how far you want to travel away from this floor
+ (setting the dial to +2 will take you 2 floors up, setting it to -5 will take you 5 floors down). If you try to go to a floor which has not formed yet or has expired, going through the portal will plunge you right into the void and you will die. When a room is powered a portal will take you up to 7 steps away (a fifth) without you having to spend any resources. When unpowered, a battery must be placed in the portal to activate it temporarily, consuming the battery. In either case, additional batteries can be placed in a portal to increase its range by 7 for each battery.
+ Dilater: Some rooms will contain this bulky machine, which controls the rate at which MIDI based events occur. The machine only runs while the room is powered. Assuming that, the player can insert a battery and modify the speed up or down once, consuming the battery. This can be done any number of times with diminishing returns. Speed starts off at 1, then can be decreased to 2/3 -> 1/2 -> 1/3 -> 1/4 -> 1/5 and so on or increased to 3/2 -> 2 -> 3 -> 4 -> 5 and so on.
+ Moment: A rare consumable item which, once consumed, freezes all MIDI events, stopping time in 'the moment'. The moment can be prolonged as long as it is fueled, which is done by taking a special substance (I haven't decided what it is) to the area the moment was activated and dropping it. Floors that were powered when the moment was activated remain powered.
+ Surge items: what I am calling items or structures that are activated everytime the floor they're on experiences a power surge (is turned on). Examples could be a respawn site, an automated clone of the player which does something the player can assign for 10 seconds after the note on event, a resource appearing, etc.
 
 Problems and solutions with core mechanic 1:
-	Problem: Some notes might end right when others begin, which makes a tricky situation for players trying to enter one floor from the other. They could exit too early and die in the void, or wait too long and have to power up the portal to use it.
-	Solution: Power is not lost instantaneously when a note stops playing, but has a lingering linear decay effect. This means it's still dangerous to try traveling too early but harmless to wait until it is safe.
+ Problem: Some notes might end right when others begin, which makes a tricky situation for players trying to enter one floor from the other. They could exit too early and die in the void, or wait too long and have to power up the portal to use it.
+ Solution: Power is not lost instantaneously when a note stops playing, but has a lingering linear decay effect. This means it's still dangerous to try traveling too early but harmless to wait until it is safe.
 
-	Problem: I want there to be a large range in difficulty between floors and I want there to be an incentive for players to move between levels frequently instead of just staying on one safe floor.
-	Solution: Here's the current plan for floor difficulty generation inversely correlated with note frequency. I'll use the simple example of the 'Yankee Doodle' melody to illustrate.
+ Problem: I want there to be a large range in difficulty between floors and I want there to be an incentive for players to move between levels frequently instead of just staying on one safe floor.
+ Solution: Here's the current plan for floor difficulty generation inversely correlated with note frequency. I'll use the simple example of the 'Yankee Doodle' melody to illustrate.
 
-	7                     -            
-	6    - -     -       - -           
-	5   -   -   -       -   -          
-	4 --  -   --  -   --     -    - -  
-	3               -         -  -     
-	2                           -      
-	1                          -       
+ 7                     -            
+ 6    - -     -       - -           
+ 5   -   -   -       -   -          
+ 4 --  -   --  -   --     -    - -  
+ 3               -         -  -     
+ 2                           -      
+ 1                          -       
 
 
-	Note | Frequency                       Frequency | Note(s)        Frequency | Note(s) | Difficulty
-	-----+----------                       ----------+--------        ----------+---------+-----------
-	7    |1                                11        |4               11        |4        |1          
-	6    |5                                5         |5,6             5         |5,6      |3          
-	5    |5                                3         |3               3         |3        |5          
-	4    |11         --- reverse index --> 1         |1,2,7    -----> 1         |1,2,7    |11         
-	3    |3         
-	2    |1         
-	1    |1         
+ Note | Frequency                       Frequency | Note(s)        Frequency | Note(s) | Difficulty
+ -----+----------                       ----------+--------        ----------+---------+-----------
+ 7    |1                                11        |4               11        |4        |1          
+ 6    |5                                5         |5,6             5         |5,6      |3          
+ 5    |5                                3         |3               3         |3        |5          
+ 4    |11         --- reverse index --> 1         |1,2,7    -----> 1         |1,2,7    |11         
+ 3    |3         
+ 2    |1         
+ 1    |1         
 
-	See what I did? I assigned difficulty 1 to the most frequently occurring note and difficulty 11 to the rare notes that only happen once. Difficulty means higher risk / reward, so if the player is going to beat the final boss at the end they want to go visit those rare notes and obtain sw33t l00t.
-	
-	Problem: Players need to be sure a floor that is about to disappear is about to disappear.
-	Solution: When a note is played for the last time, an ominous red light powers it instead of the usual glow. Unique and challenging enemies show up and the floor flickers and quakes before disappearing at the end.
+ See what I did? I assigned difficulty 1 to the most frequently occurring note and difficulty 11 to the rare notes that only happen once. Difficulty means higher risk / reward, so if the player is going to beat the final boss at the end they want to go visit those rare notes and obtain sw33t l00t.
+ 
+ Problem: Players need to be sure a floor that is about to disappear is about to disappear.
+ Solution: When a note is played for the last time, an ominous red light powers it instead of the usual glow. Unique and challenging enemies show up and the floor flickers and quakes before disappearing at the end.
 
-	Problem: First notes in the song might be a chord / start at the same time. Which note does the player start in?
-	Solution: I guess just choose one at random. Since "random" numbers are based on the seed, it would end up starting in the same note every time the seed is loaded.
+ Problem: First notes in the song might be a chord / start at the same time. Which note does the player start in?
+ Solution: I guess just choose one at random. Since "random" numbers are based on the seed, it would end up starting in the same note every time the seed is loaded.
 
-	Problem: Similarly, the last notes in the song might end at the same time. Which is the "official" last floor the players fight the final boss on?
-	Solution: The final boss can spawn as soon as all the rooms are cleared in one of the final floors. This floor then becomes the "official" final floor. When the final boss is killed all floors aside from that will self destruct.
+ Problem: Similarly, the last notes in the song might end at the same time. Which is the "official" last floor the players fight the final boss on?
+ Solution: The final boss can spawn as soon as all the rooms are cleared in one of the final floors. This floor then becomes the "official" final floor. When the final boss is killed all floors aside from that will self destruct.
 
-	Problem: Player might start in a really difficult floor
-	Solution: just manually change difficulty of starting floor to 1 until the next time the starting note is played, at which point it starts being normal difficulty again.
+ Problem: Player might start in a really difficult floor
+ Solution: just manually change difficulty of starting floor to 1 until the next time the starting note is played, at which point it starts being normal difficulty again.
 
-	Problem: inquisitive player might immediately jump in the portal and die before it is even possible to use it correctly
-	Solution: Disable the portal and make it hidden until another floor can be jumped to.
+ Problem: inquisitive player might immediately jump in the portal and die before it is even possible to use it correctly
+ Solution: Disable the portal and make it hidden until another floor can be jumped to.
 
-	Problem: So lemme get this straight. Each 16th note is going to be a minute long? So that Yankee Doodle fragment is 31 minutes of gameplay, and something more interesting like Toccata and Fugue would be several days of gameplay? That's kind of against the spirit of run-based roguelites isn't it?
-	Solution: um... yeah I guess that's pretty ridiculous. I think for longer MIDI files like Toccata and Fugue I would chunk it into increments and reset the player's progress after completion of each one. The player can specify how long the chunk is based on how long they want the run to be. That way it's like a long campaign of self-contained missions.
+ Problem: So lemme get this straight. Each 16th note is going to be a minute long? So that Yankee Doodle fragment is 31 minutes of gameplay, and something more interesting like Toccata and Fugue would be several days of gameplay? That's kind of against the spirit of run-based roguelites isn't it?
+ Solution: um... yeah I guess that's pretty ridiculous. I think for longer MIDI files like Toccata and Fugue I would chunk it into increments and reset the player's progress after completion of each one. The player can specify how long the chunk is based on how long they want the run to be. That way it's like a long campaign of self-contained missions.
 
 
 Interesting game mechanics contingent on core mechanic 2:
-	Elemental Damage: Almost all damage is elemental, meaning it shoves health in a particular direction. This means weapons of the same strength but different elements can be more or less valuable depending on the circumstances.
-	Bombs and Health Packs are the same thing: A small collectible item called a vial would do area of effect damage of a particular element type shortly after being placed down. This means players could use it as a bomb and/or as a health modifier by placing themselves in the blast radius.
-	HP Ups of various kinds: Most HP Ups would increase your health capacity in one element (essentially adding two edges to the border of the health grid). Other kinds could do things like temporarily increase capacity in all elements or prevent damage from being taken when on a particular health position.
-	Sunlight Weapons: Most weapons have the color of their element type and spew projectiles of that color / damage type. Sunlight weapons are the color of sunlight, and at first spew especially extravagant projectiles the color of sunlight. These projectiles appear to do no damage but in fact deal all element types of damage at once, resulting in no net damage. This can still accomplish some things, but the intended way to use this kind of weapon is to put a filter on it of a particular element type such that it only deals damage of that type. Bam, now it's deadly.
-	Void Weapons: These weapons work by temporarily removing the outermost layer of valid positions from your or an enemy's health grid, squeezing your health range toward the center. If you take enough void damage at once you will eventually find your health is on an illegal spot and you will die. These are deadly weapons found in worlds that are about to pop out of existence, and they come with the caveat that killing an enemy with one severely reduces the amount of loot they drop.
-	Hybrid weapons: Do damage of two or more element types at once. Simple enough.
-	Health grid buffs and nerfs: For the player, this could mean things like a damage boost if amounts of all elements are equal, armor if low on a particular element, an immunity to dying from lack of a certain element, etc. Curses could also be based on health position, like you lose vials if you hit this position etc. For enemies, similar stat modification stuff could take place, but AI behaviors could also change depending on current state of health, a fact the player could discover and exploit.
-	Potion of sight: It can be hard to deduce what an enemy's health grid looks like. Potion of sight is a potion which temporarily replaces your view of the world with one that superimposes health grids in the places where the enemies were. It's kind of debilitating because now you have to avoid enemy attacks which are harder to see, but also it shows you how enemies work to a large extent.
+ Elemental Damage: Almost all damage is elemental, meaning it shoves health in a particular direction. This means weapons of the same strength but different elements can be more or less valuable depending on the circumstances.
+ Bombs and Health Packs are the same thing: A small collectible item called a vial would do area of effect damage of a particular element type shortly after being placed down. This means players could use it as a bomb and/or as a health modifier by placing themselves in the blast radius.
+ HP Ups of various kinds: Most HP Ups would increase your health capacity in one element (essentially adding two edges to the border of the health grid). Other kinds could do things like temporarily increase capacity in all elements or prevent damage from being taken when on a particular health position.
+ Sunlight Weapons: Most weapons have the color of their element type and spew projectiles of that color / damage type. Sunlight weapons are the color of sunlight, and at first spew especially extravagant projectiles the color of sunlight. These projectiles appear to do no damage but in fact deal all element types of damage at once, resulting in no net damage. This can still accomplish some things, but the intended way to use this kind of weapon is to put a filter on it of a particular element type such that it only deals damage of that type. Bam, now it's deadly.
+ Void Weapons: These weapons work by temporarily removing the outermost layer of valid positions from your or an enemy's health grid, squeezing your health range toward the center. If you take enough void damage at once you will eventually find your health is on an illegal spot and you will die. These are deadly weapons found in worlds that are about to pop out of existence, and they come with the caveat that killing an enemy with one severely reduces the amount of loot they drop.
+ Hybrid weapons: Do damage of two or more element types at once. Simple enough.
+ Health grid buffs and nerfs: For the player, this could mean things like a damage boost if amounts of all elements are equal, armor if low on a particular element, an immunity to dying from lack of a certain element, etc. Curses could also be based on health position, like you lose vials if you hit this position etc. For enemies, similar stat modification stuff could take place, but AI behaviors could also change depending on current state of health, a fact the player could discover and exploit.
+ Potion of sight: It can be hard to deduce what an enemy's health grid looks like. Potion of sight is a potion which temporarily replaces your view of the world with one that superimposes health grids in the places where the enemies were. It's kind of debilitating because now you have to avoid enemy attacks which are harder to see, but also it shows you how enemies work to a large extent.
 

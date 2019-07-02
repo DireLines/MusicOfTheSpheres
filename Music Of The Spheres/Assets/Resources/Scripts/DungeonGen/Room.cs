@@ -21,7 +21,6 @@ public class Room : MonoBehaviour {
     private void Start() {
         asrc.pitch = Mathf.Pow(semitone, note - 12f * octavesDown);
         stopped = false;
-
     }
 
     private void Update() {

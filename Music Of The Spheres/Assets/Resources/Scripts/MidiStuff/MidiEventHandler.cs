@@ -35,13 +35,6 @@ public class MidiEventHandler : MonoBehaviour {
     //and the associated action will be taken if true.
     private List<Tuple<Func<bool>, Action>> gameEvents;
 
-    private T[] slice<T>(T[] arr, int begin, int end) {
-        T[] result = new T[end - begin];
-        for (int i = 0; i < end - begin; i++) {
-            result[i] = arr[begin + i];
-        }
-        return result;
-    }
 
     private void Awake() {
         midifilename = midifoldername + midifilename;
