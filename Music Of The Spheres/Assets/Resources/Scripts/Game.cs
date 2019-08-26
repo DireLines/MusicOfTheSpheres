@@ -32,5 +32,10 @@ public enum Height {
 
 //important globals and globally accessible functions
 public static class Game {
-
+    public static Collider2D[] ItemsAround(Vector3 pos, float radius) {
+        return Physics2D.OverlapCircleAll(pos, radius);
+    }
+    public static Collider2D[] InteractablesAround(Vector3 pos, float radius) {
+        return Physics2D.OverlapCircleAll(pos, radius);
+    }
 }

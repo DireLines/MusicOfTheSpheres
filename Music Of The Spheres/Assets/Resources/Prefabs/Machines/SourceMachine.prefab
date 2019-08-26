@@ -12,6 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b677f5e55efac4247a03d93e8137bb6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  type: 6
+  category: 3
+  icon: {fileID: 0}
+  amount: 1
+  stackable: 0
+  physical: 1
+  holdable: 1
   onIndicatorColor: {r: 0.44705886, g: 0.8117648, b: 0.2901961, a: 1}
   offIndicatorColor: {r: 0.97647065, g: 0.25882354, b: 0.2901961, a: 1}
   item: {fileID: 7114464919291341951, guid: f15fb822f594c43b98792ac5110e7b68, type: 3}

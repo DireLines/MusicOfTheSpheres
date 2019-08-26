@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Machine : MonoBehaviour {
+public class Machine : Item {
+
     protected SpriteRenderer powerIndicator;
 
     [SerializeField]
@@ -34,6 +35,12 @@ public class Machine : MonoBehaviour {
         //print("Im a generic machine powering off");
         powerIndicator.color = offIndicatorColor;
         powered = false;
+    }
+
+    public virtual void Activate() {
+        if (powered) {
+            PerformMachineAction();
+        }
     }
 
 

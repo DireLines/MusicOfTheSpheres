@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class ItemPedestal : MonoBehaviour {
     private SpriteRenderer iconSR;
+    private Item heldItem;
 
     public void Start() {
+        heldItem = null;
         iconSR = GetComponent<SpriteRenderer>();
     }
     public void PlaceItem(GameObject item) {
@@ -24,18 +26,20 @@ public class ItemPedestal : MonoBehaviour {
     }
 
 
-    public void setIcon(Item item) {
+    public Item GetItem() {
+        return heldItem;
+    }
+    public void SetItem(Item item) {
+        heldItem = item;
         iconSR.sprite = item.icon;
     }
-    public void spawn(Item item) {
-        if (item.gameObject) {
+    public void Spawn(Item item) {
+        if (item.physical && item.gameObject) {
+            //spawn the physical item
             GameObject obj = item.gameObject;
-            if (item.physical) {
-                //spawn the physical item
-                print("Spawning a physical version of the item");
-                SpawnPhysicalItem(obj);
-                return;
-            }
+            print("Spawning a physical version of the item");
+            SpawnPhysicalItem(obj);
+            return;
         }
         //if not a physical item, spawn only using by changing the icon
         print("ItemPedestal spawning the item");

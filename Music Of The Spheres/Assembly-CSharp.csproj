@@ -66,10 +66,13 @@
     <Compile Include="Assets\Resources\Scripts\DungeonGen\Room.cs" />
     <Compile Include="Assets\Resources\Scripts\DungeonGen\RoomMaker.cs" />
     <Compile Include="Assets\Resources\Scripts\Game.cs" />
+    <Compile Include="Assets\Resources\Scripts\GenericClasses\InputPedestal.cs" />
+    <Compile Include="Assets\Resources\Scripts\GenericClasses\Interactable.cs" />
     <Compile Include="Assets\Resources\Scripts\GenericClasses\Item.cs" />
     <Compile Include="Assets\Resources\Scripts\GenericClasses\ItemPedestal.cs" />
     <Compile Include="Assets\Resources\Scripts\GenericClasses\Machine.cs" />
     <Compile Include="Assets\Resources\Scripts\GenericClasses\Resource.cs" />
+    <Compile Include="Assets\Resources\Scripts\Machines\Converter.cs" />
     <Compile Include="Assets\Resources\Scripts\Machines\Source.cs" />
     <Compile Include="Assets\Resources\Scripts\Machines\TestMachine.cs" />
     <Compile Include="Assets\Resources\Scripts\MidiStuff\MidiEventHandler.cs" />
@@ -78,6 +81,7 @@
     <Compile Include="Assets\Resources\Scripts\Player\Camera2DFollow.cs" />
     <Compile Include="Assets\Resources\Scripts\Player\Inventory.cs" />
     <Compile Include="Assets\Resources\Scripts\Player\Move.cs" />
+    <Compile Include="Assets\Resources\Scripts\Player\PlayerController.cs" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>/Users/nathanielsaxe/Documents/MusicOfTheSpheres/Music Of The Spheres/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>

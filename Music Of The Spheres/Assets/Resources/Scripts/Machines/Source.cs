@@ -23,7 +23,7 @@ public class Source : Machine {
             if (cooldownTimer <= 0) {
                 cooldownTimer = cooldown;
                 //spawn the item
-                outputSlot.spawn(item);
+                outputSlot.Spawn(item);
                 print("source machine \"spawning the item\"");
             }
         }
