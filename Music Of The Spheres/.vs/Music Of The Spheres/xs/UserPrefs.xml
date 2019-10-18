@@ -1,22 +1,15 @@
 ﻿<Properties StartupConfiguration="{E8D3D4BE-3E8C-2EBF-7A04-0FB565B1F5EA}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Resources/Scripts/Machines/Converter.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Resources/Scripts/Player/Inventory.cs">
     <Files>
-      <File FileName="Assets/Resources/Scripts/Machines/TestMachine.cs" Line="11" Column="36" />
       <File FileName="Assets/Resources/Scripts/GenericClasses/Machine.cs" Line="5" Column="30" />
-      <File FileName="Assets/Resources/Scripts/GenericClasses/ItemPedestal.cs" Line="27" Column="5" />
-      <File FileName="Assets/Resources/Scripts/Game.cs" Line="18" Column="14" />
-      <File FileName="Assets/Resources/Scripts/GenericClasses/Item.cs" Line="29" Column="6" />
-      <File FileName="Assets/Resources/Scripts/GenericClasses/Resource.cs" Line="5" Column="31" />
-      <File FileName="Assets/Resources/Scripts/Player/Move.cs" Line="5" Column="36" />
-      <File FileName="Assets/Resources/Scripts/Player/Inventory.cs" Line="16" Column="10" />
-      <File FileName="Assets/Resources/Scripts/Player/PlayerController.cs" Line="22" Column="24" />
-      <File FileName="Assets/Resources/Scripts/GenericClasses/Interactable.cs" Line="4" Column="1" />
-      <File FileName="Assets/Resources/Scripts/GenericClasses/InputPedestal.cs" Line="8" Column="28" />
-      <File FileName="Assets/Resources/Scripts/Machines/Source.cs" Line="21" Column="23" />
-      <File FileName="Assets/Resources/Scripts/Machines/Converter.cs" Line="41" Column="9" />
-      <File FileName="../MusicOfTheSpheres.txt" Line="99" Column="27" NotebookId="1" />
-      <File FileName="../../KeywordsPrototype/KeywordsPrototype/Assets/Resources/Scripts/Inventory.cs" Line="237" Column="6" NotebookId="1" />
-      <File FileName="../../KeywordsPrototype/KeywordsPrototype/Assets/Resources/Scripts/PlayerInfo.cs" Line="1" Column="1" NotebookId="1" />
+      <File FileName="Assets/Resources/Scripts/Game.cs" Line="30" Column="19" />
+      <File FileName="Assets/Resources/Scripts/Player/Inventory.cs" Line="52" Column="6" />
+      <File FileName="Assets/Resources/Scripts/Player/PlayerController.cs" />
+      <File FileName="Assets/Resources/Scripts/GenericClasses/Interactable.cs" />
+      <File FileName="Assets/Resources/Scripts/GenericClasses/InputPedestal.cs" />
+      <File FileName="Assets/Resources/Scripts/DungeonGen/PowerSource.cs" />
+      <File FileName="Assets/Resources/Scripts/DungeonGen/Room.cs" />
+      <File FileName="Assets/Resources/Scripts/DungeonGen/RoomMaker.cs" Line="152" Column="41" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -25,13 +18,9 @@
             <Node name="Assets" expanded="True">
               <Node name="Resources" expanded="True">
                 <Node name="Scripts" expanded="True">
-                  <Node name="DungeonGen" expanded="True" />
-                  <Node name="GenericClasses" expanded="True" />
-                  <Node name="Machines" expanded="True">
-                    <Node name="Converter.cs" selected="True" />
+                  <Node name="Player" expanded="True">
+                    <Node name="Inventory.cs" selected="True" />
                   </Node>
-                  <Node name="MidiStuff" expanded="True" />
-                  <Node name="Player" expanded="True" />
                 </Node>
               </Node>
             </Node>
@@ -42,7 +31,7 @@
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="Unity.Editor" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="8fd05682-7239-44e0-af2b-b8dc85ec5bdc" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>

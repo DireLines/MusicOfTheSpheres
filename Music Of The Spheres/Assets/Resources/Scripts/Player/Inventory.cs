@@ -44,6 +44,13 @@ public class Inventory : MonoBehaviour {
         obj.transform.position = transform.position;
     }
 
+    public void DropHeld() {
+        if (heldObject == null) {
+            return;
+        }
+
+    }
+
     public bool Contains(Item item) {
         if (heldObject.GetComponent<Item>().HasAtLeast(item)) {
             return true;
