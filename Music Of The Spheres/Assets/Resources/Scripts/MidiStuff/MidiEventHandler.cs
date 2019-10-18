@@ -27,6 +27,8 @@ public class MidiEventHandler : MonoBehaviour {
     public float midiTimeRate = 1f;//rate at which time passes for MIDI events (may be affected by items)
     private float time = 0f;
 
+    public int seed;
+
 
     //list mapping condition functions to functions to execute.
     //other objects will add their MIDI-dependent events to this list.
@@ -39,8 +41,8 @@ public class MidiEventHandler : MonoBehaviour {
     private void Awake() {
         midifilename = midifoldername + midifilename;
         byte[] midihash = SHA256.Create().ComputeHash(File.ReadAllBytes(midifilename));
-        DM.seed = BitConverter.ToInt32(midihash, 0);
-        UnityEngine.Random.InitState(DM.seed);
+        seed = BitConverter.ToInt32(midihash, 0);
+        UnityEngine.Random.InitState(seed);
         events = MP.CreateMidiEventList(midifilename);
         gameEvents = new List<Tuple<Func<bool>, Action>>();
         currentEvents = new List<MidiEvent>();

@@ -22,8 +22,6 @@ public class RoomMaker : MonoBehaviour {
     private bool putANote = false;
     private int baseNote;
 
-    public int seed;
-
     // Start is called before the first frame update
     void Start() {
         cellSize = NoteRoom.transform.Find("Cell").lossyScale.x;
