@@ -4,7 +4,7 @@ using UnityEngine;
 using System;
 public class Room : MonoBehaviour {
     public int note;
-    public Tuple<int, int> pos;
+    public Vector2Int pos;
 
     private GameObject powerSource;
     private AudioSource asrc;

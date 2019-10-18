@@ -9,7 +9,7 @@ public class RoomMaker : MonoBehaviour {
     public GameObject Wall;//wall prefab
     public GameObject GenericMachine;//test machine prefab
     private Dictionary<int, GameObject> rooms;//all note rooms this script has generated, indexed by note
-    private Dictionary<Tuple<int, int>, GameObject> roomsInGrid; //all note rooms this script has generated, indexed by position in grid
+    private Dictionary<Vector2Int, GameObject> roomsInGrid; //all note rooms this script has generated, indexed by position in grid
 
     public MidiEventHandler MEH;
 
@@ -26,7 +26,7 @@ public class RoomMaker : MonoBehaviour {
     void Start() {
         cellSize = NoteRoom.transform.Find("Cell").lossyScale.x;
         rooms = new Dictionary<int, GameObject>();
-        roomsInGrid = new Dictionary<Tuple<int, int>, GameObject>();
+        roomsInGrid = new Dictionary<Vector2Int, GameObject>();
     }
 
     public void DestroyNoteRoom(int note) {
@@ -49,7 +49,7 @@ public class RoomMaker : MonoBehaviour {
 
     //create normal note room which responds to note at closest unoccupied grid square to the player
     public void CreateNoteRoom(int note) {
-        Tuple<int, int> gridPosition = ClosestUnoccupiedGridSquare(player.transform.position);
+        Vector2Int gridPosition = ClosestUnoccupiedGridSquare(player.transform.position);
         Vector3 worldPosition = GridToWorldPosition(gridPosition, player.transform.position.z);
         GameObject newRoom = Instantiate(NoteRoom, worldPosition, Quaternion.identity, gameObject.transform);
         newRoom.name = "Room " + note;
@@ -72,27 +72,27 @@ public class RoomMaker : MonoBehaviour {
         newRoom.transform.Find("Floor").GetComponent<SpriteRenderer>().color = new Color(degree, 0f, (1f - degree) * 0.3f, 1f);
         //figure out which wall to remove from this room
         //if the player is in one of the adjacent squares, remove only the wall for that one
-        int x = gridPosition.Item1;
-        int y = gridPosition.Item2;
+        int x = gridPosition.x;
+        int y = gridPosition.y;
         //print(x + ", " + y);
-        Tuple<int, int> up = new Tuple<int, int>(x, y + 1);
-        Tuple<int, int> down = new Tuple<int, int>(x, y - 1);
-        Tuple<int, int> left = new Tuple<int, int>(x - 1, y);
-        Tuple<int, int> right = new Tuple<int, int>(x + 1, y);
-        Tuple<int, int> playerSquare = PlayerGridSquare();
-        if (playerSquare.Item1 == up.Item1 && playerSquare.Item2 == up.Item2) {
+        Vector2Int up = new Vector2Int(x, y + 1);
+        Vector2Int down = new Vector2Int(x, y - 1);
+        Vector2Int left = new Vector2Int(x - 1, y);
+        Vector2Int right = new Vector2Int(x + 1, y);
+        Vector2Int playerSquare = PlayerGridSquare();
+        if (playerSquare.x == up.x && playerSquare.y == up.y) {
             RemoveUp(gridPosition);
             return;
         }
-        if (playerSquare.Item1 == down.Item1 && playerSquare.Item2 == down.Item2) {
+        if (playerSquare.x == down.x && playerSquare.y == down.y) {
             RemoveDown(gridPosition);
             return;
         }
-        if (playerSquare.Item1 == left.Item1 && playerSquare.Item2 == left.Item2) {
+        if (playerSquare.x == left.x && playerSquare.y == left.y) {
             RemoveLeft(gridPosition);
             return;
         }
-        if (playerSquare.Item1 == right.Item1 && playerSquare.Item2 == right.Item2) {
+        if (playerSquare.x == right.x && playerSquare.y == right.y) {
             RemoveRight(gridPosition);
             return;
         }
@@ -137,21 +137,21 @@ public class RoomMaker : MonoBehaviour {
     //in increasingly larger regions of squares around the base square, check to see if the square is occupied.
     //keep a running minimum of the distances between the base square and those squares that are unoccupied.
     //If there are any unoccupied rooms at the end of this layer, return the minimum distance one.
-    private Tuple<int, int> ClosestUnoccupiedGridSquare(Vector3 position) {
+    private Vector2Int ClosestUnoccupiedGridSquare(Vector3 position) {
         //get x and y of player's current grid square, use that as the base.
         int xbase = (int)Mathf.Round(player.transform.position.x / cellSize);
         int ybase = (int)Mathf.Round(player.transform.position.y / cellSize);
 
         int width = 3;
-        Tuple<int, int> result = new Tuple<int, int>(-width + xbase, -width + ybase);
+        Vector2Int result = new Vector2Int(-width + xbase, -width + ybase);
         while (width < 100) {
-            result = new Tuple<int, int>(-width + xbase, -width + ybase);
+            result = new Vector2Int(-width + xbase, -width + ybase);
             Vector3 pos = GridToWorldPosition(result, player.transform.position.z);
             float minimumDistance = (player.transform.position - pos).sqrMagnitude;
             bool foundInLayer = false;
             for (int x = -width; x <= width; x++) {
                 for (int y = -width; y <= width; y++) {
-                    Tuple<int, int> xy = new Tuple<int, int>(x + xbase, y + ybase);
+                    Vector2Int xy = new Vector2Int(x + xbase, y + ybase);
                     if (!IsOccupied(xy)) {
                         foundInLayer = true;
                         pos = GridToWorldPosition(xy, player.transform.position.z);
@@ -171,53 +171,53 @@ public class RoomMaker : MonoBehaviour {
         return result;
     }
 
-    private Tuple<int, int> PlayerGridSquare() {
+    private Vector2Int PlayerGridSquare() {
         int xbase = (int)Mathf.Round(player.transform.position.x / cellSize);
         int ybase = (int)Mathf.Round(player.transform.position.y / cellSize);
         //print("player is in " + xbase + ", " + ybase);
-        return new Tuple<int, int>(xbase, ybase);
+        return new Vector2Int(xbase, ybase);
     }
-    private Vector3 GridToWorldPosition(Tuple<int, int> gridPosition, float z) {
-        return new Vector3(cellSize * gridPosition.Item1, cellSize * gridPosition.Item2, z);
+    private Vector3 GridToWorldPosition(Vector2Int gridPosition, float z) {
+        return new Vector3(cellSize * gridPosition.x, cellSize * gridPosition.y, z);
     }
 
-    private bool IsOccupied(Tuple<int, int> gridSpot) {
+    private bool IsOccupied(Vector2Int gridSpot) {
         return roomsInGrid.ContainsKey(gridSpot);
     }
 
-    private void RemoveUp(Tuple<int, int> xy) {
+    private void RemoveUp(Vector2Int xy) {
         Destroy(roomsInGrid[xy].transform.Find("WallUp").gameObject);
-        Tuple<int, int> up = new Tuple<int, int>(xy.Item1, xy.Item2 + 1);
+        Vector2Int up = new Vector2Int(xy.x, xy.y + 1);
         if (IsOccupied(up)) {
             Destroy(roomsInGrid[up].transform.Find("WallDown").gameObject);
         }
     }
 
-    private void RemoveDown(Tuple<int, int> xy) {
+    private void RemoveDown(Vector2Int xy) {
         Destroy(roomsInGrid[xy].transform.Find("WallDown").gameObject);
-        Tuple<int, int> down = new Tuple<int, int>(xy.Item1, xy.Item2 - 1);
+        Vector2Int down = new Vector2Int(xy.x, xy.y - 1);
         if (IsOccupied(down)) {
             Destroy(roomsInGrid[down].transform.Find("WallUp").gameObject);
         }
     }
 
-    private void RemoveLeft(Tuple<int, int> xy) {
+    private void RemoveLeft(Vector2Int xy) {
         Destroy(roomsInGrid[xy].transform.Find("WallLeft").gameObject);
-        Tuple<int, int> left = new Tuple<int, int>(xy.Item1 - 1, xy.Item2);
+        Vector2Int left = new Vector2Int(xy.x - 1, xy.y);
         if (IsOccupied(left)) {
             Destroy(roomsInGrid[left].transform.Find("WallRight").gameObject);
         }
     }
 
-    private void RemoveRight(Tuple<int, int> xy) {
+    private void RemoveRight(Vector2Int xy) {
         Destroy(roomsInGrid[xy].transform.Find("WallRight").gameObject);
-        Tuple<int, int> right = new Tuple<int, int>(xy.Item1 + 1, xy.Item2);
+        Vector2Int right = new Vector2Int(xy.x + 1, xy.y);
         if (IsOccupied(right)) {
             Destroy(roomsInGrid[right].transform.Find("WallLeft").gameObject);
         }
     }
 
-    private void RemoveWalls(Tuple<int, int> xy) {
+    private void RemoveWalls(Vector2Int xy) {
         RemoveUp(xy);
         RemoveDown(xy);
         RemoveLeft(xy);

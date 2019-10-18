@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using UnityEngine;
 
+#region helperclasses
 public class MidiEvent {
     public int note;
     public int time;
@@ -38,7 +39,9 @@ public class MidiEventWithMicrosecondTime {
         timeMS = a5;
     }
 }
+#endregion
 public class MidiParser : MonoBehaviour {
+    #region main
     //C# version of the MIDI parser for the game Music of the Spheres.
     //its job is to take in a MIDI file and some supplementary info
     //and produce a list of in-game events with time stamps
@@ -60,12 +63,11 @@ public class MidiParser : MonoBehaviour {
         eventList = timeSort(eventList);
         return eventList;
     }
+    #endregion
 
 
 
-
-
-
+    #region miditoevents
     //Start of methods which parse MIDI into Events
 
 
@@ -337,45 +339,12 @@ public class MidiParser : MonoBehaviour {
 
 
     //End of methods which parse MIDI into Events
+    #endregion
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    #region eventprocessing
     //Start of methods which process Events rather than MIDI
 
     //orders events by time they occur
@@ -725,4 +694,5 @@ public class MidiParser : MonoBehaviour {
             print(theEvent.note + " " + theEvent.time + " " + theEvent.type + " " + theEvent.track);
         }
     }
+    #endregion
 }

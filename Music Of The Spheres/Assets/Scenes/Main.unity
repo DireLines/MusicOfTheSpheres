@@ -333,7 +333,7 @@ GameObject:
   - component: {fileID: 536845053}
   - component: {fileID: 536845052}
   m_Layer: 0
-  m_Name: DungeonGenerator
+  m_Name: Dungeon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -357,7 +357,6 @@ MonoBehaviour:
   GenericMachine: {fileID: 5704719540978910691, guid: 6e7f02fb176084e5a85c1686dc7c1129,
     type: 3}
   MEH: {fileID: 1311953793}
-  seed: 3
 --- !u!4 &536845053
 Transform:
   m_ObjectHideFlags: 0
@@ -370,7 +369,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &908829185
 GameObject:
@@ -455,7 +454,7 @@ Transform:
   m_LocalScale: {x: 0.598, y: 0.598, z: 0.598}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &908829188
 MonoBehaviour:
@@ -621,7 +620,7 @@ GameObject:
   - component: {fileID: 1311953789}
   - component: {fileID: 1311953793}
   m_Layer: 0
-  m_Name: MP
+  m_Name: MidiParser
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -651,7 +650,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1311953793
 MonoBehaviour:
@@ -669,3 +668,4 @@ MonoBehaviour:
   DM: {fileID: 536845052}
   midifilename: DebussyPassepied.mid
   midiTimeRate: 60
+  seed: 0
