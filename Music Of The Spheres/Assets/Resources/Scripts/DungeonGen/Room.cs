@@ -7,6 +7,7 @@ public class Room : MonoBehaviour {
     public Vector2Int pos;
 
     private GameObject powerSource;
+    public bool playNotes;
     private AudioSource asrc;
     readonly float semitone = Mathf.Pow(2f, 1f / 12);
     public int octavesDown;
@@ -35,7 +36,9 @@ public class Room : MonoBehaviour {
         }
         powerSource.GetComponent<PowerSource>().PowerOn();
         asrc.volume = 1f;
-        asrc.Play();
+        if (playNotes) {
+            asrc.Play();
+        }
         stopped = false;
     }
 

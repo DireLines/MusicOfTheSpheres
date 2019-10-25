@@ -27,6 +27,7 @@ public class MidiEventHandler : MonoBehaviour {
     public float midiTimeRate = 1f;//rate at which time passes for MIDI events (may be affected by items)
     private float time = 0f;
 
+    [HideInInspector]
     public int seed;
 
 

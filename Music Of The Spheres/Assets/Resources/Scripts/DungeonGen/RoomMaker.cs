@@ -10,6 +10,7 @@ public class RoomMaker : MonoBehaviour {
     public GameObject GenericMachine;//test machine prefab
     private Dictionary<int, GameObject> rooms;//all note rooms this script has generated, indexed by note
     private Dictionary<Vector2Int, GameObject> roomsInGrid; //all note rooms this script has generated, indexed by position in grid
+    public bool playNotes;
 
     public MidiEventHandler MEH;
 
@@ -57,6 +58,7 @@ public class RoomMaker : MonoBehaviour {
         newRoom.GetComponent<Room>().note = note;
         roomsInGrid[gridPosition] = newRoom;
         newRoom.GetComponent<Room>().pos = gridPosition;
+        newRoom.GetComponent<Room>().playNotes = playNotes;
         for (int i = 0; i < UnityEngine.Random.Range(1, 5); i++) {
             GameObject machine = Instantiate(
                 GenericMachine,
