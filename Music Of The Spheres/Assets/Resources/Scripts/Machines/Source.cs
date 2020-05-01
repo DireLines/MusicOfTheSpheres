@@ -22,7 +22,7 @@ public class Source : Machine {
             cooldownTimer -= Time.deltaTime;
             if (cooldownTimer <= 0) {
                 cooldownTimer = cooldown;
-                //spawn the item
+                //spawn the item 
                 outputSlot.Spawn(item);
                 print("source machine \"spawning the item\"");
             }

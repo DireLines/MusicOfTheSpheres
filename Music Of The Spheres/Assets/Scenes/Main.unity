@@ -96,6 +96,7 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaAO: 1
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
+    m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
   m_UseShadowmask: 1
 --- !u!196 &4
@@ -356,6 +357,7 @@ MonoBehaviour:
   Wall: {fileID: 3234530633924402285, guid: 6d8ef2d1cd55d4ad495827f2978cf427, type: 3}
   GenericMachine: {fileID: 5704719540978910691, guid: 6e7f02fb176084e5a85c1686dc7c1129,
     type: 3}
+  playNotes: 0
   MEH: {fileID: 1311953793}
 --- !u!4 &536845053
 Transform:
@@ -407,6 +409,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -667,5 +670,5 @@ MonoBehaviour:
   MP: {fileID: 1311953789}
   DM: {fileID: 536845052}
   midifilename: DebussyPassepied.mid
-  midiTimeRate: 60
+  midiTimeRate: 1
   seed: 0

@@ -33,7 +33,7 @@ public class MidiEventHandler : MonoBehaviour {
 
     //list mapping condition functions to functions to execute.
     //other objects will add their MIDI-dependent events to this list.
-    //every frame that new MIDI events happen,
+    //every frame that new MIDI events happen, 
     //every condition function in the list will be evaluated
     //and the associated action will be taken if true.
     private List<Tuple<Func<bool>, Action>> gameEvents;
