@@ -15,7 +15,7 @@ TODO:
             -There are consequently 12 types of them, one for each semitone. That may be too many for the player to think about, so I will think of a better way to get the concept across.
         -Crystals: A sparkling, delicate crystal. There is only one type, used for miscellaneous purposes such as the input to converters that produce special items.
         -Wisps: An ephemeral ball of smoke which shoots sparks like a sparkler. Decays quickly after being produced. Input to unusually powerful machines.
-            -The lower the note of the room where the wisp was produced, the longer it lasts.
+            -The higher the note of the room where the wisp was produced, the longer it lasts.
             -There is only one type of wisp.
         -Keys
         -Health
@@ -111,7 +111,7 @@ New idea is:
                 -There are consequently 12 types of them, one for each semitone. That may be too many for the player to think about, so I will think of a better way to get the concept across.
             -Crystals: A sparkling crystal. There is only one type, used for miscellaneous purposes such as the input to converters that produce special items.
             -Wisps: An ephemeral ball of smoke which shoots sparks like a sparkler. Decays quickly after being produced. Input to unusually powerful machines.
-                -The lower the note of the room where the wisp was produced, the longer it lasts.
+                -The higher the note of the room where the wisp was produced, the longer it lasts.
                 -There is only one type of wisp.
             -Keys
             -Health

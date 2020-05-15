@@ -20,7 +20,6 @@ public class RoomMaker : MonoBehaviour {
     //grid settings
     private float cellSize;
 
-    private bool putANote = false;
     private int baseNote;
 
     // Start is called before the first frame update
@@ -82,55 +81,19 @@ public class RoomMaker : MonoBehaviour {
         Vector2Int left = new Vector2Int(x - 1, y);
         Vector2Int right = new Vector2Int(x + 1, y);
         Vector2Int playerSquare = PlayerGridSquare();
-        if (playerSquare.x == up.x && playerSquare.y == up.y) {
+        //for each occupied adjacent room, if it's within the player's travel range, remove the wall
+        int noteRange = 5;
+        if (IsOccupied(up) && Mathf.Abs(roomsInGrid[up].GetComponent<Room>().note - note) <= noteRange) {
             RemoveUp(gridPosition);
-            return;
         }
-        if (playerSquare.x == down.x && playerSquare.y == down.y) {
+        if (IsOccupied(down) && Mathf.Abs(roomsInGrid[down].GetComponent<Room>().note - note) <= noteRange) {
             RemoveDown(gridPosition);
-            return;
         }
-        if (playerSquare.x == left.x && playerSquare.y == left.y) {
+        if (IsOccupied(left) && Mathf.Abs(roomsInGrid[left].GetComponent<Room>().note - note) <= noteRange) {
             RemoveLeft(gridPosition);
-            return;
         }
-        if (playerSquare.x == right.x && playerSquare.y == right.y) {
+        if (IsOccupied(right) && Mathf.Abs(roomsInGrid[right].GetComponent<Room>().note - note) <= noteRange) {
             RemoveRight(gridPosition);
-            return;
-        }
-        //otherwise remove randomly for one of the adjacent rooms that is occupied
-        List<int> choices = new List<int>();
-        if (IsOccupied(up)) {
-            choices.Add(0);
-        }
-        if (IsOccupied(down)) {
-            choices.Add(1);
-        }
-        if (IsOccupied(left)) {
-            choices.Add(2);
-        }
-        if (IsOccupied(right)) {
-            choices.Add(3);
-        }
-        if (choices.Count == 0) {
-            return;
-        }
-        int whichRoom = choices[UnityEngine.Random.Range(0, choices.Count)];
-        if (whichRoom == 0) {
-            RemoveUp(gridPosition);
-            return;
-        }
-        if (whichRoom == 1) {
-            RemoveDown(gridPosition);
-            return;
-        }
-        if (whichRoom == 2) {
-            RemoveLeft(gridPosition);
-            return;
-        }
-        if (whichRoom == 3) {
-            RemoveRight(gridPosition);
-            return;
         }
     }
 
@@ -141,8 +104,9 @@ public class RoomMaker : MonoBehaviour {
     //If there are any unoccupied rooms at the end of this layer, return the minimum distance one.
     private Vector2Int ClosestUnoccupiedGridSquare(Vector3 position) {
         //get x and y of player's current grid square, use that as the base.
-        int xbase = (int)Mathf.Round(player.transform.position.x / cellSize);
-        int ybase = (int)Mathf.Round(player.transform.position.y / cellSize);
+        Vector2Int playerSquare = PlayerGridSquare();
+        int xbase = playerSquare.x;
+        int ybase = playerSquare.y;
 
         int width = 3;
         Vector2Int result = new Vector2Int(-width + xbase, -width + ybase);
@@ -176,7 +140,6 @@ public class RoomMaker : MonoBehaviour {
     private Vector2Int PlayerGridSquare() {
         int xbase = (int)Mathf.Round(player.transform.position.x / cellSize);
         int ybase = (int)Mathf.Round(player.transform.position.y / cellSize);
-        //print("player is in " + xbase + ", " + ybase);
         return new Vector2Int(xbase, ybase);
     }
     private Vector3 GridToWorldPosition(Vector2Int gridPosition, float z) {

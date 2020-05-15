@@ -357,7 +357,7 @@ MonoBehaviour:
   Wall: {fileID: 3234530633924402285, guid: 6d8ef2d1cd55d4ad495827f2978cf427, type: 3}
   GenericMachine: {fileID: 5704719540978910691, guid: 6e7f02fb176084e5a85c1686dc7c1129,
     type: 3}
-  playNotes: 0
+  playNotes: 1
   MEH: {fileID: 1311953793}
 --- !u!4 &536845053
 Transform:
@@ -669,6 +669,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MP: {fileID: 1311953789}
   DM: {fileID: 536845052}
-  midifilename: DebussyPassepied.mid
-  midiTimeRate: 1
+  midifilename: LittleFugue.midi
+  midiTimeRate: 4
   seed: 0
