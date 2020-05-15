@@ -10,7 +10,7 @@ public class MidiEventHandler : MonoBehaviour {
     [SerializeField]
     private MidiParser MP;
 
-    public RoomMaker DM;
+    public RoomMaker RM;
     private string midifoldername = "Assets/Resources/MIDI/";
     public string midifilename;
 
@@ -71,15 +71,15 @@ public class MidiEventHandler : MonoBehaviour {
             if (currentEvent.type.Contains("on")) {
                 currentNotes.Add(currentEvent.note);
                 if (currentEvent.type.Contains("first")) {
-                    DM.CreateNoteRoom(currentEvent.note);
+                    RM.CreateNoteRoom(currentEvent.note);
                 }
-                DM.PowerOn(currentEvent.note);
+                RM.PowerOn(currentEvent.note);
             } else {
                 currentNotes.Remove(currentEvent.note);
                 if (currentEvent.type.Contains("last")) {
-                    DM.DestroyNoteRoom(currentEvent.note);
+                    RM.DestroyNoteRoom(currentEvent.note);
                 }
-                DM.PowerOff(currentEvent.note);
+                RM.PowerOff(currentEvent.note);
             }
 
             //move to next midi event

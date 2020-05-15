@@ -57,10 +57,10 @@ public class CameraController : MonoBehaviour {
         //renormalize offset so that it's the proper distance away
         offset = offset.normalized * offsetDistance;
 
-        //exp lerp toward new targets
-        targetPos = lerpPercentage * (target.position - targetPos) + targetPos;
-
         transform.position = targetPos + offset;
         transform.LookAt(targetPos);
+
+        //exp lerp toward new targets
+        targetPos = lerpPercentage * (target.position - targetPos) + targetPos;
     }
 }
