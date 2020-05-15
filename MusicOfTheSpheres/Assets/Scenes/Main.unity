@@ -310,8 +310,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   turnSpeed: 3
-  vertSpeed: 2
+  vertSpeed: 1.5
   offsetDistance: 20
+  turnInverted: 1
+  vertInverted: 0
+  zoomSpeed: 0.1
+  zoomMax: 100
+  zoomMin: 12
   target: {fileID: 1768216103}
 --- !u!1 &970823765
 GameObject:

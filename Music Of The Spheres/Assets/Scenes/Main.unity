@@ -260,10 +260,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 908829187}
   damping: 0.2
-  lookAheadFactor: 0
-  lookAheadReturnSpeed: 0.5
-  lookAheadMoveThreshold: 0.1
-  scrollSpeed: 1
+  zoomSpeed: 0.1
   zoomMax: 70
   zoomMin: 2
 --- !u!20 &519420031

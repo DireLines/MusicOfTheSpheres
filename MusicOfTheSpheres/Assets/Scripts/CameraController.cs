@@ -5,21 +5,34 @@ using UnityEngine;
 public class CameraController : MonoBehaviour {
     [SerializeField]
     float turnSpeed, vertSpeed, offsetDistance;
+    [SerializeField]
+    bool turnInverted, vertInverted;
+    float turnDirection, vertDirection;
+    [SerializeField]
+    float zoomSpeed, zoomMax, zoomMin;
 
     [SerializeField]
     Transform target;
+    public Transform Target {
+        get { return target; }
+        set { target = value; }
+    }
 
     private Vector3 offset;
 
 
     void Start() {
+        turnDirection = turnInverted ? -1 : 1;
+        vertDirection = vertInverted ? -1 : 1;
         offset = new Vector3(target.position.x + 6.0f, target.position.y + 8.0f, target.position.z + 7.0f);
     }
 
     void LateUpdate() {
         //input
-        offset = Quaternion.AngleAxis(-Input.GetAxisRaw("Horizontal") * turnSpeed, Vector3.up) * offset;
-        offset = Quaternion.AngleAxis(Input.GetAxisRaw("Vertical") * vertSpeed, transform.right) * offset;
+        offset = Quaternion.AngleAxis(Input.GetAxis("Horizontal") * turnSpeed * turnDirection, Vector3.up) * offset;
+        offset = Quaternion.AngleAxis(Input.GetAxis("Vertical") * vertSpeed * vertDirection, transform.right) * offset;
+        float zoomInput = Input.GetAxis("Mouse ScrollWheel") * zoomSpeed * offsetDistance;
+        offsetDistance = Mathf.Clamp(offsetDistance + zoomInput, zoomMin, zoomMax);
 
         //clamp vertical angle to reasonable region
         //TODO: bound above & below by angle and not y value
