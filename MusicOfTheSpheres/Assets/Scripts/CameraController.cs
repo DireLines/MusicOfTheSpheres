@@ -17,14 +17,29 @@ public class CameraController : MonoBehaviour {
         get { return target; }
         set { target = value; }
     }
+    [SerializeField]
+    float lerpPercentage = 0.01f;
 
     private Vector3 offset;
+    private Vector3 m_CurrentVelocity;
+    private Vector3 targetPos;
+
+    public Transform debugT1;
+    public Transform debugT2;
 
 
     void Start() {
+        target = debugT1;//debug
         turnDirection = turnInverted ? -1 : 1;
         vertDirection = vertInverted ? -1 : 1;
-        offset = new Vector3(target.position.x + 6.0f, target.position.y + 8.0f, target.position.z + 7.0f);
+        targetPos = target.position;
+        offset = new Vector3(targetPos.x + 6.0f, targetPos.y + 8.0f, targetPos.z + 7.0f);
+    }
+    void Update() {
+        if (Input.GetKeyDown(KeyCode.P)) {
+            target = (target == debugT1) ? debugT2 : debugT1;
+        }
+
     }
 
     void LateUpdate() {
@@ -36,13 +51,16 @@ public class CameraController : MonoBehaviour {
 
         //clamp vertical angle to reasonable region
         //TODO: bound above & below by angle and not y value
-        float yDiff = offset.y - target.position.y;
-        offset = new Vector3(offset.x, target.position.y + Mathf.Max(0, yDiff), offset.z);
+        //float yDiff = offset.y - targetPos.y;
+        //offset = new Vector3(offset.x, targetPos.y + Mathf.Max(0, yDiff), offset.z);
 
         //renormalize offset so that it's the proper distance away
         offset = offset.normalized * offsetDistance;
 
-        transform.position = target.position + offset;
-        transform.LookAt(target.position);
+        //exp lerp toward new targets
+        targetPos = lerpPercentage * (target.position - targetPos) + targetPos;
+
+        transform.position = targetPos + offset;
+        transform.LookAt(targetPos);
     }
 }
