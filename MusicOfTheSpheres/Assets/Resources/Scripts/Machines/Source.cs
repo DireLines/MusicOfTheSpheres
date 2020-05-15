@@ -2,17 +2,38 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Source : MonoBehaviour
-{
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+public class Source : Machine {
+    [SerializeField]
+    private Item item;
+    [SerializeField]
+    private float cooldown;
+    private ItemPedestal outputSlot;
+
+    private float cooldownTimer;
+
+
+    private void Start() {
+        outputSlot = transform.Find("OutputSlot").gameObject.GetComponent<ItemPedestal>();
+        cooldownTimer = cooldown;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    private void Update() {
+        if (powered) {
+            cooldownTimer -= Time.deltaTime;
+            if (cooldownTimer <= 0) {
+                cooldownTimer = cooldown;
+                //spawn the item 
+                outputSlot.Spawn(item);
+                print("source machine \"spawning the item\"");
+            }
+        }
+    }
+
+    public Item GetItem() {
+        return item;
+    }
+
+    public void SetItem(Item i) {
+        item = i;
     }
 }
