@@ -39,13 +39,12 @@ public class CameraController : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.P)) {
             target = (target == debugT1) ? debugT2 : debugT1;
         }
-
     }
 
     void LateUpdate() {
         //input
-        offset = Quaternion.AngleAxis(Input.GetAxis("Horizontal") * turnSpeed * turnDirection, Vector3.up) * offset;
-        offset = Quaternion.AngleAxis(Input.GetAxis("Vertical") * vertSpeed * vertDirection, transform.right) * offset;
+        offset = Quaternion.AngleAxis(Input.GetAxis("Camera Horizontal") * turnSpeed * turnDirection, Vector3.up) * offset;
+        offset = Quaternion.AngleAxis(Input.GetAxis("Camera Vertical") * vertSpeed * vertDirection, transform.right) * offset;
         float zoomInput = Input.GetAxis("Mouse ScrollWheel") * zoomSpeed * offsetDistance;
         offsetDistance = Mathf.Clamp(offsetDistance + zoomInput, zoomMin, zoomMax);
 
