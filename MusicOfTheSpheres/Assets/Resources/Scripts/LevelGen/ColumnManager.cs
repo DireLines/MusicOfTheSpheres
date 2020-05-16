@@ -24,6 +24,11 @@ public class ColumnManager : MonoBehaviour {
         columnsInGrid = new Dictionary<Vector2Int, GameObject>();
     }
 
+    private void Update() {
+        //TODO: find the column the player is standing on
+        //TODO: make the camera target that column
+    }
+
     public void DestroyColumn(int note) {
         print("destroying column " + note);
         PowerOff(note);
@@ -42,7 +47,7 @@ public class ColumnManager : MonoBehaviour {
     //create normal note column which responds to note at closest unoccupied grid square to the player
     public void CreateColumn(int note) {
         Vector2Int gridPosition = ClosestUnoccupiedGridSquare(player.transform.position);
-        Vector3 worldPosition = GridToWorldPosition(gridPosition, player.transform.position.z);
+        Vector3 worldPosition = GridToWorldPosition(gridPosition, note);
         GameObject newColumn = Instantiate(Column, worldPosition, Quaternion.identity, gameObject.transform);
         newColumn.name = "Column " + note;
         columns[note] = newColumn;
@@ -50,17 +55,17 @@ public class ColumnManager : MonoBehaviour {
         columnsInGrid[gridPosition] = newColumn;
         newColumn.GetComponent<Column>().pos = gridPosition;
         newColumn.GetComponent<Column>().playNotes = playNotes;
-        for (int i = 0; i < UnityEngine.Random.Range(1, 5); i++) {
-            GameObject machine = Instantiate(
-                GenericMachine,
-                newColumn.transform.position +
-                new Vector3(UnityEngine.Random.Range(-cellSize / 4, cellSize / 4),
-                            newColumn.transform.position.y,
-                            UnityEngine.Random.Range(-cellSize / 4, cellSize / 4)),
-                Quaternion.identity,
-                newColumn.transform);
-            newColumn.transform.Find("PowerSource").GetComponent<PowerSource>().machines.Add(machine.GetComponent<Machine>());
-        }
+        //for (int i = 0; i < UnityEngine.Random.Range(1, 5); i++) {
+        //    GameObject machine = Instantiate(
+        //        GenericMachine,
+        //        newColumn.transform.position +
+        //        new Vector3(UnityEngine.Random.Range(-cellSize / 4, cellSize / 4),
+        //                    newColumn.transform.position.y,
+        //                    UnityEngine.Random.Range(-cellSize / 4, cellSize / 4)),
+        //        Quaternion.identity,
+        //        newColumn.transform);
+        //    newColumn.transform.Find("PowerSource").GetComponent<PowerSource>().machines.Add(machine.GetComponent<Machine>());
+        //}
         float degree = (note - 32) / 81f;
         //TODO: change object's color in the 3D way
         //newColumn.transform.Find("Floor").GetComponent<SpriteRenderer>().color = new Color(degree, 0f, (1f - degree) * 0.3f, 1f);
@@ -105,7 +110,7 @@ public class ColumnManager : MonoBehaviour {
         Vector2Int result = new Vector2Int(-width + xbase, -width + ybase);
         while (width < 100) {
             result = new Vector2Int(-width + xbase, -width + ybase);
-            Vector3 pos = GridToWorldPosition(result, player.transform.position.z);
+            Vector3 pos = GridToWorldPosition(result, 0);
             float minimumDistance = (player.transform.position - pos).sqrMagnitude;
             bool foundInLayer = false;
             for (int x = -width; x <= width; x++) {
@@ -113,7 +118,7 @@ public class ColumnManager : MonoBehaviour {
                     Vector2Int xy = new Vector2Int(x + xbase, y + ybase);
                     if (!IsOccupied(xy)) {
                         foundInLayer = true;
-                        pos = GridToWorldPosition(xy, player.transform.position.z);
+                        pos = GridToWorldPosition(xy, 0);
                         float dist = (player.transform.position - pos).sqrMagnitude;
                         if (dist < minimumDistance) {
                             minimumDistance = dist;
@@ -135,8 +140,8 @@ public class ColumnManager : MonoBehaviour {
         int ybase = (int)Mathf.Round(player.transform.position.y / cellSize);
         return new Vector2Int(xbase, ybase);
     }
-    private Vector3 GridToWorldPosition(Vector2Int gridPosition, float z) {
-        return new Vector3(cellSize * gridPosition.x, z, cellSize * gridPosition.y);
+    private Vector3 GridToWorldPosition(Vector2Int gridPosition, int note) {
+        return new Vector3(cellSize * gridPosition.x, note - 64, cellSize * gridPosition.y);
     }
 
     private bool IsOccupied(Vector2Int gridSpot) {
