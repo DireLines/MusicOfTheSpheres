@@ -55,14 +55,15 @@ public class ColumnManager : MonoBehaviour {
                 GenericMachine,
                 newColumn.transform.position +
                 new Vector3(UnityEngine.Random.Range(-cellSize / 4, cellSize / 4),
-                            UnityEngine.Random.Range(-cellSize / 4, cellSize / 4),
-                            0f),
+                            newColumn.transform.position.y,
+                            UnityEngine.Random.Range(-cellSize / 4, cellSize / 4)),
                 Quaternion.identity,
                 newColumn.transform);
             newColumn.transform.Find("PowerSource").GetComponent<PowerSource>().machines.Add(machine.GetComponent<Machine>());
         }
         float degree = (note - 32) / 81f;
-        newColumn.transform.Find("Floor").GetComponent<SpriteRenderer>().color = new Color(degree, 0f, (1f - degree) * 0.3f, 1f);
+        //TODO: change object's color in the 3D way
+        //newColumn.transform.Find("Floor").GetComponent<SpriteRenderer>().color = new Color(degree, 0f, (1f - degree) * 0.3f, 1f);
         //figure out which wall to remove from this column
         //if the player is in one of the adjacent squares, remove only the wall for that one
         int x = gridPosition.x;
@@ -135,7 +136,7 @@ public class ColumnManager : MonoBehaviour {
         return new Vector2Int(xbase, ybase);
     }
     private Vector3 GridToWorldPosition(Vector2Int gridPosition, float z) {
-        return new Vector3(cellSize * gridPosition.x, cellSize * gridPosition.y, z);
+        return new Vector3(cellSize * gridPosition.x, z, cellSize * gridPosition.y);
     }
 
     private bool IsOccupied(Vector2Int gridSpot) {

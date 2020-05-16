@@ -4,7 +4,7 @@ using UnityEngine;
 
 //TODO: convert to 3D equivalent of setting sprite renderer brightness
 public class PowerSource : MonoBehaviour {
-    private SpriteRenderer sr;
+    //private SpriteRenderer sr;
     private float brightness;
     private float onBrightness = 0.7f;
     private float offBrightness = 0.2f;
@@ -17,14 +17,14 @@ public class PowerSource : MonoBehaviour {
     void Awake() {
         //brightness = offBrightness;
         //targetBrightness = offBrightness;
-        sr = GetComponent<SpriteRenderer>();
+        //sr = GetComponent<SpriteRenderer>();
         machines = new List<Machine>();
     }
 
     // Update is called once per frame
     void Update() {
         brightness += (targetBrightness - brightness) * fadeSpeed;
-        sr.color = new Color(brightness, brightness, brightness, 1f);
+        //sr.color = new Color(brightness, brightness, brightness, 1f);
     }
 
     public void PowerOn() {
