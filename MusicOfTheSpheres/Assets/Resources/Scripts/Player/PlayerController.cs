@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void Update() {
+    void FixedUpdate() {
         //TODO: make the player move with respect to the projection of the camera's "forward" onto the plane
         Vector2 movementWithinPlane = new Vector2(Input.GetAxis("Horizontal") * moveSpeed * Time.deltaTime, Input.GetAxis("Vertical") * moveSpeed * Time.deltaTime);
         if (movementWithinPlane.magnitude > moveSpeed) {

@@ -32,7 +32,9 @@ public class ColumnManager : MonoBehaviour {
     public void DestroyColumn(int note) {
         print("destroying column " + note);
         PowerOff(note);
-        columns[note].transform.Find("Void").gameObject.SetActive(true);
+        //TODO: remove column from data structures and such
+        Destroy(columns[note]);
+        //columns[note].transform.Find("Void").gameObject.SetActive(true);
     }
 
     public void PowerOn(int note) {
@@ -93,6 +95,7 @@ public class ColumnManager : MonoBehaviour {
         if (IsOccupied(right) && Mathf.Abs(columnsInGrid[right].GetComponent<Column>().note - note) <= noteRange) {
             RemoveRight(gridPosition);
         }
+        Camera.main.GetComponent<CameraController>().Target = newColumn.transform;
     }
 
 
