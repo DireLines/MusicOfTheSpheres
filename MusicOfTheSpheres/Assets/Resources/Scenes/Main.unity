@@ -383,8 +383,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MP: {fileID: 1045909660}
   CM: {fileID: 1045909661}
-  midifilename: LittleFugue.midi
-  midiTimeRate: 50
+  midifilename: DebussyPassepied.mid
+  midiTimeRate: 4
   seed: 0
 --- !u!114 &1045909660
 MonoBehaviour:
@@ -415,7 +415,7 @@ MonoBehaviour:
   Wall: {fileID: 1779006465984371320, guid: 8d17e33236d3f49579456fba14dec2a9, type: 3}
   GenericMachine: {fileID: 1779006465984371320, guid: 8d17e33236d3f49579456fba14dec2a9,
     type: 3}
-  playNotes: 0
+  playNotes: 1
   MEH: {fileID: 1045909659}
 --- !u!4 &1045909662
 Transform:
@@ -639,6 +639,11 @@ PrefabInstance:
         type: 3}
       propertyPath: offset
       value: -50
+      objectReference: {fileID: 0}
+    - target: {fileID: 8185112134411197464, guid: 9dba02d09e3c54af89fee089ff9a2127,
+        type: 3}
+      propertyPath: maxDistBelowTarget
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9dba02d09e3c54af89fee089ff9a2127, type: 3}

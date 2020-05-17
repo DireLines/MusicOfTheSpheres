@@ -6,7 +6,7 @@ public class FogPlane : MonoBehaviour {
     Transform mainCam;
 
     [SerializeField]
-    float offset;
+    float offset, maxDistBelowTarget;
 
     private void Start() {
         mainCam = Camera.main.transform;
@@ -14,6 +14,7 @@ public class FogPlane : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-        transform.position = mainCam.position + new Vector3(0, offset, 0);
+        float height = Mathf.Min(mainCam.position.y + offset, mainCam.GetComponent<CameraController>().Target.position.y - maxDistBelowTarget);
+        transform.position = new Vector3(mainCam.position.x, height, mainCam.position.z);
     }
 }
