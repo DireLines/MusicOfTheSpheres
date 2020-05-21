@@ -68,9 +68,6 @@ public class ColumnManager : MonoBehaviour {
         //        newColumn.transform);
         //    newColumn.transform.Find("PowerSource").GetComponent<PowerSource>().machines.Add(machine.GetComponent<Machine>());
         //}
-        float degree = (note - 32) / 81f;
-        //TODO: change object's color in the 3D way
-        //newColumn.transform.Find("Floor").GetComponent<SpriteRenderer>().color = new Color(degree, 0f, (1f - degree) * 0.3f, 1f);
         //figure out which wall to remove from this column
         //if the player is in one of the adjacent squares, remove only the wall for that one
         int x = gridPosition.x;

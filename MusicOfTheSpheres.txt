@@ -5,13 +5,13 @@ TODO:
     -3Dification
         -debug port of existing code
             -machine prefab that has the machine script
+                -power indicator
             -deleting columns doesn't work properly
             -midi parser sometimes gets out of bounds errors
         -restrict camera angle / player movement between 8 cardinal directions
         -generate stairs
         -allow player to move up/down stairs in a controlled way
             -allow player to move up/down octaves
-        -make things glow / change color correctly
         -display upcoming notes on columns
         -figure out how to display upcoming columns
         -make columns crumble as the last note ends
@@ -22,7 +22,7 @@ TODO:
     -Player interaction script
         -mostly borrow it from Keywords
     -inventory
-    -List of Basic Resources
+    -Basic Resources
         -Music notes: A tiny golden music note. The thing you're trying to maximize over the course of the run. Roughly analogous to points, except that they can be consumed like any other resources.
         -Orbs: A glowing orb which represents the note value of the room.
             -There are consequently 12 types of them, one for each semitone. That may be too many for the player to think about, so I will think of a better way to get the concept across.
