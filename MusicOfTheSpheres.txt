@@ -2,6 +2,19 @@ Music of the Spheres
 
 
 TODO:
+    -3Dification
+        -debug port of existing code
+            -machine prefab that has the machine script
+            -deleting columns doesn't work properly
+            -midi parser sometimes gets out of bounds errors
+        -restrict camera angle / player movement between 8 cardinal directions
+        -generate stairs
+        -allow player to move up/down stairs in a controlled way
+            -allow player to move up/down octaves
+        -make things glow / change color correctly
+        -display upcoming notes on columns
+        -figure out how to display upcoming columns
+        -make columns crumble as the last note ends
     -Some handy stuff to genericize
         -item pedestal
         -picking up / setting down a holdable item
@@ -22,7 +35,7 @@ TODO:
         -Special Items
         -Machines
     -Machines
-        -Source: While plugged in, produces 1 of resource A every X seconds. Free resources!
+        -Source: While powered on, produces 1 of resource A every X seconds. Free resources!
         -Converter: When powered on and fed X amount of resource A, outputs Y amount of resource B. Most machines will work like this.
             -Machines are themselves a resource. This leads to all kinds of potential type theory shenanigans
         -Portal: Two portals are linked. One is placed in Room A and the other in Room B. When A and B are both powered, traveling through the portal will instantly transport things from room A to B.

@@ -13,10 +13,8 @@ public class CameraController : MonoBehaviour {
 
     [SerializeField]
     Transform target;
-    public Transform Target {
-        get { return target; }
-        set { target = value; }
-    }
+    public Transform Target { get => target; set => target = value; }
+
     [SerializeField]
     float lerpPercentage = 0.01f;
 
