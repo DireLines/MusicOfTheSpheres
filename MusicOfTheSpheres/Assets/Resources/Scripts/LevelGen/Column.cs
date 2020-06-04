@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Column : MonoBehaviour {
     public int note;
+    public int worldHeight;
     public Vector2Int pos;
     private GameObject powerSource;
 

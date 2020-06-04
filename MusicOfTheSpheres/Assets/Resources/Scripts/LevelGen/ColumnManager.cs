@@ -16,7 +16,6 @@ public class ColumnManager : MonoBehaviour {
     //grid settings
     private float cellSize;
 
-    private int baseNote;
     // Start is called before the first frame update
     void Start() {
         cellSize = Column.transform.Find("Column").lossyScale.x;
@@ -25,8 +24,10 @@ public class ColumnManager : MonoBehaviour {
     }
 
     private void Update() {
-        //TODO: find the column the player is standing on
-        //TODO: make the camera target that column
+        GameObject playerColumn = columnsInGrid[PlayerGridSquare()];
+        if (playerColumn != null) {
+            Camera.main.GetComponent<CameraController>().Target = playerColumn.transform;
+        }
     }
 
     public void DestroyColumn(int note) {
@@ -34,7 +35,6 @@ public class ColumnManager : MonoBehaviour {
         PowerOff(note);
         //TODO: remove column from data structures and such
         Destroy(columns[note]);
-        //columns[note].transform.Find("Void").gameObject.SetActive(true);
     }
 
     public void PowerOn(int note) {
@@ -57,6 +57,8 @@ public class ColumnManager : MonoBehaviour {
         columnsInGrid[gridPosition] = newColumn;
         newColumn.GetComponent<Column>().pos = gridPosition;
         newColumn.GetComponent<Column>().playNotes = playNotes;
+
+        //TODO: use this machine spawning logic once machine prefab is done
         //for (int i = 0; i < UnityEngine.Random.Range(1, 5); i++) {
         //    GameObject machine = Instantiate(
         //        GenericMachine,
@@ -68,16 +70,15 @@ public class ColumnManager : MonoBehaviour {
         //        newColumn.transform);
         //    newColumn.transform.Find("PowerSource").GetComponent<PowerSource>().machines.Add(machine.GetComponent<Machine>());
         //}
-        //figure out which wall to remove from this column
+
+        //figure out which walls to remove from this column
         //if the player is in one of the adjacent squares, remove only the wall for that one
         int x = gridPosition.x;
         int y = gridPosition.y;
-        //print(x + ", " + y);
         Vector2Int up = new Vector2Int(x, y + 1);
         Vector2Int down = new Vector2Int(x, y - 1);
         Vector2Int left = new Vector2Int(x - 1, y);
         Vector2Int right = new Vector2Int(x + 1, y);
-        Vector2Int playerSquare = PlayerGridSquare();
         //for each occupied adjacent column, if it's within the player's travel range, remove the wall
         int noteRange = 5;
         if (IsOccupied(up) && Mathf.Abs(columnsInGrid[up].GetComponent<Column>().note - note) <= noteRange) {
@@ -92,7 +93,6 @@ public class ColumnManager : MonoBehaviour {
         if (IsOccupied(right) && Mathf.Abs(columnsInGrid[right].GetComponent<Column>().note - note) <= noteRange) {
             RemoveRight(gridPosition);
         }
-        Camera.main.GetComponent<CameraController>().Target = newColumn.transform;
     }
 
 
@@ -137,7 +137,7 @@ public class ColumnManager : MonoBehaviour {
 
     private Vector2Int PlayerGridSquare() {
         int xbase = (int)Mathf.Round(player.transform.position.x / cellSize);
-        int ybase = (int)Mathf.Round(player.transform.position.y / cellSize);
+        int ybase = (int)Mathf.Round(player.transform.position.z / cellSize);
         return new Vector2Int(xbase, ybase);
     }
     private Vector3 GridToWorldPosition(Vector2Int gridPosition, int note) {
