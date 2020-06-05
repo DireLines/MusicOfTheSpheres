@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour {
     private float interactRadius;
     [SerializeField]
     private float moveSpeed;
+
     // Start is called before the first frame update
     void Start() {
         inventory = GetComponent<Inventory>();
@@ -20,15 +21,16 @@ public class PlayerController : MonoBehaviour {
 
     // Update is called once per frame
     void FixedUpdate() {
-        //TODO: make the player move with respect to the projection of the camera's "forward" onto the plane
+        Vector3 forward = Vector3.ProjectOnPlane(Camera.main.transform.forward, Vector3.up).normalized;
+        Vector3 right = Vector3.ProjectOnPlane(Camera.main.transform.right, Vector3.up).normalized;
         Vector2 movementWithinPlane = new Vector2(Input.GetAxis("Horizontal") * moveSpeed * Time.deltaTime, Input.GetAxis("Vertical") * moveSpeed * Time.deltaTime);
         if (movementWithinPlane.magnitude > moveSpeed) {
             movementWithinPlane = movementWithinPlane.normalized * moveSpeed;
         }
-        GetComponent<Rigidbody>().velocity = new Vector3(
-            movementWithinPlane.x,
-            GetComponent<Rigidbody>().velocity.y,
-            movementWithinPlane.y
-       );
+        Vector3 dir = forward * movementWithinPlane.y + right * movementWithinPlane.x;
+        if (dir.magnitude > 0) {
+            transform.forward = dir;
+        }
+        GetComponent<Rigidbody>().velocity = dir + new Vector3(0, GetComponent<Rigidbody>().velocity.y, 0);
     }
 }
