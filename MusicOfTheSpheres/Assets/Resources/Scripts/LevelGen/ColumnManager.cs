@@ -24,17 +24,18 @@ public class ColumnManager : MonoBehaviour {
     }
 
     private void Update() {
-        GameObject playerColumn = columnsInGrid[PlayerGridSquare()];
-        if (playerColumn != null) {
-            Camera.main.GetComponent<CameraController>().Target = playerColumn.transform;
+        if (columnsInGrid.ContainsKey(PlayerGridSquare()) && columnsInGrid[PlayerGridSquare()]) {
+            Camera.main.GetComponent<CameraController>().Target = columnsInGrid[PlayerGridSquare()].transform;
+        } else {
+            Camera.main.GetComponent<CameraController>().Target = player.transform;
         }
     }
 
     public void DestroyColumn(int note) {
         print("destroying column " + note);
-        PowerOff(note);
-        //TODO: remove column from data structures and such
+        columnsInGrid.Remove(columns[note].GetComponent<Column>().pos);
         Destroy(columns[note]);
+        columns.Remove(note);
     }
 
     public void PowerOn(int note) {
@@ -44,7 +45,6 @@ public class ColumnManager : MonoBehaviour {
     public void PowerOff(int note) {
         columns[note].GetComponent<Column>().PowerOff();
     }
-
 
     //create normal note column which responds to note at closest unoccupied grid square to the player
     public void CreateColumn(int note) {
@@ -145,14 +145,14 @@ public class ColumnManager : MonoBehaviour {
     }
 
     private bool IsOccupied(Vector2Int gridSpot) {
-        return columnsInGrid.ContainsKey(gridSpot);
+        return columnsInGrid.ContainsKey(gridSpot) && columnsInGrid[gridSpot];
     }
 
     private void RemoveUp(Vector2Int xy) {
         Destroy(columnsInGrid[xy].transform.Find("WallUp").gameObject);
         Vector2Int up = new Vector2Int(xy.x, xy.y + 1);
         if (IsOccupied(up)) {
-            Destroy(columnsInGrid[up].transform.Find("WallDown").gameObject);
+            columnsInGrid[up].transform.Find("WallDown").gameObject.active = false;
         }
     }
 
@@ -160,7 +160,7 @@ public class ColumnManager : MonoBehaviour {
         Destroy(columnsInGrid[xy].transform.Find("WallDown").gameObject);
         Vector2Int down = new Vector2Int(xy.x, xy.y - 1);
         if (IsOccupied(down)) {
-            Destroy(columnsInGrid[down].transform.Find("WallUp").gameObject);
+            columnsInGrid[down].transform.Find("WallUp").gameObject.active = false;
         }
     }
 
@@ -168,7 +168,7 @@ public class ColumnManager : MonoBehaviour {
         Destroy(columnsInGrid[xy].transform.Find("WallLeft").gameObject);
         Vector2Int left = new Vector2Int(xy.x - 1, xy.y);
         if (IsOccupied(left)) {
-            Destroy(columnsInGrid[left].transform.Find("WallRight").gameObject);
+            columnsInGrid[left].transform.Find("WallRight").gameObject.active = false;
         }
     }
 
@@ -176,7 +176,7 @@ public class ColumnManager : MonoBehaviour {
         Destroy(columnsInGrid[xy].transform.Find("WallRight").gameObject);
         Vector2Int right = new Vector2Int(xy.x + 1, xy.y);
         if (IsOccupied(right)) {
-            Destroy(columnsInGrid[right].transform.Find("WallLeft").gameObject);
+            columnsInGrid[right].transform.Find("WallLeft").gameObject.active = false;
         }
     }
 

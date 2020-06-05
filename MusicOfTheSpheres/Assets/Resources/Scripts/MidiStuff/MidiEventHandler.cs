@@ -77,10 +77,10 @@ public class MidiEventHandler : MonoBehaviour {
                 CM.PowerOn(currentEvent.note);
             } else {
                 currentNotes.Remove(currentEvent.note);
+                CM.PowerOff(currentEvent.note);
                 if (currentEvent.type.Contains("last")) {
                     CM.DestroyColumn(currentEvent.note);
                 }
-                CM.PowerOff(currentEvent.note);
             }
 
             //move to next midi event

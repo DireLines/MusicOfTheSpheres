@@ -6,9 +6,8 @@ TODO:
         -debug port of existing code
             -machine prefab that has the machine script
                 -power indicator prefab
-            -deleting columns doesn't work properly
             -midi parser sometimes gets out of bounds errors
-        -restrict camera angle / player movement between 8 cardinal directions
+        -restrict camera angle between 8 cardinal directions
         -generate stairs
         -allow player to move up/down stairs in a controlled way
             -allow player to move up/down octaves
