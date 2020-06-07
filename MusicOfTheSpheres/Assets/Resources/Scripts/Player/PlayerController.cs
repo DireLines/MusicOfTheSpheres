@@ -31,6 +31,14 @@ public class PlayerController : MonoBehaviour {
         if (dir.magnitude > 0) {
             transform.forward = dir;
         }
-        GetComponent<Rigidbody>().velocity = dir + new Vector3(0, GetComponent<Rigidbody>().velocity.y, 0);
+        //GetComponent<Rigidbody>().velocity = dir + new Vector3(0, GetComponent<Rigidbody>().velocity.y, 0);
+        //TODO: stair movement
+
+        //find resulting point in x/z plane from stepping in this direction
+        //raycast straight down from the sky to find the highest platform at that point
+        //if diff in height between that platform and current is between -1 and 1:
+        //  move player to the platform
+        //  GetComponent<Rigidbody>().velocity = dir;
+        //  transform.position.y = platform's surface y + epsilon
     }
 }

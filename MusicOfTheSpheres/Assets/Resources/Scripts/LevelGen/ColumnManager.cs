@@ -57,6 +57,7 @@ public class ColumnManager : MonoBehaviour {
         columnsInGrid[gridPosition] = newColumn;
         newColumn.GetComponent<Column>().pos = gridPosition;
         newColumn.GetComponent<Column>().playNotes = playNotes;
+        //TODO: set platform height to note
 
         //TODO: use this machine spawning logic once machine prefab is done
         //for (int i = 0; i < UnityEngine.Random.Range(1, 5); i++) {
@@ -82,16 +83,16 @@ public class ColumnManager : MonoBehaviour {
         //for each occupied adjacent column, if it's within the player's travel range, remove the wall
         int noteRange = 5;
         if (IsOccupied(up) && Mathf.Abs(columnsInGrid[up].GetComponent<Column>().note - note) <= noteRange) {
-            RemoveUp(gridPosition);
+            ConnectUp(gridPosition);
         }
         if (IsOccupied(down) && Mathf.Abs(columnsInGrid[down].GetComponent<Column>().note - note) <= noteRange) {
-            RemoveDown(gridPosition);
+            ConnectDown(gridPosition);
         }
         if (IsOccupied(left) && Mathf.Abs(columnsInGrid[left].GetComponent<Column>().note - note) <= noteRange) {
-            RemoveLeft(gridPosition);
+            ConnectLeft(gridPosition);
         }
         if (IsOccupied(right) && Mathf.Abs(columnsInGrid[right].GetComponent<Column>().note - note) <= noteRange) {
-            RemoveRight(gridPosition);
+            ConnectRight(gridPosition);
         }
     }
 
@@ -148,42 +149,44 @@ public class ColumnManager : MonoBehaviour {
         return columnsInGrid.ContainsKey(gridSpot) && columnsInGrid[gridSpot];
     }
 
-    private void RemoveUp(Vector2Int xy) {
-        Destroy(columnsInGrid[xy].transform.Find("WallUp").gameObject);
+    //TODO: try to combine these into a single function
+    //TODO: spawn stairs
+    private void ConnectUp(Vector2Int xy) {
+        columnsInGrid[xy].transform.Find("WallUp").gameObject.SetActive(false);
         Vector2Int up = new Vector2Int(xy.x, xy.y + 1);
         if (IsOccupied(up)) {
-            columnsInGrid[up].transform.Find("WallDown").gameObject.active = false;
+            columnsInGrid[up].transform.Find("WallDown").gameObject.SetActive(false);
         }
     }
 
-    private void RemoveDown(Vector2Int xy) {
-        Destroy(columnsInGrid[xy].transform.Find("WallDown").gameObject);
+    private void ConnectDown(Vector2Int xy) {
+        columnsInGrid[xy].transform.Find("WallDown").gameObject.SetActive(false);
         Vector2Int down = new Vector2Int(xy.x, xy.y - 1);
         if (IsOccupied(down)) {
-            columnsInGrid[down].transform.Find("WallUp").gameObject.active = false;
+            columnsInGrid[down].transform.Find("WallUp").gameObject.SetActive(false);
         }
     }
 
-    private void RemoveLeft(Vector2Int xy) {
-        Destroy(columnsInGrid[xy].transform.Find("WallLeft").gameObject);
+    private void ConnectLeft(Vector2Int xy) {
+        columnsInGrid[xy].transform.Find("WallLeft").gameObject.SetActive(false);
         Vector2Int left = new Vector2Int(xy.x - 1, xy.y);
         if (IsOccupied(left)) {
-            columnsInGrid[left].transform.Find("WallRight").gameObject.active = false;
+            columnsInGrid[left].transform.Find("WallRight").gameObject.SetActive(false);
         }
     }
 
-    private void RemoveRight(Vector2Int xy) {
-        Destroy(columnsInGrid[xy].transform.Find("WallRight").gameObject);
+    private void ConnectRight(Vector2Int xy) {
+        columnsInGrid[xy].transform.Find("WallRight").gameObject.SetActive(false);
         Vector2Int right = new Vector2Int(xy.x + 1, xy.y);
         if (IsOccupied(right)) {
-            columnsInGrid[right].transform.Find("WallLeft").gameObject.active = false;
+            columnsInGrid[right].transform.Find("WallLeft").gameObject.SetActive(false);
         }
     }
 
     private void RemoveWalls(Vector2Int xy) {
-        RemoveUp(xy);
-        RemoveDown(xy);
-        RemoveLeft(xy);
-        RemoveRight(xy);
+        ConnectUp(xy);
+        ConnectDown(xy);
+        ConnectLeft(xy);
+        ConnectRight(xy);
     }
 }

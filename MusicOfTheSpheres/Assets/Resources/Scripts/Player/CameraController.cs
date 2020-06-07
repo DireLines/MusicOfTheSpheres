@@ -28,9 +28,6 @@ public class CameraController : MonoBehaviour {
         targetPos = target.position;
         offset = new Vector3(targetPos.x + 6.0f, targetPos.y + 8.0f, targetPos.z + 7.0f);
     }
-    void Update() {
-    }
-
     void LateUpdate() {
         //input
         offset = Quaternion.AngleAxis(Input.GetAxis("Camera Horizontal") * turnSpeed * turnDirection * Time.deltaTime, Vector3.up) * offset;

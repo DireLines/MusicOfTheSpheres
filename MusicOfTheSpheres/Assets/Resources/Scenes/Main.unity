@@ -383,7 +383,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MP: {fileID: 1045909660}
   CM: {fileID: 1045909661}
-  midifilename: DebussyPassepied.mid
+  midifilename: LittleFugue.midi
   midiTimeRate: 20
   seed: 0
 --- !u!114 &1045909660
