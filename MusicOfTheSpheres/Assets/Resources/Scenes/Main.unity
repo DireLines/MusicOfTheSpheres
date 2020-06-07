@@ -384,7 +384,7 @@ MonoBehaviour:
   MP: {fileID: 1045909660}
   CM: {fileID: 1045909661}
   midifilename: DebussyPassepied.mid
-  midiTimeRate: 50
+  midiTimeRate: 20
   seed: 0
 --- !u!114 &1045909660
 MonoBehaviour:

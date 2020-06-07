@@ -17,7 +17,7 @@ public class Column : MonoBehaviour {
     private bool stopped;
 
     //color change
-    private Material columnMat;
+    private List<Material> columnMat;
     private Color initColor;
     public Color color { get => initColor; set => initColor = value; }
     private float brightness;
@@ -29,8 +29,13 @@ public class Column : MonoBehaviour {
     private void Awake() {
         brightness = offBrightness;
         targetBrightness = offBrightness;
-        columnMat = transform.Find("Column").GetComponent<MeshRenderer>().material;
-        initColor = columnMat.GetColor("_Color");
+        columnMat = new List<Material>();
+        columnMat.Add(transform.Find("Platform").GetComponent<MeshRenderer>().material);
+        foreach (MeshRenderer mr in transform.Find("Stairs").GetComponentsInChildren<MeshRenderer>()) {
+            columnMat.Add(mr.material);
+        }
+        initColor = columnMat[0].GetColor("_Color");
+        transform.Find("Column").GetComponent<MeshRenderer>().material.SetColor("_Color", initColor * offBrightness);
         powerSource = transform.Find("PowerSource").gameObject;
         asrc = GetComponent<AudioSource>();
     }
@@ -46,7 +51,9 @@ public class Column : MonoBehaviour {
         }
         brightness += (targetBrightness - brightness) * fadeSpeed;
         Color c = initColor * brightness;
-        columnMat.SetColor("_Color", c);
+        foreach (Material m in columnMat) {
+            m.SetColor("_Color", c);
+        }
     }
 
     public void PowerOn() {

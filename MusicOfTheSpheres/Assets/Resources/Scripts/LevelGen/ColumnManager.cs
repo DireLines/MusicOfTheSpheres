@@ -18,17 +18,17 @@ public class ColumnManager : MonoBehaviour {
 
     // Start is called before the first frame update
     void Start() {
-        cellSize = Column.transform.Find("Column").lossyScale.x;
+        cellSize = Column.transform.Find("Platform").lossyScale.x;
         columns = new Dictionary<int, GameObject>();
         columnsInGrid = new Dictionary<Vector2Int, GameObject>();
     }
 
     private void Update() {
+        Transform target = player.transform;
         if (columnsInGrid.ContainsKey(PlayerGridSquare()) && columnsInGrid[PlayerGridSquare()]) {
-            Camera.main.GetComponent<CameraController>().Target = columnsInGrid[PlayerGridSquare()].transform;
-        } else {
-            Camera.main.GetComponent<CameraController>().Target = player.transform;
+            target = columnsInGrid[PlayerGridSquare()].transform;
         }
+        Camera.main.GetComponent<CameraController>().Target = target;
     }
 
     public void DestroyColumn(int note) {
