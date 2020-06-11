@@ -8,7 +8,7 @@ public class ColumnManager : MonoBehaviour {
     public GameObject Wall;//wall prefab
     public GameObject GenericMachine;//test machine prefab
     private Dictionary<int, GameObject> columns;//all note columns this script has generated, indexed by note
-    private Dictionary<Vector2Int, GameObject> columnsInGrid; //all note columns this script has generated, indexed by position in grid
+    public Dictionary<Vector2Int, GameObject> columnsInGrid; //all note columns this script has generated, indexed by position in grid
     public bool playNotes;
 
     public MidiEventHandler MEH;
@@ -137,7 +137,7 @@ public class ColumnManager : MonoBehaviour {
         return result;
     }
 
-    private Vector2Int PlayerGridSquare() {
+    public Vector2Int PlayerGridSquare() {
         int xbase = (int)Mathf.Round(player.transform.position.x / cellSize);
         int ybase = (int)Mathf.Round(player.transform.position.z / cellSize);
         return new Vector2Int(xbase, ybase);
