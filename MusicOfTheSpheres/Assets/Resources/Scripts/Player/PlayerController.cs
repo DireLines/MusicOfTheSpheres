@@ -14,9 +14,16 @@ public class PlayerController : MonoBehaviour {
     [SerializeField]
     private float moveSpeed;
 
+    const float reallyBig = 9000;
+    const float reallySmall = 0.0001f;
+
+    private Platform currentPlatform;
+
     // Start is called before the first frame update
     void Start() {
         inventory = GetComponent<Inventory>();
+        RaycastHit[] hits = Physics.RaycastAll(transform.position + new Vector3(0, reallyBig, 0), -Vector3.up, float.MaxValue, LayerMask.GetMask("Platform"));
+        currentPlatform = hits[0].transform.GetComponent<Platform>();
     }
 
     // Update is called once per frame
@@ -31,14 +38,28 @@ public class PlayerController : MonoBehaviour {
         if (dir.magnitude > 0) {
             transform.forward = dir;
         }
-        //GetComponent<Rigidbody>().velocity = dir + new Vector3(0, GetComponent<Rigidbody>().velocity.y, 0);
+        GetComponent<Rigidbody>().velocity = dir + new Vector3(0, GetComponent<Rigidbody>().velocity.y, 0);
         //TODO: stair movement
 
-        //find resulting point in x/z plane from stepping in this direction
-        //raycast straight down from the sky to find the highest platform at that point
-        //if diff in height between that platform and current is between -1 and 1:
-        //  move player to the platform
-        //  GetComponent<Rigidbody>().velocity = dir;
-        //  transform.position.y = platform's surface y + epsilon
+        Vector3 heading = transform.position + dir;
+        RaycastHit[] hits = Physics.RaycastAll(heading + new Vector3(0, reallyBig, 0), -Vector3.up, float.MaxValue, LayerMask.GetMask("Platform"));
+        if (hits.Length < 1) {
+            GetComponent<Rigidbody>().velocity = dir + new Vector3(0, GetComponent<Rigidbody>().velocity.y, 0);
+            return;
+        }
+        Transform platform = hits[0].transform;
+        if (platform == currentPlatform.transform) {
+            GetComponent<Rigidbody>().velocity = dir + new Vector3(0, GetComponent<Rigidbody>().velocity.y, 0);
+            return;
+        }
+        Platform p = platform.GetComponent<Platform>();
+        if (Mathf.Abs(p.height - currentPlatform.height) > 5) {
+            GetComponent<Rigidbody>().velocity = dir + new Vector3(0, GetComponent<Rigidbody>().velocity.y, 0);
+            return;
+        }
+        print("shibble dibble");
+        GetComponent<Rigidbody>().velocity = dir;
+        transform.position.Set(heading.x, platform.localPosition.y + platform.localScale.y / 2 + reallySmall, heading.z);
+        currentPlatform = p;
     }
 }
