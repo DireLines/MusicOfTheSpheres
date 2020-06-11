@@ -59,6 +59,7 @@ public class ColumnManager : MonoBehaviour {
         newColumn.GetComponent<Column>().playNotes = playNotes;
         //TODO: set platform height to note
         newColumn.transform.Find("Platform").GetComponent<Platform>().height = note;
+        newColumn.transform.Find("Stairs").Find("StairStep").GetComponent<Platform>().height = note + 1;
 
         //TODO: use this machine spawning logic once machine prefab is done
         //for (int i = 0; i < UnityEngine.Random.Range(1, 5); i++) {
