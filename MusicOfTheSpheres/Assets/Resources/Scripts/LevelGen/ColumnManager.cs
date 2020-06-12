@@ -86,6 +86,7 @@ public class ColumnManager : MonoBehaviour {
             if (IsOccupied(neighbor) && Mathf.Abs(columnsInGrid[neighbor].GetComponent<Column>().note - note) <= player.GetComponent<PlayerController>().noteRange) {
                 print("connecting " + newColumn.name + " and " + columnsInGrid[neighbor].name);
                 ConnectColumns(gridPosition, neighbor);
+                ConnectColumns(neighbor, gridPosition);
             }
         }
     }
@@ -204,7 +205,7 @@ public class ColumnManager : MonoBehaviour {
             return;
         }
         for (int i = 0; i < numStairs; i++) {
-            Vector3 spawnPos = basePosition + new Vector3(offset.x * i, offset.y * (numStairs - 1 - i), offset.z * i);
+            Vector3 spawnPos = basePosition + new Vector3(offset.x * (numStairs - 1 - i), offset.y * i, offset.z * (numStairs - 1 - i));
             GameObject step = Instantiate(Stair, spawnPos, orientation, parent);
             int height = baseHeight + i + 1;
             step.GetComponent<Platform>().height = height;
