@@ -51,11 +51,7 @@ public class PlayerController : MonoBehaviour {
             float.MaxValue,
             1 << LayerMask.NameToLayer("Platform")
         );
-        hits = hits.OrderBy(hit => -hit.transform.GetComponent<Platform>().height).ToArray();
-        print("hits:");
-        foreach (RaycastHit hit in hits) {
-            print(hit.transform.gameObject.name);
-        }
+        hits = hits.OrderBy(hit => hit.transform.GetComponent<Platform>().height).Reverse().ToArray();
         print("current platform: " + currentPlatform.gameObject.name);
         if (hits.Length > 0) {
             Transform platform = hits[0].transform;
