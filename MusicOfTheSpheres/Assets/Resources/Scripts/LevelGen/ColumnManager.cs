@@ -5,7 +5,7 @@ using UnityEngine;
 public class ColumnManager : MonoBehaviour {
     public GameObject player;
     public GameObject Column;//column prefab
-    public GameObject Wall;//wall prefab
+    public GameObject Stair;//stair prefab
     public GameObject GenericMachine;//test machine prefab
     private Dictionary<int, GameObject> columns;//all note columns this script has generated, indexed by note
     public Dictionary<Vector2Int, GameObject> columnsInGrid; //all note columns this script has generated, indexed by position in grid
@@ -58,7 +58,6 @@ public class ColumnManager : MonoBehaviour {
         newColumn.GetComponent<Column>().pos = gridPosition;
         newColumn.GetComponent<Column>().playNotes = playNotes;
         newColumn.transform.Find("Platform").GetComponent<Platform>().height = note;
-        newColumn.transform.Find("Stairs").Find("StairStep").GetComponent<Platform>().height = note + 1;
 
         //TODO: use this machine spawning logic once machine prefab is done
         //for (int i = 0; i < UnityEngine.Random.Range(1, 5); i++) {
@@ -83,23 +82,11 @@ public class ColumnManager : MonoBehaviour {
             new Vector2Int(x - 1, y),
             new Vector2Int(x + 1, y),
         };
-        Vector2Int up = new Vector2Int(x, y + 1);
-        Vector2Int down = new Vector2Int(x, y - 1);
-        Vector2Int left = new Vector2Int(x - 1, y);
-        Vector2Int right = new Vector2Int(x + 1, y);
-        //for each occupied adjacent column, if it's within the player's travel range, remove the wall
-        int noteRange = 5;
-        if (IsOccupied(up) && Mathf.Abs(columnsInGrid[up].GetComponent<Column>().note - note) <= noteRange) {
-            ConnectUp(gridPosition);
-        }
-        if (IsOccupied(down) && Mathf.Abs(columnsInGrid[down].GetComponent<Column>().note - note) <= noteRange) {
-            ConnectDown(gridPosition);
-        }
-        if (IsOccupied(left) && Mathf.Abs(columnsInGrid[left].GetComponent<Column>().note - note) <= noteRange) {
-            ConnectLeft(gridPosition);
-        }
-        if (IsOccupied(right) && Mathf.Abs(columnsInGrid[right].GetComponent<Column>().note - note) <= noteRange) {
-            ConnectRight(gridPosition);
+        foreach (Vector2Int neighbor in neighbors) {
+            if (IsOccupied(neighbor) && Mathf.Abs(columnsInGrid[neighbor].GetComponent<Column>().note - note) <= player.GetComponent<PlayerController>().noteRange) {
+                print("connecting " + newColumn.name + " and " + columnsInGrid[neighbor].name);
+                ConnectColumns(gridPosition, neighbor);
+            }
         }
     }
 
@@ -154,47 +141,76 @@ public class ColumnManager : MonoBehaviour {
         return columnsInGrid.ContainsKey(gridSpot) && columnsInGrid[gridSpot];
     }
 
-    //TODO: try to combine these into a single function
     private void ConnectColumns(Vector2Int p1, Vector2Int p2) {
+        GameObject c1 = columnsInGrid[p1];
+        GameObject c2 = columnsInGrid[p2];
+        int noteDiff = c2.GetComponent<Column>().note - c1.GetComponent<Column>().note;
+        GameObject lowerColumn = noteDiff > 0 ? c1 : c2;
+        GameObject upperColumn = noteDiff > 0 ? c2 : c1;
 
-    }
-    //TODO: spawn stairs
-    private void ConnectUp(Vector2Int xy) {
-        columnsInGrid[xy].transform.Find("WallUp").gameObject.SetActive(false);
-        Vector2Int up = new Vector2Int(xy.x, xy.y + 1);
-        if (IsOccupied(up)) {
-            columnsInGrid[up].transform.Find("WallDown").gameObject.SetActive(false);
+        string lowerWallToRemove = "WallUp";
+        string upperWallToRemove = "WallDown";
+
+        float platformRadius = lowerColumn.transform.Find("Platform").localScale.z / 2;
+        float platformHeight = lowerColumn.transform.Find("Platform").localScale.y;
+        float stairWidth = Stair.transform.localScale.z;
+        float stairHeight = Stair.transform.localScale.y;
+        float offsetDistance = platformRadius - stairWidth / 2;
+        Vector3 stairPos = lowerColumn.transform.Find("Platform").position + new Vector3(0, platformHeight / 2 + stairHeight / 2, 0);
+        Quaternion stairOrientation = Quaternion.identity;
+        Vector3 stairOffset = Vector3.up * stairHeight;
+        int numStairs = noteDiff - 1;
+
+        Vector2Int up = new Vector2Int(0, 1);
+        Vector2Int down = new Vector2Int(0, -1);
+        Vector2Int left = new Vector2Int(-1, 0);
+        Vector2Int right = new Vector2Int(1, 0);
+        //set things dependent on direction
+        Vector2Int diff = upperColumn.GetComponent<Column>().pos - lowerColumn.GetComponent<Column>().pos;
+        if (diff == up) {
+            stairOrientation = Quaternion.identity;
+            stairPos += new Vector3(0, 0, offsetDistance);
+            stairOffset += new Vector3(0, 0, -stairWidth);
+            lowerWallToRemove = "WallUp";
+            upperWallToRemove = "WallDown";
+        } else if (diff == down) {
+            stairOrientation = Quaternion.identity;
+            stairPos += new Vector3(0, 0, -offsetDistance);
+            stairOffset += new Vector3(0, 0, stairWidth);
+            lowerWallToRemove = "WallDown";
+            upperWallToRemove = "WallUp";
+        } else if (diff == left) {
+            stairOrientation = Quaternion.Euler(0, 90, 0);
+            stairPos += new Vector3(-offsetDistance, 0, 0);
+            stairOffset += new Vector3(stairWidth, 0, 0);
+            lowerWallToRemove = "WallLeft";
+            upperWallToRemove = "WallRight";
+        } else if (diff == right) {
+            stairOrientation = Quaternion.Euler(0, 90, 0);
+            stairPos += new Vector3(offsetDistance, 0, 0);
+            stairOffset += new Vector3(-stairWidth, 0, 0);
+            lowerWallToRemove = "WallRight";
+            upperWallToRemove = "WallLeft";
+        } else {
+            print("Cannot connect columns " + c1 + " and " + c2);
+            return;
         }
+        lowerColumn.transform.Find(lowerWallToRemove).gameObject.SetActive(false);
+        upperColumn.transform.Find(upperWallToRemove).gameObject.SetActive(false);
+        PlaceStaircase(lowerColumn.transform.Find("Stairs"), stairPos, lowerColumn.GetComponent<Column>().note, stairOrientation, stairOffset, numStairs);
     }
-
-    private void ConnectDown(Vector2Int xy) {
-        columnsInGrid[xy].transform.Find("WallDown").gameObject.SetActive(false);
-        Vector2Int down = new Vector2Int(xy.x, xy.y - 1);
-        if (IsOccupied(down)) {
-            columnsInGrid[down].transform.Find("WallUp").gameObject.SetActive(false);
+    private void PlaceStaircase(Transform parent, Vector3 basePosition, int baseHeight, Quaternion orientation, Vector3 offset, int numStairs) {
+        if (numStairs < 1) {
+            return;
         }
-    }
-
-    private void ConnectLeft(Vector2Int xy) {
-        columnsInGrid[xy].transform.Find("WallLeft").gameObject.SetActive(false);
-        Vector2Int left = new Vector2Int(xy.x - 1, xy.y);
-        if (IsOccupied(left)) {
-            columnsInGrid[left].transform.Find("WallRight").gameObject.SetActive(false);
+        for (int i = 0; i < numStairs; i++) {
+            Vector3 spawnPos = basePosition + new Vector3(offset.x * i, offset.y * (numStairs - 1 - i), offset.z * i);
+            GameObject step = Instantiate(Stair, spawnPos, orientation, parent);
+            int height = baseHeight + i + 1;
+            step.GetComponent<Platform>().height = height;
+            step.name = "Stair " + height;
         }
-    }
-
-    private void ConnectRight(Vector2Int xy) {
-        columnsInGrid[xy].transform.Find("WallRight").gameObject.SetActive(false);
-        Vector2Int right = new Vector2Int(xy.x + 1, xy.y);
-        if (IsOccupied(right)) {
-            columnsInGrid[right].transform.Find("WallLeft").gameObject.SetActive(false);
-        }
-    }
-
-    private void RemoveWalls(Vector2Int xy) {
-        ConnectUp(xy);
-        ConnectDown(xy);
-        ConnectLeft(xy);
-        ConnectRight(xy);
+        //build stairwell
+        PlaceStaircase(parent, basePosition, baseHeight, orientation, offset, numStairs - 1);
     }
 }

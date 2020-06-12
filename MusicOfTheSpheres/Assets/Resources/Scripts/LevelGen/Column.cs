@@ -46,6 +46,11 @@ public class Column : MonoBehaviour {
     }
 
     private void Update() {
+        columnMat = new List<Material>();
+        columnMat.Add(transform.Find("Platform").GetComponent<MeshRenderer>().material);
+        foreach (MeshRenderer mr in transform.Find("Stairs").GetComponentsInChildren<MeshRenderer>()) {
+            columnMat.Add(mr.material);
+        }
         if (stopped) {
             asrc.volume *= stopSpeed;
         }
