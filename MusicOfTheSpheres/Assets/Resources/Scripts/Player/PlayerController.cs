@@ -40,7 +40,6 @@ public class PlayerController : MonoBehaviour {
 
 
         Transform currentPlatform = getCurrentPlatform();
-        print("current platform: " + currentPlatform.gameObject.name + " Height: " + currentPlatform.GetComponent<Platform>().height);
         Vector3 heading = transform.position + dir * Time.fixedDeltaTime;
         RaycastHit[] hits = Physics.BoxCastAll(
             heading + new Vector3(0, reallyBig, 0),
@@ -49,22 +48,16 @@ public class PlayerController : MonoBehaviour {
             LayerMask.GetMask("Platform")
         );
         hits = hits.
-            //Where(hit => hit.transform != currentPlatform).
             OrderBy(hit => hit.transform.GetComponent<Platform>().height).
             Reverse().ToArray();
         if (hits.Length > 0) {
             Transform platform = hits[0].transform;
             Platform p = platform.GetComponent<Platform>();
-            if (Mathf.Abs(p.height - currentPlatform.GetComponent<Platform>().height) <= 1 + reallySmall) {
-                //print("success!");
+            if (Mathf.Abs(p.height - currentPlatform.GetComponent<Platform>().height) <= 1) {
                 Vector3 destination = new Vector3(heading.x, transform.localScale.y / 2 + platform.position.y + platform.localScale.y / 2 + reallySmall, heading.z);
                 transform.position = destination;
                 return;
-            } else {
-                //print("too big a gap");
             }
-        } else {
-            //print("no raycast hits");
         }
         GetComponent<Rigidbody>().velocity = dir + new Vector3(0, GetComponent<Rigidbody>().velocity.y, 0);
     }

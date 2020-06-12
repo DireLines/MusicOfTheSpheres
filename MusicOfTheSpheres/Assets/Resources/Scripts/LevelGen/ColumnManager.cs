@@ -77,6 +77,12 @@ public class ColumnManager : MonoBehaviour {
         //if the player is in one of the adjacent squares, remove only the wall for that one
         int x = gridPosition.x;
         int y = gridPosition.y;
+        List<Vector2Int> neighbors = new List<Vector2Int> {
+            new Vector2Int(x, y + 1),
+            new Vector2Int(x, y - 1),
+            new Vector2Int(x - 1, y),
+            new Vector2Int(x + 1, y),
+        };
         Vector2Int up = new Vector2Int(x, y + 1);
         Vector2Int down = new Vector2Int(x, y - 1);
         Vector2Int left = new Vector2Int(x - 1, y);
