@@ -57,7 +57,6 @@ public class ColumnManager : MonoBehaviour {
         columnsInGrid[gridPosition] = newColumn;
         newColumn.GetComponent<Column>().pos = gridPosition;
         newColumn.GetComponent<Column>().playNotes = playNotes;
-        //TODO: set platform height to note
         newColumn.transform.Find("Platform").GetComponent<Platform>().height = note;
         newColumn.transform.Find("Stairs").Find("StairStep").GetComponent<Platform>().height = note + 1;
 
@@ -110,9 +109,8 @@ public class ColumnManager : MonoBehaviour {
         int ybase = playerSquare.y;
 
         int width = 3;
-        Vector2Int result = new Vector2Int(-width + xbase, -width + ybase);
-        while (width < 100) {
-            result = new Vector2Int(-width + xbase, -width + ybase);
+        while (true) {
+            Vector2Int result = new Vector2Int(-width + xbase, -width + ybase);
             Vector3 pos = GridToWorldPosition(result, 0);
             float minimumDistance = (player.transform.position - pos).sqrMagnitude;
             bool foundInLayer = false;
@@ -133,9 +131,8 @@ public class ColumnManager : MonoBehaviour {
             if (foundInLayer) {
                 return result;
             }
-            width += 7;
+            width *= 2;
         }
-        return result;
     }
 
     public Vector2Int PlayerGridSquare() {
@@ -152,6 +149,9 @@ public class ColumnManager : MonoBehaviour {
     }
 
     //TODO: try to combine these into a single function
+    private void ConnectColumns(Vector2Int p1, Vector2Int p2) {
+
+    }
     //TODO: spawn stairs
     private void ConnectUp(Vector2Int xy) {
         columnsInGrid[xy].transform.Find("WallUp").gameObject.SetActive(false);
