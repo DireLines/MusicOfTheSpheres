@@ -2,15 +2,11 @@ Music of the Spheres
 
 
 TODO:
-    -3Dification
-        -debug port of existing code
-            -machine prefab that has the machine script
-                -power indicator prefab
-        -restrict camera angle between 8 cardinal directions
-        -allow player to move up/down octaves
-        -display upcoming notes on columns
-        -figure out how to display upcoming columns
-        -make columns crumble as the last note ends
+    -restrict camera angle between 8 cardinal directions
+    -allow player to move up/down octaves
+    -display upcoming notes on columns
+    -figure out how to display upcoming columns
+    -make columns crumble as the last note ends
     -Bugs
     	-player can warp downward sometimes
     	-midi parser sometimes gets out of bounds errors

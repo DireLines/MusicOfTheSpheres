@@ -69,7 +69,7 @@ public class ColumnManager : MonoBehaviour {
                             Random.Range(-cellSize / 4, cellSize / 4)),
                 Quaternion.identity,
                 newColumn.transform);
-            newColumn.transform.Find("PowerSource").GetComponent<PowerSource>().machines.Add(machine.GetComponent<Machine>());
+            newColumn.GetComponent<Column>().machines.Add(machine.GetComponent<Machine>());
         }
 
         //figure out which walls to remove from this column
