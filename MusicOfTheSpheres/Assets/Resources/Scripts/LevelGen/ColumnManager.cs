@@ -84,8 +84,8 @@ public class ColumnManager : MonoBehaviour {
         };
         foreach (Vector2Int neighbor in neighbors) {
             if (IsOccupied(neighbor) && Mathf.Abs(columnsInGrid[neighbor].GetComponent<Column>().note - note) <= player.GetComponent<PlayerController>().noteRange) {
-                print("connecting " + newColumn.name + " and " + columnsInGrid[neighbor].name);
                 ConnectColumns(gridPosition, neighbor);
+                //TODO: why do I need this
                 ConnectColumns(neighbor, gridPosition);
             }
         }
