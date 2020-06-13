@@ -318,7 +318,7 @@ MonoBehaviour:
   zoomMin: 13
   zoomSensitivity: 1
   target: {fileID: 1175380937}
-  lerpPercentage: 0.05
+  lerpPercentage: 0.15
 --- !u!1 &970823765
 GameObject:
   m_ObjectHideFlags: 0
@@ -383,8 +383,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MP: {fileID: 1045909660}
   CM: {fileID: 1045909661}
-  midifilename: LittleFugue.midi
-  midiTimeRate: 15
+  midifilename: ToccataAndFugue.midi
+  midiTimeRate: 40
   seed: 0
 --- !u!114 &1045909660
 MonoBehaviour:

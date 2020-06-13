@@ -14,6 +14,8 @@ TODO:
         -display upcoming notes on columns
         -figure out how to display upcoming columns
         -make columns crumble as the last note ends
+    -Bugs
+    	-player can warp downward sometimes
     -Some handy stuff to genericize
         -item pedestal
         -picking up / setting down a holdable item
