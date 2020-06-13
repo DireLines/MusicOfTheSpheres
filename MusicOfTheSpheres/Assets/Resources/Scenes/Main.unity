@@ -383,8 +383,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MP: {fileID: 1045909660}
   CM: {fileID: 1045909661}
-  midifilename: ToccataAndFugue.midi
-  midiTimeRate: 40
+  midifilename: LittleFugue.midi
+  midiTimeRate: 15
   seed: 0
 --- !u!114 &1045909660
 MonoBehaviour:
@@ -413,7 +413,7 @@ MonoBehaviour:
   player: {fileID: 1175380930}
   Column: {fileID: 770389758956663978, guid: 7eb9131ed45254ec49c23ea1f222d072, type: 3}
   Stair: {fileID: 3934792300192726784, guid: 863f6101d6e0743bd8c8c9a457adfbdd, type: 3}
-  GenericMachine: {fileID: 1779006465984371320, guid: 8d17e33236d3f49579456fba14dec2a9,
+  GenericMachine: {fileID: 553738871775985855, guid: cb58819f45d1d4cb781786f576a2b099,
     type: 3}
   playNotes: 1
   MEH: {fileID: 1045909659}

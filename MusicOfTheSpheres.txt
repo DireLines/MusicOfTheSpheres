@@ -6,9 +6,6 @@ TODO:
         -debug port of existing code
             -machine prefab that has the machine script
                 -power indicator prefab
-            -midi parser sometimes gets out of bounds errors
-            	-Plan A: use C# stock midi parser
-            	-Plan B: improve my parser
         -restrict camera angle between 8 cardinal directions
         -allow player to move up/down octaves
         -display upcoming notes on columns
@@ -16,6 +13,9 @@ TODO:
         -make columns crumble as the last note ends
     -Bugs
     	-player can warp downward sometimes
+    	-midi parser sometimes gets out of bounds errors
+            	-Plan A: use C# stock midi parser
+            	-Plan B: improve my parser
     -Some handy stuff to genericize
         -item pedestal
         -picking up / setting down a holdable item

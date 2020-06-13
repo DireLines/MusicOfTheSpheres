@@ -33,8 +33,8 @@ public class CameraController : MonoBehaviour {
         vertDirection = vertInverted ? -1 : 1;
         targetPos = target.position;
 
-        yaw = 0f;
-        pitch = 0f;
+        yaw = 30f;
+        pitch = 45f;
     }
     void LateUpdate() {
         //Rotation
