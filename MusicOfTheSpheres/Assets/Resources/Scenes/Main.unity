@@ -314,11 +314,11 @@ MonoBehaviour:
   offsetDistance: 20
   turnInverted: 1
   vertInverted: 0
-  zoomSpeed: 6
   zoomMax: 100
   zoomMin: 13
+  zoomSensitivity: 1
   target: {fileID: 1175380937}
-  lerpPercentage: 0.1
+  lerpPercentage: 0.05
 --- !u!1 &970823765
 GameObject:
   m_ObjectHideFlags: 0
