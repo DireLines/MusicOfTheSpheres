@@ -635,6 +635,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: FogBelow
       objectReference: {fileID: 0}
+    - target: {fileID: 179482811223155375, guid: 9dba02d09e3c54af89fee089ff9a2127,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8185112134411197464, guid: 9dba02d09e3c54af89fee089ff9a2127,
         type: 3}
       propertyPath: offset
@@ -643,6 +648,11 @@ PrefabInstance:
     - target: {fileID: 8185112134411197464, guid: 9dba02d09e3c54af89fee089ff9a2127,
         type: 3}
       propertyPath: maxDistBelowTarget
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8185112134411197464, guid: 9dba02d09e3c54af89fee089ff9a2127,
+        type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
