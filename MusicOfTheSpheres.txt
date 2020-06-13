@@ -7,10 +7,10 @@ TODO:
             -machine prefab that has the machine script
                 -power indicator prefab
             -midi parser sometimes gets out of bounds errors
+            	-Plan A: use C# stock midi parser
+            	-Plan B: improve my parser
         -restrict camera angle between 8 cardinal directions
-        -generate stairs
-        -allow player to move up/down stairs in a controlled way
-            -allow player to move up/down octaves
+        -allow player to move up/down octaves
         -display upcoming notes on columns
         -figure out how to display upcoming columns
         -make columns crumble as the last note ends
