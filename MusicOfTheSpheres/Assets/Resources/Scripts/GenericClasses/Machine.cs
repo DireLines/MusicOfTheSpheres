@@ -14,10 +14,8 @@ public class Machine : Item {
 
     protected bool powered;
 
-    protected float lightOffset = 1;
-
     protected virtual void Awake() {
-        GameObject indicatorLight = Instantiate(PowerIndicator, transform.position + new Vector3(0, lightOffset, 0), Quaternion.identity, transform);
+        GameObject indicatorLight = Instantiate(PowerIndicator, transform.position + new Vector3(0, transform.localScale.y / 2, 0), Quaternion.identity, transform);
         indicatorLight.name = "IndicatorLight";
         powerIndicator = indicatorLight.GetComponent<MeshRenderer>().material;
         powerIndicator.SetColor("_Color", offIndicatorColor);

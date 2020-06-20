@@ -159,7 +159,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   note: 0
-  worldHeight: 0
   pos: {x: 0, y: 0}
   playNotes: 1
   octavesDown: 5
@@ -636,11 +635,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: WallDown
       objectReference: {fileID: 0}
-    - target: {fileID: 1480659926116447518, guid: 767a597ff9a4c4450b2c28afe1b945af,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 5018442371051748689, guid: 767a597ff9a4c4450b2c28afe1b945af,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -694,16 +688,6 @@ PrefabInstance:
     - target: {fileID: 5018442371051748689, guid: 767a597ff9a4c4450b2c28afe1b945af,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5018442371051748689, guid: 767a597ff9a4c4450b2c28afe1b945af,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 16
-      objectReference: {fileID: 0}
-    - target: {fileID: 6142341325310887372, guid: 767a597ff9a4c4450b2c28afe1b945af,
-        type: 3}
-      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
