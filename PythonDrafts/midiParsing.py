@@ -73,6 +73,7 @@ def createEventList(filename, tracknums=None):
 		numTicksPerQuarterNote = getConcatIntValue(bytes[12:14])
 		result.append([-1,-1,numTicksPerQuarterNote])
 		trackHeaderIndices = findSubList([b'M', b'T', b'r', b'k'],bytes)
+		print(trackHeaderIndices)
 		if len(trackHeaderIndices) == numTracks and len(trackHeaderIndices) > 0:
 			print("Number of tracks:",len(trackHeaderIndices))
 			if(tracknums is None):

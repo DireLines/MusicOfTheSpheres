@@ -4,9 +4,7 @@ using UnityEngine;
 
 public class Column : MonoBehaviour {
     public int note;
-    public int worldHeight;
     public Vector2Int pos;
-    private GameObject powerSource;
 
     //note play
     public bool playNotes;
@@ -26,7 +24,11 @@ public class Column : MonoBehaviour {
     private float targetBrightness;
     private float fadeSpeed = 0.085f;//percentage 0 to 1
 
+    [HideInInspector]
+    public List<Machine> machines;
+
     private void Awake() {
+        machines = new List<Machine>();
         brightness = offBrightness;
         targetBrightness = offBrightness;
         columnMat = new List<Material>();
@@ -36,7 +38,6 @@ public class Column : MonoBehaviour {
         }
         initColor = columnMat[0].GetColor("_Color");
         transform.Find("Column").GetComponent<MeshRenderer>().material.SetColor("_Color", initColor * offBrightness);
-        powerSource = transform.Find("PowerSource").gameObject;
         asrc = GetComponent<AudioSource>();
     }
 
@@ -62,12 +63,11 @@ public class Column : MonoBehaviour {
     }
 
     public void PowerOn() {
-        if (powerSource == null) {
-            return;
-        }
         brightness = 1f;
         targetBrightness = onBrightness;
-        powerSource.GetComponent<PowerSource>().PowerOn();
+        foreach (Machine m in machines) {
+            m.PowerOn();
+        }
         asrc.volume = 1f;
         if (playNotes) {
             asrc.Play();
@@ -76,11 +76,10 @@ public class Column : MonoBehaviour {
     }
 
     public void PowerOff() {
-        if (powerSource == null) {
-            return;
-        }
         targetBrightness = offBrightness;
-        powerSource.GetComponent<PowerSource>().PowerOff();
+        foreach (Machine m in machines) {
+            m.PowerOff();
+        }
         stopped = true;
     }
 }

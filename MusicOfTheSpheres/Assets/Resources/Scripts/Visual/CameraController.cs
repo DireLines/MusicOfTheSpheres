@@ -44,6 +44,7 @@ public class CameraController : MonoBehaviour {
         camTurn = 0f;
         camTurnLF = camTurn;
     }
+    
     void LateUpdate() {
         //Rotation
         camTurn = Input.GetAxisRaw("Camera Horizontal");

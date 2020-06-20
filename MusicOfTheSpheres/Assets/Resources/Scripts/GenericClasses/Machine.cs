@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-//TODO: convert to whatver the 3D equivalent of setting sprite renderer color is
 public class Machine : Item {
+    public GameObject PowerIndicator;//prefab
 
-    protected SpriteRenderer powerIndicator;
+    protected Material powerIndicator;
 
     [SerializeField]
     protected Color onIndicatorColor;
@@ -15,12 +15,10 @@ public class Machine : Item {
     protected bool powered;
 
     protected virtual void Awake() {
-        //TODO: add IndicatorLight dynamically so that the prefab doesn't need to include it
-        powerIndicator = transform.Find("IndicatorLight").gameObject.GetComponent<SpriteRenderer>();
-    }
-    // Use this for initialization
-    protected virtual void Start() {
-        //powerIndicator = transform.Find("IndicatorLight").gameObject.GetComponent<SpriteRenderer>();
+        GameObject indicatorLight = Instantiate(PowerIndicator, transform.position + new Vector3(0, transform.localScale.y / 2, 0), Quaternion.identity, transform);
+        indicatorLight.name = "IndicatorLight";
+        powerIndicator = indicatorLight.GetComponent<MeshRenderer>().material;
+        powerIndicator.SetColor("_Color", offIndicatorColor);
     }
 
     protected virtual void PerformMachineAction() {
@@ -29,13 +27,13 @@ public class Machine : Item {
 
     public virtual void PowerOn() {
         //print("Im a generic machine powering on");
-        powerIndicator.color = onIndicatorColor;
+        powerIndicator.SetColor("_Color", onIndicatorColor);
         powered = true;
     }
 
     public virtual void PowerOff() {
         //print("Im a generic machine powering off");
-        powerIndicator.color = offIndicatorColor;
+        powerIndicator.SetColor("_Color", offIndicatorColor);
         powered = false;
     }
 

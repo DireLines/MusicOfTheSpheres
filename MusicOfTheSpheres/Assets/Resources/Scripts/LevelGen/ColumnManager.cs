@@ -57,20 +57,20 @@ public class ColumnManager : MonoBehaviour {
         columnsInGrid[gridPosition] = newColumn;
         newColumn.GetComponent<Column>().pos = gridPosition;
         newColumn.GetComponent<Column>().playNotes = playNotes;
-        newColumn.transform.Find("Platform").GetComponent<Platform>().height = note;
+        Transform newColumnPlatform = newColumn.transform.Find("Platform");
+        newColumnPlatform.GetComponent<Platform>().height = note;
 
-        //TODO: use this machine spawning logic once machine prefab is done
-        //for (int i = 0; i < UnityEngine.Random.Range(1, 5); i++) {
-        //    GameObject machine = Instantiate(
-        //        GenericMachine,
-        //        newColumn.transform.position +
-        //        new Vector3(UnityEngine.Random.Range(-cellSize / 4, cellSize / 4),
-        //                    newColumn.transform.position.y,
-        //                    UnityEngine.Random.Range(-cellSize / 4, cellSize / 4)),
-        //        Quaternion.identity,
-        //        newColumn.transform);
-        //    newColumn.transform.Find("PowerSource").GetComponent<PowerSource>().machines.Add(machine.GetComponent<Machine>());
-        //}
+        for (int i = 0; i < Random.Range(1, 5); i++) {
+            GameObject machine = Instantiate(
+                GenericMachine,
+                newColumnPlatform.position +
+                new Vector3(Random.Range(-cellSize / 4, cellSize / 4),
+                            newColumnPlatform.localScale.y / 2 + GenericMachine.transform.localScale.y / 2,
+                            Random.Range(-cellSize / 4, cellSize / 4)),
+                Quaternion.identity,
+                newColumn.transform);
+            newColumn.GetComponent<Column>().machines.Add(machine.GetComponent<Machine>());
+        }
 
         //figure out which walls to remove from this column
         //if the player is in one of the adjacent squares, remove only the wall for that one
