@@ -309,14 +309,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1470dff4fde03456b90d88013494b8f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  turnSpeed: 180
-  vertSpeed: 90
+  turnSpeed: 5
+  vertSpeed: 2
   offsetDistance: 20
-  turnInverted: 1
+  turnInverted: 0
   vertInverted: 0
   zoomMax: 100
   zoomMin: 13
-  zoomSensitivity: 1
+  zoomSensitivity: 25
   target: {fileID: 1175380937}
   lerpPercentage: 0.05
 --- !u!1 &970823765

@@ -169,8 +169,8 @@ InputManager:
     m_Name: Mouse ScrollWheel
     descriptiveName: 
     descriptiveNegativeName: 
-    negativeButton: 
-    positiveButton: 
+    negativeButton: q
+    positiveButton: e
     altNegativeButton: 
     altPositiveButton: 
     gravity: 0
@@ -179,6 +179,22 @@ InputManager:
     snap: 0
     invert: 0
     type: 1
+    axis: 2
+    joyNum: 0
+  - serializedVersion: 3
+    m_Name: Zoom
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: q
+    positiveButton: e
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: 0
+    sensitivity: 1
+    snap: 0
+    invert: 0
+    type: 0
     axis: 2
     joyNum: 0
   - serializedVersion: 3
