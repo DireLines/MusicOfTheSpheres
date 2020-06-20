@@ -2,17 +2,13 @@ Music of the Spheres
 
 
 TODO:
-    -restrict camera angle between 8 cardinal directions
-        -onkeydown(a and d):
-            -set target direction +/- 45 degrees
-        -camera's update:
-            -lerp between current rotation/new rotation
     -visualize MIDI
         -display upcoming notes on columns
         -figure out how to display upcoming columns
         -make columns crumble as the last note ends
     -Bugs
     	-player can warp through colliders on corners
+        -player can warp down large drops
     	-midi parser sometimes gets out of bounds errors
             	-Plan A: use C# stock midi parser
             	-Plan B: improve my parser
