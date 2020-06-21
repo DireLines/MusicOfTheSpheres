@@ -141,7 +141,13 @@ public class ColumnManager : MonoBehaviour {
     private bool IsOccupied(Vector2Int gridSpot) {
         return columnsInGrid.ContainsKey(gridSpot) && columnsInGrid[gridSpot];
     }
-
+    private void DeactivateWall(Transform wall, int noteDiff) {
+        if (Mathf.Abs(noteDiff) <= 1) {
+            wall.gameObject.SetActive(false);
+        } else {
+            wall.Find("Middle").gameObject.SetActive(false);
+        }
+    }
     private void ConnectColumns(Vector2Int p1, Vector2Int p2) {
         GameObject c1 = columnsInGrid[p1];
         GameObject c2 = columnsInGrid[p2];
@@ -196,8 +202,8 @@ public class ColumnManager : MonoBehaviour {
             print("Cannot connect columns " + c1 + " and " + c2);
             return;
         }
-        lowerColumn.transform.Find(lowerWallToRemove).gameObject.SetActive(false);
-        upperColumn.transform.Find(upperWallToRemove).gameObject.SetActive(false);
+        DeactivateWall(lowerColumn.transform.Find(lowerWallToRemove), noteDiff);
+        DeactivateWall(upperColumn.transform.Find(upperWallToRemove), noteDiff);
         PlaceStaircase(lowerColumn.transform.Find("Stairs"), stairPos, lowerColumn.GetComponent<Column>().note, stairOrientation, stairOffset, numStairs);
     }
     private void PlaceStaircase(Transform parent, Vector3 basePosition, int baseHeight, Quaternion orientation, Vector3 offset, int numStairs) {

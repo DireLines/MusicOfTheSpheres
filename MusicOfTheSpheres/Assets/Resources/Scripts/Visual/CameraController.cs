@@ -40,7 +40,7 @@ public class CameraController : MonoBehaviour {
         targetYaw = 0f;
 
         pitch = 0f;
-        
+
         camTurn = 0f;
         camTurnLF = camTurn;
     }
@@ -54,20 +54,20 @@ public class CameraController : MonoBehaviour {
             targetYaw += 45f * turnDirection;
 
         }
+        camTurnLF = camTurn;
+
         yaw = Mathf.SmoothDamp(yaw, targetYaw, ref yawRefVel, 1 / turnSpeed);
         // yaw += turnSpeed * turnDirection * Input.GetAxis("Camera Horizontal") * Time.deltaTime;
-        pitch += vertSpeed * 45f * vertDirection * Input.GetAxis("Camera Vertical") * Time.deltaTime;
+        pitch += vertSpeed * 45f * vertDirection * Input.GetAxisRaw("Camera Vertical") * Time.deltaTime;
         pitch = Mathf.Clamp(pitch, 5, 80);
         transform.eulerAngles = new Vector3(pitch, yaw);
 
         //Zoom
-        zoom += Input.GetAxisRaw("Zoom") * zoomSensitivity * Time.deltaTime;
+        zoom *= 1f - Input.GetAxisRaw("Zoom") * zoomSensitivity * Time.deltaTime;
         zoom = Mathf.Clamp(zoom, zoomMin, zoomMax);
 
         //Positioning
         targetPos = Vector3.SmoothDamp(targetPos, Target.position, ref velocityRef, lerpPercentage);
         transform.position = targetPos - transform.forward * zoom;
-
-        camTurnLF = camTurn;
     }
 }

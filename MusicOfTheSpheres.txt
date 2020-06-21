@@ -7,7 +7,7 @@ TODO:
         -figure out how to display upcoming columns
         -make columns crumble as the last note ends
     -Bugs
-    	-player can warp through colliders on corners
+    	-player can warp through walls
         -player can warp down large drops
     	-midi parser sometimes gets out of bounds errors
             	-Plan A: use C# stock midi parser
