@@ -15,6 +15,7 @@ public class Collectable : MonoBehaviour
     {
         anim = GetComponentInParent<Animator>();
         holder = anim.gameObject;
+        print(anim);
     }
 
     private void OnTriggerEnter(Collider other)
