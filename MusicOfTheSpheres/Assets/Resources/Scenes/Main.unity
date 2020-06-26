@@ -383,7 +383,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MP: {fileID: 1045909660}
   CM: {fileID: 1045909661}
-  midifilename: LittleFugue.midi
+  midifilename: bach_invention_4.mid
   midiTimeRate: 15
   seed: 0
 --- !u!114 &1045909660
