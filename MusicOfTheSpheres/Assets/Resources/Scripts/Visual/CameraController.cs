@@ -45,7 +45,7 @@ public class CameraController : MonoBehaviour {
         camTurnLF = camTurn;
     }
 
-    void FixedUpdate() {
+    void Update() {
         //Rotation
         camTurn = Input.GetAxisRaw("Camera Horizontal");
         if (camTurn > 0f && camTurnLF <= 0f) {
@@ -57,7 +57,6 @@ public class CameraController : MonoBehaviour {
         camTurnLF = camTurn;
 
         yaw = Mathf.SmoothDamp(yaw, targetYaw, ref yawRefVel, 1 / turnSpeed);
-        // yaw += turnSpeed * turnDirection * Input.GetAxis("Camera Horizontal") * Time.deltaTime;
         pitch += vertSpeed * 45f * vertDirection * Input.GetAxisRaw("Camera Vertical") * Time.deltaTime;
         pitch = Mathf.Clamp(pitch, 5, 80);
         transform.eulerAngles = new Vector3(pitch, yaw);
