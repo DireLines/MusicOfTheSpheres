@@ -40,7 +40,7 @@ public class PlayerController : MonoBehaviour {
 
 
         Transform currentPlatform = getCurrentPlatform();
-        Vector3 heading = transform.position + dir * Time.fixedDeltaTime;
+        Vector3 heading = transform.position + dir * Time.deltaTime;
         RaycastHit[] hits = Physics.BoxCastAll(
             heading + new Vector3(0, reallyBig, 0),
             transform.localScale / 2, -Vector3.up,
@@ -52,6 +52,7 @@ public class PlayerController : MonoBehaviour {
             Reverse().ToArray();
         if (hits.Length > 0) {
             Transform platform = hits[0].transform;
+            //if (platform == currentPlatform) { GetComponent<Rigidbody>().velocity = dir + new Vector3(0, GetComponent<Rigidbody>().velocity.y, 0); return; }
             Platform p = platform.GetComponent<Platform>();
             if (Mathf.Abs(p.height - currentPlatform.GetComponent<Platform>().height) <= 1) {
                 Vector3 destination = new Vector3(heading.x, transform.localScale.y / 2 + platform.position.y + platform.localScale.y / 2 + reallySmall, heading.z);
