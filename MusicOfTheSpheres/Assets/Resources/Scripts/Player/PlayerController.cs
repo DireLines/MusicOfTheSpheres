@@ -26,10 +26,10 @@ public class PlayerController : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void Update() {
+    void FixedUpdate() {
         Vector3 forward = Vector3.ProjectOnPlane(Camera.main.transform.forward, Vector3.up).normalized;
         Vector3 right = Vector3.ProjectOnPlane(Camera.main.transform.right, Vector3.up).normalized;
-        Vector2 movementWithinPlane = new Vector2(Input.GetAxis("Horizontal") * moveSpeed * Time.deltaTime, Input.GetAxis("Vertical") * moveSpeed * Time.deltaTime);
+        Vector2 movementWithinPlane = new Vector2(Input.GetAxis("Horizontal") * moveSpeed * Time.fixedDeltaTime, Input.GetAxis("Vertical") * moveSpeed * Time.fixedDeltaTime);
         if (movementWithinPlane.magnitude > moveSpeed) {
             movementWithinPlane = movementWithinPlane.normalized * moveSpeed;
         }
@@ -40,7 +40,7 @@ public class PlayerController : MonoBehaviour {
 
 
         Transform currentPlatform = getCurrentPlatform();
-        Vector3 heading = transform.position + dir * Time.deltaTime;
+        Vector3 heading = transform.position + dir * Time.fixedDeltaTime;
         RaycastHit[] hits = Physics.BoxCastAll(
             heading + new Vector3(0, reallyBig, 0),
             transform.localScale / 2, -Vector3.up,
