@@ -383,9 +383,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MIDIParser: {fileID: 1045909660}
   columnManager: {fileID: 1045909661}
-  midiPath: Assets/Resources/MIDI/bach_invention_4.mid
-  MIDIFile: {fileID: 102900000, guid: be92a987196c56a48acb32d8e74f62ec, type: 3}
-  MIDITimeRate: 15
+  midiPath: Assets/Resources/MIDI/DebussyPassepied.mid
+  MIDIFile: {fileID: 102900000, guid: 24b8f23ce5c4e4437bd4dce9514ec23c, type: 3}
+  MIDITimeRate: 2
   seed: 0
 --- !u!114 &1045909660
 MonoBehaviour:
@@ -694,6 +694,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1175380932, guid: 8d17e33236d3f49579456fba14dec2a9, type: 3}
+      propertyPath: moveSpeed
+      value: 400
+      objectReference: {fileID: 0}
     - target: {fileID: 1779006465984371320, guid: 8d17e33236d3f49579456fba14dec2a9,
         type: 3}
       propertyPath: m_Name
