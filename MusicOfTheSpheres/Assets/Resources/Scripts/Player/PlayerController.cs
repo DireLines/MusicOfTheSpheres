@@ -9,14 +9,23 @@ public class PlayerController : MonoBehaviour {
     private bool overPickup;
     private bool nearButton;
 
+    [Tooltip("Movement")]
+    [SerializeField]
+    private float moveSpeed;
+    [SerializeField]
+    [Range(0f, 20f)]
+    private float turnMultiplier = 180f;
+    [SerializeField]
+    private Transform groundCheck;
+    private Vector3 currentVelocity;
+    private Vector3 targetVelocity;
+
+    [Header("Interactions")]
     [SerializeField]
     private float pickupRadius;
     [SerializeField]
     private float interactRadius;
-    [SerializeField]
-    private float moveSpeed;
-    [SerializeField]
-    private Transform groundCheck;
+    
 
     const float ceilingHeight = 9000;
     const float reallySmall = 0.001f;
@@ -28,7 +37,6 @@ public class PlayerController : MonoBehaviour {
     private int platformLayer;
     private int stairLayer;
 
-    Vector3 dir;
 
     private void Start() {
         inventory = GetComponent<Inventory>();
@@ -46,31 +54,34 @@ public class PlayerController : MonoBehaviour {
     }
 
     public void Move (Vector3 dir) {
-        Vector3 velocity = dir * moveSpeed * Time.fixedDeltaTime + Vector3.up * rb.velocity.y;
-        if (dir.magnitude > 0) {
-            transform.forward = dir;
+        targetVelocity = dir * moveSpeed * Time.fixedDeltaTime + Vector3.up * rb.velocity.y;
+        currentVelocity = Vector3.RotateTowards(currentVelocity, targetVelocity, turnMultiplier * 360f * Mathf.Deg2Rad * Time.fixedDeltaTime, 1f);
+
+        if (currentVelocity.magnitude > 0) {
+            transform.forward = currentVelocity.normalized;
         }
-        this.dir = dir;
 
         RaycastHit hit;
-        if (Physics.BoxCast(transform.position + Vector3.up * ceilingHeight, transform.localScale, 
+        if (Physics.BoxCast(new Vector3(transform.position.x, ceilingHeight, transform.position.z), transform.localScale, 
                             Vector3.down, out hit, transform.rotation, Mathf.Infinity, platformLayer | stairLayer)) {
             if (Mathf.Abs(hit.point.y - groundCheck.position.y) < transform.localScale.y) {
                 rb.position = new Vector3(rb.position.x, hit.point.y + transform.localScale.y / 2f, rb.position.z);
-                velocity.y = 0f;
+                currentVelocity.y = 0f;
             } else {
-                velocity.y += Physics.gravity.y * Time.fixedDeltaTime;
+                currentVelocity.y += Physics.gravity.y * Time.fixedDeltaTime;
             }
         } else {
-            velocity.y += Physics.gravity.y * Time.fixedDeltaTime;
+            currentVelocity.y += Physics.gravity.y * Time.fixedDeltaTime;
         }
 
-        rb.velocity = velocity;
+        rb.velocity = currentVelocity;
     }
 
     private void OnDrawGizmos() {
-        Gizmos.color = Color.cyan;
-        Gizmos.DrawRay(transform.position, dir * 5f);
+        Gizmos.color = Color.green;
+        Gizmos.DrawRay(transform.position, currentVelocity * 5f);
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawRay(transform.position, targetVelocity * 5f);
         // Gizmos.DrawWireSphere(groundCheck.position, Mathf.Min(transform.localScale.x, transform.localScale.y));
     }
 }

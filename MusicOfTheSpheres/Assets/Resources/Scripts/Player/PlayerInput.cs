@@ -20,8 +20,8 @@ public class PlayerInput : MonoBehaviour {
     }
 
     private void FixedUpdate() {
-        right = Input.GetAxis("Horizontal");
-        forward = Input.GetAxis("Vertical");
+        right = Input.GetAxisRaw("Horizontal");
+        forward = Input.GetAxisRaw("Vertical");
         rightDirection = Vector3.ProjectOnPlane(cam.right, Vector3.up).normalized;
         forwardDirection = Vector3.ProjectOnPlane(cam.forward, Vector3.up).normalized;
 
