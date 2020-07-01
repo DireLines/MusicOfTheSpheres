@@ -58,7 +58,7 @@ public class PlayerController : MonoBehaviour {
         targetVelocity = dir * moveSpeed * Time.fixedDeltaTime + Vector3.up * rb.velocity.y;
         currentVelocity = Vector3.SmoothDamp(currentVelocity, targetVelocity, ref currentVelocity, accelerationMultiplier / 10f, moveSpeed);
 
-        if (currentVelocity.magnitude > 0) {
+        if (currentVelocity.sqrMagnitude > 0.01f * 0.01f) {
             transform.forward = currentVelocity;
         }
 
