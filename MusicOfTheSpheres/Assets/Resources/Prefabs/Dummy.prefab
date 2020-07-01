@@ -155,10 +155,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 618d62393bf8c4c9aa9eff2c3ec4192d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveSpeed: 300
+  turnMultiplier: 5
+  groundCheck: {fileID: 1480664781}
   pickupRadius: 0
   interactRadius: 0
-  moveSpeed: 300
-  groundCheck: {fileID: 0}
 --- !u!136 &7932260740896383622
 CapsuleCollider:
   m_ObjectHideFlags: 0

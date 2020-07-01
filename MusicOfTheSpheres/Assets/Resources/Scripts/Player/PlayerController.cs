@@ -13,12 +13,13 @@ public class PlayerController : MonoBehaviour {
     [SerializeField]
     private float moveSpeed;
     [SerializeField]
-    [Range(0f, 20f)]
-    private float turnMultiplier = 180f;
+    [Range(0f, 1f)]
+    private float accelerationMultiplier = 0.1f;
     [SerializeField]
     private Transform groundCheck;
     private Vector3 currentVelocity;
     private Vector3 targetVelocity;
+    private Vector3 velocityRef;
 
     [Header("Interactions")]
     [SerializeField]
@@ -55,10 +56,10 @@ public class PlayerController : MonoBehaviour {
 
     public void Move (Vector3 dir) {
         targetVelocity = dir * moveSpeed * Time.fixedDeltaTime + Vector3.up * rb.velocity.y;
-        currentVelocity = Vector3.RotateTowards(currentVelocity, targetVelocity, turnMultiplier * 360f * Mathf.Deg2Rad * Time.fixedDeltaTime, 1f);
+        currentVelocity = Vector3.SmoothDamp(currentVelocity, targetVelocity, ref currentVelocity, accelerationMultiplier / 10f, moveSpeed);
 
         if (currentVelocity.magnitude > 0) {
-            transform.forward = currentVelocity.normalized;
+            transform.forward = currentVelocity;
         }
 
         RaycastHit hit;
