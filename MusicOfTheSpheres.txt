@@ -2,13 +2,11 @@ Music of the Spheres
 
 
 TODO:
-    -visualize MIDI
+    -visualize MIDI: the mechanisms are done, we just need to incorporate it into the game
         -display upcoming notes on columns
         -figure out how to display upcoming columns
         -make columns crumble as the last note ends
     -Bugs
-    	-player can warp through walls
-        -player can warp down large drops
     	-midi parser sometimes gets out of bounds errors
             	-Plan A: use C# stock midi parser
             	-Plan B: improve my parser
