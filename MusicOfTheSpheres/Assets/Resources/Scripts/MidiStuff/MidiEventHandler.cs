@@ -8,11 +8,14 @@ using System.Security.Cryptography;
 public class MidiEventHandler : MonoBehaviour {
 
     [SerializeField]
-    private MidiParser MP;
+    private MidiParser MIDIParser;
 
-    public ColumnManager CM;
-    private string midifoldername = "Assets/Resources/MIDI/";
-    public string midifilename;
+    public ColumnManager columnManager;
+    
+    [HideInInspector]
+    public string midiPath;
+
+    public UnityEngine.Object MIDIFile;
 
     //list of MIDI events in the song
     private List<MidiEvent> events;
@@ -24,7 +27,7 @@ public class MidiEventHandler : MonoBehaviour {
     private int currentEventIndex = 0;
     private float currentEventTime = 0f;
 
-    public float midiTimeRate = 1f;//rate at which time passes for MIDI events (may be affected by items)
+    public float MIDITimeRate = 1f;//rate at which time passes for MIDI events (may be affected by items)
     private float time = 0f;
 
     [HideInInspector]
@@ -38,13 +41,11 @@ public class MidiEventHandler : MonoBehaviour {
     //and the associated action will be taken if true.
     private List<Tuple<Func<bool>, Action>> gameEvents;
 
-
     private void Awake() {
-        midifilename = midifoldername + midifilename;
-        byte[] midihash = SHA256.Create().ComputeHash(File.ReadAllBytes(midifilename));
+        byte[] midihash = SHA256.Create().ComputeHash(File.ReadAllBytes(midiPath));
         seed = BitConverter.ToInt32(midihash, 0);
         UnityEngine.Random.InitState(seed);
-        events = MP.CreateMidiEventList(midifilename);
+        events = MIDIParser.CreateMidiEventList(midiPath);
         gameEvents = new List<Tuple<Func<bool>, Action>>();
         currentEvents = new List<MidiEvent>();
         currentNotes = new List<int>();
@@ -58,7 +59,7 @@ public class MidiEventHandler : MonoBehaviour {
 
     private void Update() {
         //increment time
-        time += Time.deltaTime * midiTimeRate;
+        time += Time.deltaTime * MIDITimeRate;
         eventHappenedThisUpdate = false;
         currentEvents.Clear();
 
@@ -72,14 +73,14 @@ public class MidiEventHandler : MonoBehaviour {
             if (currentEvent.type.Contains("on")) {
                 currentNotes.Add(currentEvent.note);
                 if (currentEvent.type.Contains("first")) {
-                    CM.CreateColumn(currentEvent.note);
+                    columnManager.CreateColumn(currentEvent.note);
                 }
-                CM.PowerOn(currentEvent.note);
+                columnManager.PowerOn(currentEvent.note);
             } else {
                 currentNotes.Remove(currentEvent.note);
-                CM.PowerOff(currentEvent.note);
+                columnManager.PowerOff(currentEvent.note);
                 if (currentEvent.type.Contains("last")) {
-                    CM.DestroyColumn(currentEvent.note);
+                    columnManager.DestroyColumn(currentEvent.note);
                 }
             }
 
@@ -100,7 +101,7 @@ public class MidiEventHandler : MonoBehaviour {
     }
 
     public void AdjustTimeRate(float factor) {
-        midiTimeRate *= factor;
+        MIDITimeRate *= factor;
     }
 
     //method to add a conditional event to the list of events
@@ -140,9 +141,4 @@ public class MidiEventHandler : MonoBehaviour {
         }
         return true;
     }
-
-    public void Whatever() {
-        print("blebble");
-    }
-
 }

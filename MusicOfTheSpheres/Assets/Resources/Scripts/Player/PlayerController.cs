@@ -3,84 +3,86 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody))]
 public class PlayerController : MonoBehaviour {
     private Inventory inventory;
     private bool overPickup;
     private bool nearButton;
 
+    [Tooltip("Movement")]
+    [SerializeField]
+    private float moveSpeed;
+    [SerializeField]
+    [Range(0f, 1f)]
+    private float accelerationMultiplier = 0.1f;
+    [SerializeField]
+    private Transform groundCheck;
+    private Vector3 currentVelocity;
+    private Vector3 targetVelocity;
+    private Vector3 velocityRef;
+
+    [Header("Interactions")]
     [SerializeField]
     private float pickupRadius;
     [SerializeField]
     private float interactRadius;
-    [SerializeField]
-    private float moveSpeed;
+    
 
-    const float reallyBig = 9000;
+    const float ceilingHeight = 9000;
     const float reallySmall = 0.001f;
+    const float stepHeight = 0.5f;
 
     public readonly int noteRange = 5;
 
-    // Start is called before the first frame update
-    void Start() {
+    private Rigidbody rb;
+    private int platformLayer;
+    private int stairLayer;
+
+
+    private void Start() {
         inventory = GetComponent<Inventory>();
-    }
+        rb = GetComponent<Rigidbody>();
 
-    // Update is called once per frame
-    void FixedUpdate() {
-        Vector3 forward = Vector3.ProjectOnPlane(Camera.main.transform.forward, Vector3.up).normalized;
-        Vector3 right = Vector3.ProjectOnPlane(Camera.main.transform.right, Vector3.up).normalized;
-        Vector2 movementWithinPlane = new Vector2(Input.GetAxis("Horizontal") * moveSpeed * Time.fixedDeltaTime, Input.GetAxis("Vertical") * moveSpeed * Time.fixedDeltaTime);
-        if (movementWithinPlane.magnitude > moveSpeed) {
-            movementWithinPlane = movementWithinPlane.normalized * moveSpeed;
-        }
-        Vector3 dir = forward * movementWithinPlane.y + right * movementWithinPlane.x;
-        if (dir.magnitude > 0) {
-            transform.forward = dir;
-        }
+        platformLayer = LayerMask.GetMask("Platform");
+        stairLayer = LayerMask.GetMask("Stair");
 
-
-        Transform currentPlatform = getCurrentPlatform();
-        Vector3 heading = transform.position + dir * Time.fixedDeltaTime;
-        RaycastHit[] hits = Physics.BoxCastAll(
-            heading + new Vector3(0, reallyBig, 0),
-            transform.localScale / 2, -Vector3.up,
-            transform.rotation, float.MaxValue,
-            LayerMask.GetMask("Platform")
-        );
-        hits = hits.
-            OrderBy(hit => hit.transform.GetComponent<Platform>().height).
-            Reverse().ToArray();
-        if (hits.Length > 0) {
-            Transform platform = hits[0].transform;
-            //if (platform == currentPlatform) { GetComponent<Rigidbody>().velocity = dir + new Vector3(0, GetComponent<Rigidbody>().velocity.y, 0); return; }
-            Platform p = platform.GetComponent<Platform>();
-            if (Mathf.Abs(p.height - currentPlatform.GetComponent<Platform>().height) <= 1) {
-                Vector3 destination = new Vector3(heading.x, transform.localScale.y / 2 + platform.position.y + platform.localScale.y / 2 + reallySmall, heading.z);
-                transform.position = destination;
-                return;
+        if (groundCheck == null) {
+            groundCheck = transform.Find("GroundCheck");
+            if (groundCheck == null) {
+                Debug.LogError("No GroundCheck found on Player");
             }
         }
-        GetComponent<Rigidbody>().velocity = dir + new Vector3(0, GetComponent<Rigidbody>().velocity.y, 0);
     }
 
-    Transform getCurrentPlatform() {
-        RaycastHit[] platformsBelow = Physics.RaycastAll(
-            transform.position + new Vector3(0, reallyBig, 0),
-            -Vector3.up,
-            float.MaxValue,
-            LayerMask.GetMask("Platform")
-        );
-        platformsBelow = platformsBelow.OrderBy(hit => hit.transform.GetComponent<Platform>().height).Reverse().ToArray();
-        if (platformsBelow.Length > 0) {
-            return platformsBelow[0].transform;
-        } else {
-            ColumnManager CM = GameObject.Find("LevelGenerator").GetComponent<ColumnManager>();
-            Vector2Int pgs = CM.PlayerGridSquare();
-            if (CM.columnsInGrid.ContainsKey(pgs)) {
-                return CM.columnsInGrid[pgs].transform.Find("Platform");
+    public void Move (Vector3 dir) {
+        targetVelocity = dir * moveSpeed * Time.fixedDeltaTime + Vector3.up * rb.velocity.y;
+        currentVelocity = Vector3.SmoothDamp(currentVelocity, targetVelocity, ref currentVelocity, accelerationMultiplier / 10f, moveSpeed);
+
+        if (currentVelocity.sqrMagnitude > 0.01f * 0.01f) {
+            transform.forward = currentVelocity;
+        }
+
+        RaycastHit hit;
+        if (Physics.BoxCast(new Vector3(transform.position.x, ceilingHeight, transform.position.z), transform.localScale, 
+                            Vector3.down, out hit, transform.rotation, Mathf.Infinity, platformLayer | stairLayer)) {
+            if (Mathf.Abs(hit.point.y - groundCheck.position.y) < transform.localScale.y) {
+                rb.position = new Vector3(rb.position.x, hit.point.y + transform.localScale.y / 2f, rb.position.z);
+                currentVelocity.y = 0f;
             } else {
-                return null;
+                currentVelocity.y += Physics.gravity.y * Time.fixedDeltaTime;
             }
+        } else {
+            currentVelocity.y += Physics.gravity.y * Time.fixedDeltaTime;
         }
+
+        rb.velocity = currentVelocity;
+    }
+
+    private void OnDrawGizmos() {
+        Gizmos.color = Color.green;
+        Gizmos.DrawRay(transform.position, currentVelocity * 5f);
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawRay(transform.position, targetVelocity * 5f);
+        // Gizmos.DrawWireSphere(groundCheck.position, Mathf.Min(transform.localScale.x, transform.localScale.y));
     }
 }
