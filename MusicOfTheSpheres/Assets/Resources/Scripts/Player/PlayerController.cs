@@ -50,7 +50,7 @@ public class PlayerController : MonoBehaviour {
         currentVelocity = Vector3.SmoothDamp(currentVelocity, targetVelocity, ref currentVelocity, accelerationMultiplier / 10f, moveSpeed);
 
         if (currentVelocity.sqrMagnitude > 0.01f * 0.01f) {
-            transform.forward = currentVelocity;
+            transform.forward = Vector3.ProjectOnPlane(currentVelocity, Vector3.up);
         }
 
         RaycastHit hit;
