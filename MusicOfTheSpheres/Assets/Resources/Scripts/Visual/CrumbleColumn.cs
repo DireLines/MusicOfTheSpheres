@@ -8,15 +8,19 @@ public class CrumbleColumn : MonoBehaviour {
     [Range(0f, 300f)]
     public float crumbleSeconds;
 
+    private Transform chunks;
+
     //example usage
     //private float crumbleHeight;
 
     private void Awake() {
         //crumbleHeight = 0;
-        foreach (Transform piece in transform) {
+        chunks = transform.Find("Chunks");
+        foreach (Transform piece in chunks) {
             if (piece.GetComponent<Rigidbody>() != null) piece.GetComponent<Rigidbody>().useGravity = false;
         }
-        transform.parent.Rotate(Vector3.up, 90f * Random.Range(0, 4));
+        //rotate to a random right angle for visual variety
+        transform.Rotate(Vector3.up, 90f * Random.Range(0, 4));
     }
 
     private void Update() {
@@ -27,7 +31,7 @@ public class CrumbleColumn : MonoBehaviour {
     }
 
     public void CrumbleBelow(float height) {
-        foreach (Transform piece in transform) {
+        foreach (Transform piece in chunks) {
             Rigidbody rb = piece.GetComponent<Rigidbody>();
             if (!rb) continue;
             if (piece.position.y <= height && !rb.useGravity) {
