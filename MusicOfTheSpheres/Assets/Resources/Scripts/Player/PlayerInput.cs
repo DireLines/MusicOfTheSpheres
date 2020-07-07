@@ -29,7 +29,6 @@ public class PlayerInput : MonoBehaviour {
         if (direction.sqrMagnitude > 1f) {
             direction.Normalize();
         }
-        print(direction);
         controller.Move(direction);
     }
 }

@@ -8,19 +8,21 @@ public class CrumbleColumn : MonoBehaviour {
     [Range(0f, 300f)]
     public float crumbleSeconds;
 
-    private float crumbleHeight;
+    //example usage
+    //private float crumbleHeight;
 
     private void Awake() {
-        crumbleHeight = 0;
+        //crumbleHeight = 0;
         foreach (Transform piece in transform) {
             if (piece.GetComponent<Rigidbody>() != null) piece.GetComponent<Rigidbody>().useGravity = false;
         }
+        transform.parent.Rotate(Vector3.up, 90f * Random.Range(0, 4));
     }
 
     private void Update() {
-        if (Input.GetKey(KeyCode.Space)) {
-            crumbleHeight += Time.deltaTime / crumbleSeconds * 256;
-        }
+        //if (Input.GetKey(KeyCode.Space)) {
+        //crumbleHeight += Time.deltaTime / crumbleSeconds * 256;
+        //}
         //CrumbleBelow(crumbleHeight);
     }
 
