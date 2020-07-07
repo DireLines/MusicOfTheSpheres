@@ -21,7 +21,7 @@ public class CrumbleColumn : MonoBehaviour {
         if (Input.GetKey(KeyCode.Space)) {
             crumbleHeight += Time.deltaTime / crumbleSeconds * 256;
         }
-        CrumbleBelow(crumbleHeight);
+        //CrumbleBelow(crumbleHeight);
     }
 
     public void CrumbleBelow(float height) {
