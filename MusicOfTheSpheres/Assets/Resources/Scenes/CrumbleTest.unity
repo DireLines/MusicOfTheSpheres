@@ -402,6 +402,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Crumbling Column
       objectReference: {fileID: 0}
+    - target: {fileID: 6405428122088112651, guid: ae8ae7df5cef0bb408be9019870c39bb,
+        type: 3}
+      propertyPath: crumbleSeconds
+      value: 60
+      objectReference: {fileID: 0}
     - target: {fileID: 6876468374254953058, guid: ae8ae7df5cef0bb408be9019870c39bb,
         type: 3}
       propertyPath: m_LocalPosition.x

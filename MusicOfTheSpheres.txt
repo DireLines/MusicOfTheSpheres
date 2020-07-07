@@ -2,14 +2,17 @@ Music of the Spheres
 
 
 TODO:
-    -visualize MIDI: the mechanisms are done, we just need to incorporate it into the game
+    -visualize MIDI: the mechanisms are done, we just need to sync up MIDI events
         -display upcoming notes on columns
         -figure out how to display upcoming columns
         -make columns crumble as the last note ends
+    -camera occlusion: stipple circle around player
     -Bugs
-    	-midi parser sometimes gets out of bounds errors
-            	-Plan A: use C# stock midi parser
-            	-Plan B: improve my parser
+        -midi parser sometimes gets out of bounds errors
+            -Plan A: use C# stock midi parser
+            -Plan B: improve my parser
+        -player can get trapped in stairs when they spawn
+            -make stairs emerge from the floor instead of just appearing instantly
     -Some handy stuff to genericize
         -item pedestal
         -picking up / setting down a holdable item

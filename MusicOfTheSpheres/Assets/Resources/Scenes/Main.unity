@@ -354,7 +354,7 @@ MonoBehaviour:
   columnManager: {fileID: 1045909661}
   midiPath: Assets/Resources/MIDI/bach_invention_4.mid
   MIDIFile: {fileID: 102900000, guid: be92a987196c56a48acb32d8e74f62ec, type: 3}
-  MIDITimeRate: 15
+  MIDITimeRate: 1
   seed: 0
 --- !u!114 &1045909660
 MonoBehaviour:
@@ -385,7 +385,7 @@ MonoBehaviour:
   Stair: {fileID: 3934792300192726784, guid: 863f6101d6e0743bd8c8c9a457adfbdd, type: 3}
   GenericMachine: {fileID: 553738871775985855, guid: cb58819f45d1d4cb781786f576a2b099,
     type: 3}
-  playNotes: 0
+  playNotes: 1
   MEH: {fileID: 1045909659}
 --- !u!4 &1045909662
 Transform:
