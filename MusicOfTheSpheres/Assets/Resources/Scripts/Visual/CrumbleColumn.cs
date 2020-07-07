@@ -8,8 +8,7 @@ public class CrumbleColumn : MonoBehaviour {
     [Range(0f, 300f)]
     public float crumbleSeconds;
 
-
-    float crumbleHeight;
+    private float crumbleHeight;
 
     private void Awake() {
         crumbleHeight = 0;
@@ -20,7 +19,7 @@ public class CrumbleColumn : MonoBehaviour {
 
     private void Update() {
         if (Input.GetKey(KeyCode.Space)) {
-            crumbleHeight += 10f * Time.deltaTime;
+            crumbleHeight += Time.deltaTime / crumbleSeconds * 256;
         }
         CrumbleBelow(crumbleHeight);
     }
