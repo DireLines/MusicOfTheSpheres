@@ -15,8 +15,6 @@ public class PlayerController : MonoBehaviour {
     [SerializeField]
     [Range(0f, 1f)]
     private float accelerationMultiplier = 0.1f;
-    [SerializeField]
-    private Transform groundCheck;
     private Vector3 currentVelocity;
     private Vector3 targetVelocity;
     private Vector3 velocityRef;
@@ -26,7 +24,7 @@ public class PlayerController : MonoBehaviour {
     private float pickupRadius;
     [SerializeField]
     private float interactRadius;
-    
+
 
     const float ceilingHeight = 9000;
     const float reallySmall = 0.001f;
@@ -45,16 +43,9 @@ public class PlayerController : MonoBehaviour {
 
         platformLayer = LayerMask.GetMask("Platform");
         stairLayer = LayerMask.GetMask("Stair");
-
-        if (groundCheck == null) {
-            groundCheck = transform.Find("GroundCheck");
-            if (groundCheck == null) {
-                Debug.LogError("No GroundCheck found on Player");
-            }
-        }
     }
 
-    public void Move (Vector3 dir) {
+    public void Move(Vector3 dir) {
         targetVelocity = dir * moveSpeed * Time.fixedDeltaTime + Vector3.up * rb.velocity.y;
         currentVelocity = Vector3.SmoothDamp(currentVelocity, targetVelocity, ref currentVelocity, accelerationMultiplier / 10f, moveSpeed);
 
@@ -63,9 +54,9 @@ public class PlayerController : MonoBehaviour {
         }
 
         RaycastHit hit;
-        if (Physics.BoxCast(new Vector3(transform.position.x, ceilingHeight, transform.position.z), transform.localScale, 
+        if (Physics.BoxCast(new Vector3(transform.position.x, ceilingHeight, transform.position.z), transform.localScale,
                             Vector3.down, out hit, transform.rotation, Mathf.Infinity, platformLayer | stairLayer)) {
-            if (Mathf.Abs(hit.point.y - groundCheck.position.y) < transform.localScale.y) {
+            if (Mathf.Abs(hit.point.y - transform.localScale.y / 2f) < transform.localScale.y) {
                 rb.position = new Vector3(rb.position.x, hit.point.y + transform.localScale.y / 2f, rb.position.z);
                 currentVelocity.y = 0f;
             } else {

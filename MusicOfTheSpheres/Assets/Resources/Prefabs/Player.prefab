@@ -231,6 +231,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 618d62393bf8c4c9aa9eff2c3ec4192d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveSpeed: 300
+  accelerationMultiplier: 0.1
   pickupRadius: 0
   interactRadius: 0
-  moveSpeed: 300
