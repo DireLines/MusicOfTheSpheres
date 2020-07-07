@@ -56,7 +56,7 @@ public class PlayerController : MonoBehaviour {
         RaycastHit hit;
         if (Physics.BoxCast(new Vector3(transform.position.x, ceilingHeight, transform.position.z), transform.localScale,
                             Vector3.down, out hit, transform.rotation, Mathf.Infinity, platformLayer | stairLayer)) {
-            if (Mathf.Abs(hit.point.y - transform.localScale.y / 2f) < transform.localScale.y) {
+            if (Mathf.Abs(hit.point.y - (transform.position.y - transform.localScale.y / 2f)) < transform.localScale.y) {
                 rb.position = new Vector3(rb.position.x, hit.point.y + transform.localScale.y / 2f, rb.position.z);
                 currentVelocity.y = 0f;
             } else {
