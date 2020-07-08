@@ -38,6 +38,9 @@ public class Column : MonoBehaviour {
         }
         initColor = columnMat[0].GetColor("_Color");
         transform.Find("Column").GetComponent<MeshRenderer>().material.SetColor("_Color", initColor * offBrightness);
+        foreach (MeshRenderer mr in transform.Find("Crumbling Column").GetComponentsInChildren<MeshRenderer>()) {
+            mr.material.SetColor("_Color", initColor * offBrightness);
+        }
         asrc = GetComponent<AudioSource>();
     }
 

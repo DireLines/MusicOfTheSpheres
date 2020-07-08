@@ -17,6 +17,8 @@ public class CrumbleColumn : MonoBehaviour {
         }
         //rotate to a random right angle for visual variety
         transform.Rotate(Vector3.up, 90f * Random.Range(0, 4));
+        //maybe flip upside down as well
+        transform.Rotate(Vector3.right, 180f * Random.Range(0, 2));
     }
     public void CrumbleBelow(float height) {
         foreach (Transform chunk in chunks) {
