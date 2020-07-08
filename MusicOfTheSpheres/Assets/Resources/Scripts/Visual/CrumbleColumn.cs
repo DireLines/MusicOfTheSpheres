@@ -4,10 +4,6 @@ using UnityEngine;
 
 public class CrumbleColumn : MonoBehaviour {
 
-    [Tooltip("Number of seconds it takes to fully crumble the column.")]
-    [Range(0f, 300f)]
-    public float crumbleSeconds;
-
     private Transform chunks;
 
     private void Awake() {
