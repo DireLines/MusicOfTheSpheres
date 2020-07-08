@@ -36,6 +36,8 @@ public class PlayerController : MonoBehaviour {
     private int platformLayer;
     private int stairLayer;
 
+    private int stippleShaderID;
+
 
     private void Start() {
         inventory = GetComponent<Inventory>();
@@ -43,6 +45,8 @@ public class PlayerController : MonoBehaviour {
 
         platformLayer = LayerMask.GetMask("Platform");
         stairLayer = LayerMask.GetMask("Stair");
+
+        stippleShaderID = Shader.PropertyToID("_PlayerPosition");
     }
 
     public void Move(Vector3 dir) {
@@ -75,5 +79,9 @@ public class PlayerController : MonoBehaviour {
         Gizmos.color = Color.yellow;
         Gizmos.DrawRay(transform.position, targetVelocity * 5f);
         // Gizmos.DrawWireSphere(groundCheck.position, Mathf.Min(transform.localScale.x, transform.localScale.y));
+    }
+
+    private void Update() {
+        // Shader.SetGlobalVector("_PlayerPosition", new Vector4(transform.position.x, transform.position.y, transform.position.z, 1f));
     }
 }
