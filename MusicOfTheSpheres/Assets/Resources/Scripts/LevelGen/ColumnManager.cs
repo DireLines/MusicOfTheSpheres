@@ -210,14 +210,29 @@ public class ColumnManager : MonoBehaviour {
         if (numStairs < 1) {
             return;
         }
+
         for (int i = 0; i < numStairs; i++) {
-            Vector3 spawnPos = basePosition + new Vector3(offset.x * (numStairs - 1 - i), offset.y * i, offset.z * (numStairs - 1 - i));
-            GameObject step = Instantiate(Stair, spawnPos, orientation, parent);
-            int height = baseHeight + i + 1;
-            step.GetComponent<Platform>().height = height;
-            step.name = "Stair " + height;
+            Vector3 startPos = basePosition + new Vector3(offset.x * (numStairs - 1 - i), 0f, offset.z * (numStairs - 1 - i));
+            Vector3 endPos = startPos + Vector3.up * (i + 0.5f);
+            GameObject step = Instantiate(Stair, startPos, orientation, parent);
+            step.transform.localScale.Scale(Vector3.one * (numStairs - i)); //Set stair to the appropriate height
+            step.name = "Stair " + (baseHeight + i + 1).ToString();
+            StartCoroutine(PlaceStaircaseCR(step, startPos, endPos, i));
         }
         //build stairwell
         PlaceStaircase(parent, basePosition, baseHeight, orientation, offset, numStairs - 1);
+    }
+
+    private IEnumerator PlaceStaircaseCR(GameObject step, Vector3 startPos, Vector3 endPos, int delay) {
+        float speedMultiplier = 2f;
+        yield return new WaitForSeconds(delay / speedMultiplier / 2f);
+        float t = 0f;
+        step.transform.position = startPos;
+        while (t < 1f) {
+            step.transform.position = Vector3.Lerp(startPos, endPos, t);
+            t += speedMultiplier * Time.deltaTime;
+            yield return new WaitForEndOfFrame();
+        }
+        step.transform.position = endPos;
     }
 }
