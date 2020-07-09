@@ -420,7 +420,7 @@ public class MidiParser : MonoBehaviour {
     }
 
     //gets time sorted list of events pertaining to the specified note
-    private List<MidiEvent> getEventsForNote(List<MidiEvent> eventList, int note) {
+    public List<MidiEvent> getEventsForNote(List<MidiEvent> eventList, int note) {
         List<MidiEvent> result = new List<MidiEvent>();
         foreach (MidiEvent theEvent in eventList) {
             if (theEvent.note == note) {
