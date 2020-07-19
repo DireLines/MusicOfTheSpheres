@@ -6,10 +6,16 @@ TODO:
         -display upcoming notes on columns
         -figure out how to display upcoming columns
         -make columns crumble as the last note ends
-    -camera occlusion: stipple circle around player
+            -reveal the cracked column when the last note reaches the bottom of the column
+            -color the platform differently
+    -camera occlusion
+        -Plan A: figure out how to do it properly
+        -Plan B: zoom in until player visible
+        -Plan C: redesign dungeon so that it's more open
     -Bugs
         -midi parser sometimes gets out of bounds errors
-            -Plan A: use C# stock midi parser
+            -Plan A: use C# stock midi parser: https://github.com/davidluzgouveia/midi-parser
+                -use this to parse the file, then move my event procesing code to a different script
             -Plan B: improve my parser
         -player can get trapped in stairs when they spawn
             -make stairs emerge from the floor instead of just appearing instantly
