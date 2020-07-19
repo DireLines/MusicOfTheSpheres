@@ -4,7 +4,8 @@ using System.Linq;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-public class PlayerController : MonoBehaviour {
+public class PlayerController : MonoBehaviour
+{
     private Inventory inventory;
     private bool overPickup;
     private bool nearButton;
@@ -39,7 +40,8 @@ public class PlayerController : MonoBehaviour {
     private int stippleShaderID;
 
 
-    private void Start() {
+    private void Start()
+    {
         inventory = GetComponent<Inventory>();
         rb = GetComponent<Rigidbody>();
 
@@ -49,31 +51,40 @@ public class PlayerController : MonoBehaviour {
         stippleShaderID = Shader.PropertyToID("_PlayerPosition");
     }
 
-    public void Move(Vector3 dir) {
+    public void Move(Vector3 dir)
+    {
         targetVelocity = dir * moveSpeed * Time.fixedDeltaTime + Vector3.up * rb.velocity.y;
         currentVelocity = Vector3.SmoothDamp(currentVelocity, targetVelocity, ref currentVelocity, accelerationMultiplier / 10f, moveSpeed);
 
-        if (currentVelocity.sqrMagnitude > 0.01f * 0.01f) {
+        if (currentVelocity.sqrMagnitude > 0.01f * 0.01f)
+        {
             transform.forward = Vector3.ProjectOnPlane(currentVelocity, Vector3.up);
         }
 
         RaycastHit hit;
         if (Physics.BoxCast(new Vector3(transform.position.x, ceilingHeight, transform.position.z), transform.localScale,
-                            Vector3.down, out hit, transform.rotation, Mathf.Infinity, platformLayer | stairLayer)) {
-            if (Mathf.Abs(hit.point.y - (transform.position.y - transform.localScale.y / 2f)) < transform.localScale.y) {
+                            Vector3.down, out hit, transform.rotation, Mathf.Infinity, platformLayer | stairLayer))
+        {
+            if (Mathf.Abs(hit.point.y - (transform.position.y - transform.localScale.y / 2f)) < transform.localScale.y)
+            {
                 rb.position = new Vector3(rb.position.x, hit.point.y + transform.localScale.y / 2f, rb.position.z);
                 currentVelocity.y = 0f;
-            } else {
+            }
+            else
+            {
                 currentVelocity.y += Physics.gravity.y * Time.fixedDeltaTime;
             }
-        } else {
+        }
+        else
+        {
             currentVelocity.y += Physics.gravity.y * Time.fixedDeltaTime;
         }
 
         rb.velocity = currentVelocity;
     }
 
-    private void OnDrawGizmos() {
+    private void OnDrawGizmos()
+    {
         Gizmos.color = Color.green;
         Gizmos.DrawRay(transform.position, currentVelocity * 5f);
         Gizmos.color = Color.yellow;
@@ -81,7 +92,10 @@ public class PlayerController : MonoBehaviour {
         // Gizmos.DrawWireSphere(groundCheck.position, Mathf.Min(transform.localScale.x, transform.localScale.y));
     }
 
-    private void Update() {
-        // Shader.SetGlobalVector("_PlayerPosition", new Vector4(transform.position.x, transform.position.y, transform.position.z, 1f));
+    private void Update()
+    {
+        Shader.SetGlobalVector("_PlayerPosition", transform.position);
+        // Shader.SetGlobalVector(stippleShaderID, new Vector4(transform.position.x, transform.position.y, transform.position.z, 1f));
+
     }
 }

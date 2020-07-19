@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Column
+  m_Name: Stairs
   m_Shader: {fileID: 4800000, guid: bcf562a444dc5494e85dea3f1b5ffde3, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
