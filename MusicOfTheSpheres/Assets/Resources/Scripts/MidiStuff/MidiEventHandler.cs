@@ -11,7 +11,7 @@ public class MidiEventHandler : MonoBehaviour {
     private MidiParser MIDIParser;
 
     public ColumnManager columnManager;
-    
+
     [HideInInspector]
     public string midiPath;
 
@@ -28,7 +28,7 @@ public class MidiEventHandler : MonoBehaviour {
     private float currentEventTime = 0f;
 
     public float MIDITimeRate = 1f;//rate at which time passes for MIDI events (may be affected by items)
-    private float time = 0f;
+    public float ElapsedMIDITime { get; private set; } = 0f;
 
     [HideInInspector]
     public int seed;
@@ -59,12 +59,12 @@ public class MidiEventHandler : MonoBehaviour {
 
     private void Update() {
         //increment time
-        time += Time.deltaTime * MIDITimeRate;
+        ElapsedMIDITime += Time.deltaTime * MIDITimeRate;
         eventHappenedThisUpdate = false;
         currentEvents.Clear();
 
         //check for all new midi events
-        while (time >= currentEventTime && currentEventIndex < events.Count - 1) {
+        while (ElapsedMIDITime >= currentEventTime && currentEventIndex < events.Count - 1) {
             //update currentlyPlaying and other MIDI state information
             eventHappenedThisUpdate = true;
             MidiEvent currentEvent = events[currentEventIndex];
@@ -140,5 +140,8 @@ public class MidiEventHandler : MonoBehaviour {
             }
         }
         return true;
+    }
+    public List<MidiEvent> EventsForNote(int note) {
+        return MIDIParser.getEventsForNote(events, note);
     }
 }

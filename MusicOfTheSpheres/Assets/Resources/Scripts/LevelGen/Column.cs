@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class Column : MonoBehaviour {
     public int note;
@@ -19,10 +20,17 @@ public class Column : MonoBehaviour {
     private Color initColor;
     public Color color { get => initColor; set => initColor = value; }
     private float brightness;
-    private float onBrightness = 0.7f;
-    private float offBrightness = 0.4f;
+    const float onBrightness = 0.7f;
+    const float offBrightness = 0.4f;
     private float targetBrightness;
-    private float fadeSpeed = 0.085f;//percentage 0 to 1
+    const float fadeSpeed = 0.085f;//percentage 0 to 1
+
+    //display upcoming notes
+    const float midiDisplayScale = 1f;
+    const float falloffDistance = 10f;
+    List<MidiEvent> upcomingEvents;
+    private MidiEventHandler MEH;
+    private List<Transform> chunks;
 
     [HideInInspector]
     public List<Machine> machines;
@@ -47,6 +55,8 @@ public class Column : MonoBehaviour {
     private void Start() {
         asrc.pitch = Mathf.Pow(semitone, note - 12f * octavesDown);
         stopped = false;
+        MEH = GameObject.Find("LevelGenerator").GetComponent<MidiEventHandler>();
+        upcomingEvents = MEH.EventsForNote(note);
     }
 
     private void Update() {
@@ -63,6 +73,9 @@ public class Column : MonoBehaviour {
         foreach (Material m in columnMat) {
             m.SetColor("_Color", c);
         }
+
+        //upcoming event display
+        float columnTop = transform.Find("Platform").position.y - transform.Find("Platform").localScale.y / 2;
     }
 
     public void PowerOn() {
@@ -84,5 +97,13 @@ public class Column : MonoBehaviour {
             m.PowerOff();
         }
         stopped = true;
+    }
+    float heightForMidiTime(float eventTime, float columnTop, float elapsedMIDITime) {
+        return columnTop + midiDisplayScale * (elapsedMIDITime - eventTime);
+    }
+
+    float falloffBrightness(float chunkHeight, float eventHeight, float falloff) {
+        float diff = Mathf.Abs(chunkHeight - eventHeight);
+        return Mathf.Lerp(onBrightness, offBrightness, diff / falloff);
     }
 }
