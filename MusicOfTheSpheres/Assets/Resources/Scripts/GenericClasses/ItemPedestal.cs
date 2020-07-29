@@ -31,7 +31,7 @@ public class ItemPedestal : MonoBehaviour {
     }
     public void SetItem(Item item) {
         heldItem = item;
-        iconSR.sprite = item.icon;
+        //iconSR.sprite = item.icon;
     }
     public void Spawn(Item item) {
         if (item.physical && item.gameObject) {

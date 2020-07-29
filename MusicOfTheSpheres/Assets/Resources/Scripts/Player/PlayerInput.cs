@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerInput : MonoBehaviour {
     private PlayerController controller;
+    private Inventory inventory;
 
     Transform cam;
 
@@ -20,6 +21,7 @@ public class PlayerInput : MonoBehaviour {
     }
 
     private void FixedUpdate() {
+        //Movement
         right = Input.GetAxisRaw("Player Horizontal");
         forward = Input.GetAxisRaw("Player Vertical");
         rightDirection = Vector3.ProjectOnPlane(cam.right, Vector3.up).normalized;
@@ -30,5 +32,15 @@ public class PlayerInput : MonoBehaviour {
             direction.Normalize();
         }
         controller.Move(direction);
+
+        //Inventory
+        if (Input.mouseScrollDelta.y > 0f)
+        {
+            inventory.NextItem();
+        }
+        else if (Input.mouseScrollDelta.y < 0f)
+        {
+            inventory.PreviousItem();
+        }
     }
 }

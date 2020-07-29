@@ -29,6 +29,16 @@ public class Item : MonoBehaviour, ICollectible {
     public bool physical = true;
     public bool holdable = true;
 
+    private void OnEnable()
+    {
+        
+    }
+
+    private void OnDisable()
+    {
+        
+    }
+
     public void Collect (Inventory inventory)
     {
         transform.SetParent(inventory.transform.Find("ItemPoint"));

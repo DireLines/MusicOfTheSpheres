@@ -31,17 +31,17 @@ public class Converter : Machine {
 
     protected override void PerformMachineAction() {
         Item allInput = inputSlot.GetItem();
-        if (allInput.HasAtLeast(input)) {
-            //accept input
-            Item leftovers = allInput.Minus(input);
-            inputSlot.SetItem(leftovers);
-            //produce output
-            outputSlot.Spawn(output);
-            //if there is anything leftover, try to accept input again after cooldown
-            if (leftovers != null) {
-                Invoke("Activate", cooldown);
-            }
-        }
+        //if (allInput.HasAtLeast(input)) {
+        //    //accept input
+        //    Item leftovers = allInput.Minus(input);
+        //    inputSlot.SetItem(leftovers);
+        //    //produce output
+        //    outputSlot.Spawn(output);
+        //    //if there is anything leftover, try to accept input again after cooldown
+        //    if (leftovers != null) {
+        //        Invoke("Activate", cooldown);
+        //    }
+        //}
     }
 
     public Item GetInput() {
