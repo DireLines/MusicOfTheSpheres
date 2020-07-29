@@ -4,62 +4,42 @@ using UnityEngine;
 
 public class Inventory : MonoBehaviour {
     List<Item> items;
+    Dictionary<string, int> itemDict;
     GameObject heldObject;
-    // Start is called before the first frame update
-    void Start() {
-        items = new List<Item>();
+    int activeItemSlot;
+
+    private void Awake()
+    {
+        itemDict = new Dictionary<string, int>();
+        heldObject = null;
     }
 
-    public void Add(Item item) {
-        if (item == null) {
-            return;
-        }
-        if (item.stackable) {
-            foreach (Item i in items) {
-                if (item.Sametype(i)) {
-                    items.Remove(i);
-                    items.Add(i.plus(item));
-                    return;
-                }
+    private string GetKey(Item item) => item.stackable ? item.type.ToString() + item.category.ToString() : item.gameObject.GetInstanceID().ToString();
+
+    private void Add(Item item)
+    {
+        string key = GetKey(item);
+        item.Collect(this);
+    }
+
+    private void Remove(Item item)
+    {
+        string key = GetKey(item);
+        if (itemDict.ContainsKey(key))
+        {
+            if (itemDict[key] > 1)
+            {
+
             }
         }
-        //if you didn't have the item or it was not stackable, just add it
-        items.Add(item);
     }
 
-    public void Hold(GameObject obj) {
-        Item item = obj.GetComponent<Item>();
-        if (!item) {
-            print("tried to hold a non-item");
-            return;
+    private void OnTriggerEnter(Collider other)
+    {
+        Item item = other.GetComponent<Item>();
+        if (null != item)
+        {
+            Add(item);
         }
-        if (!item.holdable) {
-            print("tried to hold a non-holdable item");
-            return;
-        }
-
-        heldObject = obj;
-        //TODO: child the object to the player at a particular position instead of this
-        obj.transform.parent = transform;
-        obj.transform.position = transform.position;
-    }
-
-    public void DropHeld() {
-        if (heldObject == null) {
-            return;
-        }
-
-    }
-
-    public bool Contains(Item item) {
-        if (heldObject.GetComponent<Item>().HasAtLeast(item)) {
-            return true;
-        }
-        foreach (Item i in items) {
-            if (i.HasAtLeast(item)) {
-                return true;
-            }
-        }
-        return false;
     }
 }

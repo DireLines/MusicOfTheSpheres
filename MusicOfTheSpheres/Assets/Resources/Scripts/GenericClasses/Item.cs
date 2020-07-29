@@ -2,47 +2,45 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Item : MonoBehaviour {
+public enum ItemCategory
+{
+    Basic,
+    Special,
+    Abstract,
+    Machine,
+};
+public enum ItemType
+{
+    Point,
+    Orb,
+    Crystal,
+    Wisp,
+    Key,
+    HealthUp,
+    Machine,
+    Any,
+}
+
+public class Item : MonoBehaviour, ICollectible {
     public ItemType type;
     public ItemCategory category = ItemCategory.Basic; //default to basic
-    public Sprite icon;
 
-    public int amount = 1;
     public bool stackable = true;
+    public bool physical = true;
+    public bool holdable = true;
 
-    public bool physical;
-    public bool holdable;
-
-    public bool Sametype(Item other) {
-        return type == other.type;
-    }
-    public bool HasAtLeast(Item other) {
-        return Sametype(other) && (amount >= other.amount);
-    }
-    public Item plus(Item other) {
-        if (type != other.type) {
-            print("tried to combine items of different type");
-            return this;
-        }
-        amount += other.amount;
-        return this;
+    public void Collect (Inventory inventory)
+    {
+        transform.SetParent(inventory.transform.Find("ItemPoint"));
+        transform.localPosition = Vector3.zero;
+        transform.localRotation = Quaternion.identity;
     }
 
-    public Item minus(Item other) {
-        if (type == other.type) {
-            if (amount < other.amount) {
-                print("tried to remove too many of an item");
-                return null;
-            }
-            amount -= other.amount;
-        }
-        if (amount == 0) {
-            //used up all of the item
-            //TODO: figure out if this should be null or some special Item called "no item"
-            return null;
-        }
-        return this;
+    public void Drop(GameObject target)
+    {
+        transform.SetParent(null);
+        transform.localPosition = Vector3.zero;
+        transform.localRotation = Quaternion.identity;
     }
-
 }
 

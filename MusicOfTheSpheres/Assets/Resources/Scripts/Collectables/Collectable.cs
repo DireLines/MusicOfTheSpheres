@@ -23,7 +23,14 @@ public class Collectable : MonoBehaviour
         if (collected)
             return;
         if (other.CompareTag("Player"))
+        {
             Collect();
+            Inventory inventory = other.GetComponent<Inventory>();
+            if (null != other.GetComponent<Inventory>())
+            {
+                other.GetComponent<Inventory>();
+            }
+        }
     }
 
     protected void Collect()

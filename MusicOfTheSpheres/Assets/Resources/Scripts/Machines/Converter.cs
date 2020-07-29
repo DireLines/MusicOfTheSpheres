@@ -33,7 +33,7 @@ public class Converter : Machine {
         Item allInput = inputSlot.GetItem();
         if (allInput.HasAtLeast(input)) {
             //accept input
-            Item leftovers = allInput.minus(input);
+            Item leftovers = allInput.Minus(input);
             inputSlot.SetItem(leftovers);
             //produce output
             outputSlot.Spawn(output);
