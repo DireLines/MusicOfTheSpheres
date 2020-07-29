@@ -18,18 +18,33 @@ public class Inventory : MonoBehaviour {
 
     private void Add(Item item)
     {
-        string key = GetKey(item);
         item.Collect(this);
+
+        string key = GetKey(item);
+        if (itemDict.ContainsKey(key))
+        {
+            itemDict[key]++;
+        }
+        else
+        {
+            itemDict.Add(key, 1);
+        }
     }
 
     private void Remove(Item item)
     {
+        item.Drop(null);
+
         string key = GetKey(item);
         if (itemDict.ContainsKey(key))
         {
             if (itemDict[key] > 1)
             {
-
+                itemDict[key]--;
+            } 
+            else
+            {
+                itemDict.Remove(key);
             }
         }
     }
